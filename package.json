@@ -1,0 +1,16 @@
+{
+  "name": "maggie-gallery",
+  "version": "0.0.1",
+  "description": "Gallery of photos and videos of Maggie Walters",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tylerwalters/maggie-gallery"
+  },
+  "author": {
+    "name": "Tyler Walters ",
+    "email": "tyler@tylerwalters.com",
+    "url": "http://tylerwalters.com"
+  },
+  "license": "MIT"
+}
