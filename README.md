@@ -4,13 +4,13 @@
 
 This project is a media gallery for photos and videos of my daughter Maggie who passed away on September 11th, 2014. 
 
-The idea is to synch a photos and videos folder on our various computers with folders on the server so new photos and videos can be added easily and automatically update the website. I want the server to recognize when new media files are added to the folders, update a database with information by reading the exif data, and display the new media on the website. All of this should happen automatically when new media files are added without any further input from a user. 
+The idea is to sync a photos and videos folder on our various computers with folders on the server so new photos and videos can be added easily and automatically update the website. I want the server to recognize when new media files are added to the folders, update a database with information by reading the exif data, and display the new media on the website. All of this should happen automatically when new media files are added without any further input from a user.
 
 I want to have the ability for approved users to update and add to the image data stored in the database. 
 
 ## Technology
 
-* Open source cloud solution (ownClound, Pydio, Syncthing, BitTorrent Sync) to sync local media files with the server
+* Open source cloud solution (ownCloud, Pydio, Syncthing, BitTorrent Sync) to sync local media files with the server
 * Separate image server to resize and optimize new media
 * RESTful API backend built on Node.js
 * Backbone + Ractive frontend
