@@ -20,34 +20,50 @@ I want to have the ability for approved users to update and add to the image dat
 All API routes return JSON.
 
 /api/v1/media
-// GET: retrieve all photo and video data, POST: add a new media to the database
+
+* GET: retrieve all photo and video data
+* POST: add a new media to the database
 
 /api/v1/media/tags
-// GET: retrieve a list of all available tags for photos and videos
+
+* GET: retrieve a list of all available tags for photos and videos
 
 /api/v1/media/tags/:tag
-// GET: retrieve all photo and video data containing a specific tag
+
+* GET: retrieve all photo and video data containing a specific tag
 
 /api/v1/photos
-// GET: retrieve all photo data
+
+* GET: retrieve all photo data
 
 /api/v1/photos/:name
-// GET: retrieve individual photo data, PUT: update data for individual photo, DELETE: remove data for individual photo
+
+* GET: retrieve individual photo data
+* PUT: update data for individual photo
+* DELETE: remove data for individual photo
 
 /api/v1/photos/tags
-// GET: retrieve a list of all available tags for photos
+
+* GET: retrieve a list of all available tags for photos
 
 /api/v1/photos/tags/:tag
-// GET: retrieve all photo data containing a specific tag
+
+* GET: retrieve all photo data containing a specific tag
 
 /api/v1/videos
-// GET: retrieve all video data
+
+* GET: retrieve all video data
 
 /api/v1/videos/:name
-// GET: retrieve individual video data, PUT: update data for individual video, DELETE: remove data for individual video
+
+* GET: retrieve individual video data
+* PUT: update data for individual video
+* DELETE: remove data for individual video
 
 /api/v1/videos/tags
-// GET: retrieve a list of all available tags for videos
+
+* GET: retrieve a list of all available tags for videos
 
 /api/v1/videos/tags/:tag
-// GET: retrieve all video data containing a specific tag
+
+* GET: retrieve all video data containing a specific tag
