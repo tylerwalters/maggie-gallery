@@ -1,11 +1,11 @@
-var fs				= require('fs'),
-		hound			= require('hound'),
-		request 	= require('supertest'),
-		should 		= require('chai').should(),
-		express 	= require('express'),
-		mongoose 	= require('mongoose'),
-		db 				= require('./config/db'),
-		app				= express();
+var fs			= require('fs'),
+	hound		= require('hound'),
+	request 	= require('supertest'),
+	should 		= require('chai').should(),
+	express 	= require('express'),
+	mongoose 	= require('mongoose'),
+	db 			= require('./config/db'),
+	app			= express();
 
 var tasks = require('../api/controllers/tasks');
 
@@ -13,7 +13,7 @@ require('../api/routes')(app);
 
 describe('API Tasks', function () {
 
-	describe('tasks.watch', function () {
+	describe('tasks.watchDirectory', function () {
 		beforeEach(function() {
 			directory = __dirname + '/media';
 			testFile 	= directory + '/test/test.js';
@@ -28,7 +28,7 @@ describe('API Tasks', function () {
 		});
 
 		it('should recognize when new media is added to the public/media directory', function (done) {
-			tasks.watch(directory, watcher, function (file) {
+			tasks.watchDirectory(directory, watcher, function (file) {
 				file.should.equal(testFile);
 				done();
 			});
@@ -37,7 +37,7 @@ describe('API Tasks', function () {
 		});
 
 		it('should recognize when media is changed in the public/media directory', function (done) {
-			tasks.watch(directory, watcher, undefined, function (file) {
+			tasks.watchDirectory(directory, watcher, undefined, function (file) {
 				file.should.equal(testFile);
 				done();
 			});
@@ -46,7 +46,7 @@ describe('API Tasks', function () {
 		});
 
 		it('should recognize when media is deleted in the public/media directory', function (done) {
-			tasks.watch(directory, watcher, undefined, undefined, function (file) {
+			tasks.watchDirectory(directory, watcher, undefined, undefined, function (file) {
 				file.should.equal(testFile);
 				done();
 			});

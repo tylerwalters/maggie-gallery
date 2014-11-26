@@ -1,9 +1,9 @@
 var path	 	= require('path');
-var hound 	= require('hound');
+var hound 		= require('hound');
 var exif	 	= require('exif2');
 
 module.exports = {
-	watch: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
+	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
 		'use strict';
 
 		var scope = this;
