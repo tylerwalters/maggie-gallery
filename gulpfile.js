@@ -1,13 +1,9 @@
 console.time('Loading plugins');
 
-var gulp 					= require('gulp');
-		// minifycss 		= require('gulp-minify-css'),
-		// uglify 				= require('gulp-uglify'),
-		// imagemin 			= require('gulp-imagemin'),
-		// concat 				= require('gulp-concat');
+var gulp = require('gulp');
 
 gulp.task('lint', function() {
-	var jshint 				= require('gulp-jshint');
+	var jshint = require('gulp-jshint');
 
   return gulp.src(['api/**/*.js', 'public/js/**/*.js', '*.js'])
   	.pipe(jshint())
@@ -15,8 +11,8 @@ gulp.task('lint', function() {
 });
 
 gulp.task('stylus', function() {
-	var stylus 				= require('gulp-stylus'),
-			nib						= require('nib');
+	var stylus 	= require('gulp-stylus'),
+		nib		= require('nib');
 
 	return gulp.src('public/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
@@ -24,9 +20,9 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('css-min', function() {
-	var stylus 				= require('gulp-stylus'),
-			nib						= require('nib'),
-			minifycss 		= require('gulp-minify-css');
+	var stylus 		= require('gulp-stylus'),
+		nib			= require('nib'),
+		minifycss 	= require('gulp-minify-css');
 
 	return gulp.src('public/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
