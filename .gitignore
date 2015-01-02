@@ -3,3 +3,4 @@ api/node_modules
 *.sublime-project
 public/lib
 .idea/
+api/config
