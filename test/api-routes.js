@@ -22,7 +22,7 @@ describe('API Routing', function() {
 				tags: ['test', 'test2', 'asdf'], 
 				filename: 'test-photo.jpg', 
 				description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.'
-			}
+			};
 
 			request(app)
 				.post('/api/v1/media')
