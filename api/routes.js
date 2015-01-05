@@ -14,9 +14,12 @@ module.exports = function(app) {
 	// API route handlers for /posts/articles
 	router.route('/media')
 		.post(RouteController.postMedia)
-		.get(RouteController.getMedia)
-		.put(RouteController.putMedia);
-		// .delete(RouteController.deleteMedia);
+		.get(RouteController.getMedia);
+
+	// API route handlers for /posts/articles
+	router.route('/media/:file')
+		.put(RouteController.putMedia)
+		.delete(RouteController.deleteMedia);
 
 	/* Register API Routes */
 	app.use('/api/v1', router);
