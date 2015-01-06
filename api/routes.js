@@ -11,15 +11,16 @@ module.exports = function(app) {
 		res.json({ message: 'Welcome to the API!' });
 	});
 
-	// API route handlers for /posts/articles
+	// API route handlers for /media
 	router.route('/media')
 		.post(RouteController.postMedia)
 		.get(RouteController.getMedia);
 
-	// API route handlers for /posts/articles
+	// API route handlers for /media/:file
 	router.route('/media/:file')
-		.put(RouteController.putMedia)
-		.delete(RouteController.deleteMedia);
+		.get(RouteController.getFile)
+		.put(RouteController.putFile)
+		.delete(RouteController.deleteFile);
 
 	/* Register API Routes */
 	app.use('/api/v1', router);
