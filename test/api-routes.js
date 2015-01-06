@@ -17,12 +17,12 @@ var db = require('./config/db');
 
 describe('API Routing', function() {
 	before(function(done) {
-		mongoose.createConnection(db.url);
+		mongoose.connect(db.url);
 		done();
   });
 
 	describe('Media', function () {
-		it('should add new photo to database with call to POST /api/v1/media', function (done) {
+		it('POST /api/v1/media should add new media to database', function (done) {
 			var photo = {
 				title: 'Test Photo',
 				type: 'photo',
@@ -39,20 +39,19 @@ describe('API Routing', function() {
 				.set('Accept', 'application/json')
 				.end(function(err, res) {
 					if (err) {
-						// throw err;
-						console.log(err);
-						done();
+						throw err;
 					}
 
+					// console.log(res.body);
+
 					res.status.should.equal(200);
+					res.body.data.title.should.equal('Test Photo');
+					res.body.data.filename.should.equal('test-photo');
 					done();
 				});
-
-
-				
 		});
 
-		it('should respond to GET /api/v1/media with all media as JSON', function (done) {
+		it('GET /api/v1/media should respond with all media as JSON', function (done) {
 			request(app)
 				.get('/api/v1/media')
 				.set('Accept', 'application/json')
@@ -61,20 +60,63 @@ describe('API Routing', function() {
 						throw err;
 					}
 
-					console.log(res);
+					// console.log(res.body);
 
 					res.status.should.equal(200);
+					res.body.length.should.equal(1);
 					done();
 				});
 		});
 
+		it('PUT /api/v1/media/:file should edit a specific file', function (done) {
+			var photo = {
+				title: 'Test Photo 2',
+				type: 'photo',
+				tags: ['test', 'test2', 'asdf'],
+				filename: 'test-photo',
+				extension: 'jpg',
+				description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.'
+			};
 
-	});
-
-	describe('Photos', function () {
-		it('should respond to GET /api/v1/photos with all photos as JSON', function (done) {
 			request(app)
-				.get('/api/v1/photos')
+				.put('/api/v1/media/test-photo')
+				.send(photo)
+				.type('form')
+				.set('Accept', 'application/json')
+				.end(function(err, res) {
+					if (err) {
+						throw err;
+					}
+
+					// console.log(res.body);
+
+					res.status.should.equal(200);
+					res.body.data.title.should.equal('Test Photo 2');
+					res.body.data.filename.should.equal('test-photo');
+					done();
+				});
+		});
+
+		it('GET /api/v1/media/:file should respond with a specific file as JSON', function (done) {
+			request(app)
+				.get('/api/v1/media/test-photo')
+				.set('Accept', 'application/json')
+				.end(function(err, res) {
+					if (err) {
+						throw err;
+					}
+
+					// console.log(res.body);
+
+					res.status.should.equal(200);
+					// res.body.length.should.equal(1);
+					done();
+				});
+		});
+
+		it('DELETE /api/v1/media/:file should delete a specific file', function (done) {
+			request(app)
+				.delete('/api/v1/media/test-photo')
 				.set('Accept', 'application/json')
 				.end(function(err, res) {
 					if (err) {
@@ -82,10 +124,27 @@ describe('API Routing', function() {
 					}
 
 					res.status.should.equal(200);
+					res.body.message.should.equal('Successfully deleted test-photo');
 					done();
 				});
 		});
 	});
+
+	// describe('Photos', function () {
+	// 	it('should respond to GET /api/v1/photos with all photos as JSON', function (done) {
+	// 		request(app)
+	// 			.get('/api/v1/photos')
+	// 			.set('Accept', 'application/json')
+	// 			.end(function(err, res) {
+	// 				if (err) {
+	// 					throw err;
+	// 				}
+
+	// 				res.status.should.equal(200);
+	// 				done();
+	// 			});
+	// 	});
+	// });
 
 	describe('Videos', function () {
 
