@@ -130,22 +130,6 @@ describe('API Routing', function() {
 		});
 	});
 
-	// describe('Photos', function () {
-	// 	it('should respond to GET /api/v1/photos with all photos as JSON', function (done) {
-	// 		request(app)
-	// 			.get('/api/v1/photos')
-	// 			.set('Accept', 'application/json')
-	// 			.end(function(err, res) {
-	// 				if (err) {
-	// 					throw err;
-	// 				}
-
-	// 				res.status.should.equal(200);
-	// 				done();
-	// 			});
-	// 	});
-	// });
-
 	describe('Videos', function () {
 
 	});
