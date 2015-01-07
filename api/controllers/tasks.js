@@ -1,20 +1,16 @@
-var path	 	= require('path');
-var hound 		= require('hound');
-var exif	 	= require('exif2');
+var path		= require('path');
+var hound		= require('hound');
+var exif		= require('exif2');
 
 module.exports = {
 	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
 		'use strict';
 
-		var scope = this;
+		createCallback = createCallback || this.readExif.bind(this);
 		watcher = watcher || hound.watch(directory);
 
 		watcher.on('create', function(file, stats) {
-		  if (createCallback !== undefined) {
-		  	createCallback(file);
-		  } else {
-		  	scope.readExif(file, scope.prepareData, scope);
-		  }
+			createCallback(file);
 		});
 
 		watcher.on('change', function(file, stats) {
@@ -34,25 +30,25 @@ module.exports = {
 		});
 	},
 
-	readExif: function (file, callback, scope) {
+	readExif: function (file, callback) {
 		'use strict';
 
-		callback = callback || scope.prepareData;
+		callback = callback || this.prepareData.bind(this);
 
 		exif(file, function (err, obj) {
 			if (err) throw err;
 
-			callback(obj, scope);
+			callback(obj);
 		});
 	},
 
-	prepareData: function (data, callback, scope) {
+	prepareData: function (data, callback) {
 		'use strict';
 
 		var preparedData = {},
 				createDate, file, lastindex, sizearray;
 
-		callback = callback || scope.optimizeMedia;
+		callback = callback || this.optimizeMedia.bind(this);
 
 		createDate = data['create date'].split(' ');
 		createDate[0] = createDate[0].replace(/[:]/g, '-');
@@ -82,16 +78,16 @@ module.exports = {
 			preparedData.type = 'not allowed';
 		}
 
-		callback(preparedData, scope);
+		callback(preparedData);
 	},
 
-	optimizeMedia: function (preparedData, callback, scope) {
+	optimizeMedia: function (preparedData, callback) {
 		'use strict';
 
-		callback = callback || scope.submitMedia;
+		callback = callback || this.submitMedia.bind(this);
 	},
 
-	submitMedia: function (preparedData, scope) {
+	submitMedia: function (preparedData) {
 		'use strict';
 
 	}
