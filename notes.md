@@ -8,10 +8,10 @@ Backend
 
 Things it needs:
 
-* instance of ownCloud to synch local media files with the server
+* instance of ownCloud to sync local media files with the server
 * RESTful-ish API built on Node
 * potentially, an image server for resizing, optimizing, and serving images
-* a basic webserver to serve up the content
+* a basic web server to serve up the content
 * potentially, a router if the routes will be handled on the backend
 
 Frontend
@@ -24,3 +24,8 @@ Things it needs:
 * a service function to connect to the API and manage data using the ajax library in a preconfigured way
 * custom filters to filter the images and videos
 * potentially, a router if the routes will be handled on the frontend
+
+To Do
+-----
+
+* Authentication for POST, PUT, and DELETE requests
