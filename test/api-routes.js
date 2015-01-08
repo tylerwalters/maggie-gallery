@@ -21,8 +21,8 @@ describe('API Routing', function() {
 		done();
   });
 
-	describe('Media', function () {
-		it('POST /api/v1/media should add new media to database', function (done) {
+	describe('/api/v1/media', function () {
+		it('should add new media to database with a POST request', function (done) {
 			var photo = {
 				title: 'Test Photo',
 				type: 'photo',
@@ -51,7 +51,7 @@ describe('API Routing', function() {
 				});
 		});
 
-		it('GET /api/v1/media should respond with all media as JSON', function (done) {
+		it('should respond with all media as JSON to a GET request', function (done) {
 			request(app)
 				.get('/api/v1/media')
 				.set('Accept', 'application/json')
@@ -67,8 +67,10 @@ describe('API Routing', function() {
 					done();
 				});
 		});
+	});
 
-		it('PUT /api/v1/media/:file should edit a specific file', function (done) {
+	describe('/api/v1/media/:file', function () {
+		it('should edit a specific file with a PUT request', function (done) {
 			var photo = {
 				title: 'Test Photo 2',
 				type: 'photo',
@@ -97,7 +99,7 @@ describe('API Routing', function() {
 				});
 		});
 
-		it('GET /api/v1/media/:file should respond with a specific file as JSON', function (done) {
+		it('should respond with a specific file as JSON to a GET request', function (done) {
 			request(app)
 				.get('/api/v1/media/test-photo')
 				.set('Accept', 'application/json')
@@ -114,7 +116,7 @@ describe('API Routing', function() {
 				});
 		});
 
-		it('DELETE /api/v1/media/:file should delete a specific file', function (done) {
+		it('should delete a specific file with a DELETE request', function (done) {
 			request(app)
 				.delete('/api/v1/media/test-photo')
 				.set('Accept', 'application/json')
@@ -128,13 +130,5 @@ describe('API Routing', function() {
 					done();
 				});
 		});
-	});
-
-	describe('Videos', function () {
-
-	});
-
-	describe('Users', function () {
-
 	});
 });
