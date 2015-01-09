@@ -20,7 +20,10 @@
     "method-override": "^2.3.0",
     "body-parser": "^1.9.2",
     "hound": "^1.0.4",
-    "exif2": "0.0.1"
+    "exif2": "0.0.1",
+    "passwordless": "^1.0.8",
+    "passwordless-mongostore": "^0.1.0",
+    "emailjs": "^0.3.12"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
