@@ -1,7 +1,6 @@
 var express					= require('express'),
 		path						= require('path'),
 		RouteController = require('./controllers/routes');
-		// AuthController 	= require('./controllers/auth');
 
 module.exports = function(app) {
 	var router = express.Router();
@@ -21,6 +20,18 @@ module.exports = function(app) {
 		.get(RouteController.getFile)
 		.put(RouteController.putFile)
 		.delete(RouteController.deleteFile);
+
+	// API route handlers for /users
+	router.route('/users')
+		.post(RouteController.postUsers)
+		.get(RouteController.getUsers);
+
+	// API route handlers for /users/:user
+	router.route('/users/:user')
+		.get(RouteController.getUser)
+		.put(RouteController.putUser)
+		.delete(RouteController.deleteUser);
+
 
 	/* Register API Routes */
 	app.use('/api/v1', router);
