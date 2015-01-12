@@ -12,25 +12,33 @@ module.exports = function(app) {
 
 	// API route handlers for /media
 	router.route('/media')
-		.post(RouteController.postMedia)
+		.post(passwordless.restricted, RouteController.postMedia)
 		.get(RouteController.getMedia);
 
 	// API route handlers for /media/:file
 	router.route('/media/:file')
 		.get(RouteController.getFile)
-		.put(RouteController.putFile)
-		.delete(RouteController.deleteFile);
+		.put(passwordless.restricted, RouteController.putFile)
+		.delete(passwordless.restricted, RouteController.deleteFile);
 
 	// API route handlers for /users
 	router.route('/users')
-		.post(RouteController.postUsers)
+		.post(passwordless.restricted, RouteController.postUsers)
 		.get(RouteController.getUsers);
 
 	// API route handlers for /users/:user
 	router.route('/users/:user')
 		.get(RouteController.getUser)
-		.put(RouteController.putUser)
-		.delete(RouteController.deleteUser);
+		.put(passwordless.restricted, RouteController.putUser)
+		.delete(passwordless.restricted, RouteController.deleteUser);
+
+	// API route handlers for /login
+	router.route('/login')
+		.post(passwordless.sendtoken);
+
+	// API route handlers for /logout
+	router.route('/logout')
+		.post(passwordless.logout);
 
 
 	/* Register API Routes */
