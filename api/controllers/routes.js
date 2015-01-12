@@ -1,8 +1,9 @@
 // Database Schemas ===========================================================
 
 var Media		= require('../models/media');
+var User		= require('../models/user');
 
-// Post Routes ===========================================================
+// Media Routes ===========================================================
 
 /* API POST endpoint for /api/v1/media */
 exports.postMedia = function(req, res) {
@@ -75,5 +76,69 @@ exports.deleteFile = function(req, res) {
 			res.send(err);
 
 		res.json({ message: 'Successfully deleted ' + req.params.file });
+	});
+};
+
+// User Routes ===========================================================
+
+/* API POST endpoint for /api/v1/users */
+exports.postUsers = function(req, res) {
+	var user = new User();
+
+	user.username	= req.body.username;
+	user.email		= req.body.email;
+
+	user.save(function(err) {
+		if (err)
+			res.send(err);
+		res.json({ message: 'File added!', data: user });
+	});
+};
+
+/* API GET endpoint for /api/v1/users */
+exports.getUsers = function(req, res) {
+	User.find({}).sort({date: 'desc'}).exec(function(err, user) {
+		if (err)
+			res.send(err);
+
+		res.json(user);
+	});
+};
+
+/* API GET endpoint for /api/v1/users/:user */
+exports.getUser = function(req, res) {
+	User.findOne({'filename' : req.params.file}, function(err, user) {
+		if (err)
+			res.send(err);
+
+		res.json(user);
+	});
+};
+
+/* API PUT endpoint for /api/v1/users/:user */
+exports.putUser = function(req, res) {
+	User.findOne({'filename' : req.params.user}, function(err, user) {
+		if (err)
+			res.send(err);
+
+		user.username	= req.body.username;
+		user.email		= req.body.email;
+
+		user.save(function(err) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'File updated!', data: user });
+		});
+	});
+};
+
+/* API DELETE endpoint for /api/v1/users/:user */
+exports.deleteUser = function(req, res) {
+	User.remove({'filename' : req.params.user}, function(err, user) {
+		if (err)
+			res.send(err);
+
+		res.json({ message: 'Successfully deleted ' + req.params.user });
 	});
 };
