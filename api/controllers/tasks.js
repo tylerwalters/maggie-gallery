@@ -17,7 +17,8 @@ module.exports = {
 		watcher.on('change', function(file, stats) {
 			if (changeCallback !== undefined) {
 				changeCallback(file);
-			} else {
+			} 
+			else {
 				console.log(file + ' was changed');
 			}
 		});
@@ -25,7 +26,8 @@ module.exports = {
 		watcher.on('delete', function(file) {
 			if (deleteCallback !== undefined) {
 				deleteCallback(file);
-			} else {
+			} 
+			else {
 				console.log(file + ' was deleted');
 			}
 		});
@@ -73,9 +75,11 @@ module.exports = {
 
 		if (preparedData.extension.match(/^(jpg|jpeg|png|gif)$/)) {
 			preparedData.type = 'photo';
-		} else if (preparedData.extension.match(/^(mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|webm)$/)) {
+		} 
+		else if (preparedData.extension.match(/^(mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|webm)$/)) {
 			preparedData.type = 'video';
-		} else {
+		} 
+		else {
 			preparedData.type = 'not allowed';
 		}
 
