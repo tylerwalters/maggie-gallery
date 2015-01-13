@@ -1,6 +1,7 @@
-var path		= require('path');
-var hound		= require('hound');
-var exif		= require('exif2');
+var path		= require('path'),
+		hound		= require('hound'),
+		exif		= require('exif2'),
+		http 		= require('http');
 
 module.exports = {
 	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
@@ -14,19 +15,19 @@ module.exports = {
 		});
 
 		watcher.on('change', function(file, stats) {
-		  if (changeCallback !== undefined) {
-		  	changeCallback(file);
-		  } else {
-		  	console.log(file + ' was changed');
-		  }
+			if (changeCallback !== undefined) {
+				changeCallback(file);
+			} else {
+				console.log(file + ' was changed');
+			}
 		});
 
 		watcher.on('delete', function(file) {
-		  if (deleteCallback !== undefined) {
-		  	deleteCallback(file);
-		  } else {
-		  	console.log(file + ' was deleted');
-		  }
+			if (deleteCallback !== undefined) {
+				deleteCallback(file);
+			} else {
+				console.log(file + ' was deleted');
+			}
 		});
 	},
 
@@ -48,7 +49,7 @@ module.exports = {
 		var preparedData = {},
 				createDate, file, lastindex, sizearray;
 
-		callback = callback || this.optimizeMedia.bind(this);
+		callback = callback || this.submitMedia.bind(this);
 
 		createDate = data['create date'].split(' ');
 		createDate[0] = createDate[0].replace(/[:]/g, '-');
@@ -81,14 +82,29 @@ module.exports = {
 		callback(preparedData);
 	},
 
-	optimizeMedia: function (preparedData, callback) {
-		'use strict';
-
-		callback = callback || this.submitMedia.bind(this);
-	},
-
 	submitMedia: function (preparedData) {
 		'use strict';
 
+		var options, req;
+
+		options = {
+			host: 'mags.rocks',
+			path: '/api/v1/media',
+			method: 'POST'
+		};
+
+		req = http.request(options, function () {
+			var str = '';
+			response.on('data', function (chunk) {
+				str += chunk;
+			});
+
+			response.on('end', function () {
+				console.log(str);
+			});
+		});
+
+		req.write(preparedData);
+		req.end();
 	}
 };
