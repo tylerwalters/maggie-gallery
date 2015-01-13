@@ -21,10 +21,10 @@ describe('API Tasks', function () {
 		});
 
 		afterEach(function() {
-			watcher.clear()
-			delete watcher;
-			delete directory;
-			delete testFile;
+			watcher.clear();
+			watch = null;
+			directory = null;
+			testFile = null;
 		});
 
 		it('should recognize when new media is added to the public/media directory', function (done) {
@@ -108,7 +108,7 @@ describe('API Tasks', function () {
 		});
 
 		after(function() {
-			delete data;
+			data = null;
 		});
 
 		it('should convert exif date to JavaScript compatible date', function () {
@@ -184,43 +184,19 @@ describe('API Tasks', function () {
 		});
 	});
 
-	describe('tasks.optimizeImage', function () {
-		it('should make a call to the media server to resize and optimize an image', function () {
-			// request(app)
-			// 	.post('/api/v1/media')
-			// 	.set('Accept', 'application/json')
-			// 	.end(function(err, res) {
-			// 		if (err) {
-			// 			throw err
-			// 		}
-
-			// 		res.status.should.equal(200);
-			// 		done();
-			// 	});
-		});
-
-		it('should make a call to the media server to optimize a video', function () {
-			// request(app)
-			// 	.post('/api/v1/media')
-			// 	.set('Accept', 'application/json')
-			// 	.end(function(err, res) {
-			// 		if (err) {
-			// 			throw err
-			// 		}
-
-			// 		res.status.should.equal(200);
-			// 		done();
-			// 	});
-		});
-	});
-
 	describe('tasks.submitMedia', function () {
-		it('should make a GET request to /api/v1/photos/:photo with a photo name to confirm it is in the database already', function () {
-			
-		});
+		it('should make a POST request to /api/v1/media to add new media to the database', function () {
+			// request(app)
+			// 	.post('/api/v1/media')
+			// 	.set('Accept', 'application/json')
+			// 	.end(function(err, res) {
+			// 		if (err) {
+			// 			throw err
+			// 		}
 
-		it('should make a GET request to /api/v1/photos/:photo with a photo name to confirm it is in the database already', function () {
-			
+			// 		res.status.should.equal(200);
+			// 		done();
+			// 	});
 		});
 	});
 });
