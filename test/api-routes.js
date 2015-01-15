@@ -42,8 +42,6 @@ describe('API Routing', function() {
 						throw err;
 					}
 
-					// console.log(res.body);
-
 					res.status.should.equal(200);
 					res.body.data.title.should.equal('Test Photo');
 					res.body.data.filename.should.equal('test-photo');
@@ -59,8 +57,6 @@ describe('API Routing', function() {
 					if (err) {
 						throw err;
 					}
-
-					// console.log(res.body);
 
 					res.status.should.equal(200);
 					res.body.length.should.equal(1);
@@ -90,8 +86,6 @@ describe('API Routing', function() {
 						throw err;
 					}
 
-					// console.log(res.body);
-
 					res.status.should.equal(200);
 					res.body.data.title.should.equal('Test Photo 2');
 					res.body.data.filename.should.equal('test-photo');
@@ -107,8 +101,6 @@ describe('API Routing', function() {
 					if (err) {
 						throw err;
 					}
-
-					// console.log(res.body);
 
 					res.status.should.equal(200);
 					// res.body.length.should.equal(1);
