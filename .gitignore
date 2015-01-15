@@ -5,3 +5,4 @@ public/lib
 public/media
 .idea/
 api/config
+npm-debug.log
