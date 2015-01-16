@@ -80,14 +80,17 @@ module.exports = {
 		callback(preparedData);
 	},
 
-	submitMedia: function (preparedData) {
+	submitMedia: function (data, host, path) {
 		'use strict';
 
 		var options, req;
 
+		host = host || 'mags.rocks';
+		path = path || '/api/v1/media';
+
 		options = {
-			host: 'mags.rocks',
-			path: '/api/v1/media',
+			host: host,
+			path: path,
 			method: 'POST'
 		};
 
@@ -102,7 +105,7 @@ module.exports = {
 			});
 		});
 
-		req.write(preparedData);
+		req.write(data);
 		req.end();
 	}
 };
