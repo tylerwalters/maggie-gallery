@@ -17,18 +17,12 @@ module.exports = {
 		watcher.on('change', function(file, stats) {
 			if (changeCallback !== undefined) {
 				changeCallback(file);
-			} 
-			else {
-				console.log(file + ' was changed');
 			}
 		});
 
 		watcher.on('delete', function(file) {
 			if (deleteCallback !== undefined) {
 				deleteCallback(file);
-			} 
-			else {
-				console.log(file + ' was deleted');
 			}
 		});
 	},
