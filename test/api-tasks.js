@@ -1,11 +1,11 @@
-var fs			= require('fs'),
-	hound		= require('hound'),
-	request 	= require('supertest'),
-	should 		= require('chai').should(),
-	express 	= require('express'),
-	mongoose 	= require('mongoose'),
-	db 			= require('./config/db'),
-	app			= express();
+var fs				= require('fs'),
+		hound			= require('hound'),
+		request 	= require('supertest'),
+		should 		= require('chai').should(),
+		express 	= require('express'),
+		mongoose 	= require('mongoose'),
+		db 				= require('./config/db'),
+		app				= express();
 
 var tasks = require('../api/controllers/tasks');
 
