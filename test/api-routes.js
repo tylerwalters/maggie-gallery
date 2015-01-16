@@ -103,7 +103,7 @@ describe('API Routing', function() {
 					}
 
 					res.status.should.equal(200);
-					// res.body.length.should.equal(1);
+					res.body.length.should.equal(1);
 					done();
 				});
 		});
