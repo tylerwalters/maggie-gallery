@@ -43,7 +43,10 @@ module.exports = {
 		'use strict';
 
 		var preparedData = {},
-				createDate, file, lastindex, sizearray;
+				createDate, 
+				file, 
+				lastindex, 
+				sizearray;
 
 		callback = callback || this.submitMedia.bind(this);
 
@@ -83,7 +86,8 @@ module.exports = {
 	submitMedia: function (data, host, path) {
 		'use strict';
 
-		var options, req;
+		var options, 
+				req;
 
 		host = host || 'mags.rocks';
 		path = path || '/api/v1/media';
