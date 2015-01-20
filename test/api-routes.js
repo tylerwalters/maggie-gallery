@@ -44,7 +44,12 @@ describe('API Routing', function() {
 
 					res.status.should.equal(200);
 					res.body.data.title.should.equal('Test Photo');
+					res.body.data.type.should.equal('photo');
+					res.body.data.tags.should.deep.equal(['test', 'test2', 'asdf']);
 					res.body.data.filename.should.equal('test-photo');
+					res.body.data.extension.length.should.equal(1);
+					res.body.data.extension.should.deep.equal(['jpg']);
+					res.body.data.description.should.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.');
 					done();
 				});
 		});
@@ -60,6 +65,13 @@ describe('API Routing', function() {
 
 					res.status.should.equal(200);
 					res.body.length.should.equal(1);
+					res.body[0].title.should.equal('Test Photo');
+					res.body[0].type.should.equal('photo');
+					res.body[0].tags.should.deep.equal(['test', 'test2', 'asdf']);
+					res.body[0].filename.should.equal('test-photo');
+					res.body[0].extension.length.should.equal(1);
+					res.body[0].extension.should.deep.equal(['jpg']);
+					res.body[0].description.should.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.');
 					done();
 				});
 		});
@@ -88,7 +100,12 @@ describe('API Routing', function() {
 
 					res.status.should.equal(200);
 					res.body.data.title.should.equal('Test Photo 2');
+					res.body.data.type.should.equal('photo');
+					res.body.data.tags.should.deep.equal(['test', 'test2', 'asdf']);
 					res.body.data.filename.should.equal('test-photo');
+					res.body.data.extension.length.should.equal(1);
+					res.body.data.extension.should.deep.equal(['jpg']);
+					res.body.data.description.should.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.');
 					done();
 				});
 		});
@@ -103,7 +120,13 @@ describe('API Routing', function() {
 					}
 
 					res.status.should.equal(200);
-					res.body.length.should.equal(1);
+					res.body.title.should.equal('Test Photo 2');
+					res.body.type.should.equal('photo');
+					res.body.tags.should.deep.equal(['test', 'test2', 'asdf']);
+					res.body.filename.should.equal('test-photo');
+					res.body.extension.length.should.equal(1);
+					res.body.extension.should.deep.equal(['jpg']);
+					res.body.description.should.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.');
 					done();
 				});
 		});
