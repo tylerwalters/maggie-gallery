@@ -50,24 +50,27 @@ module.exports = {
 
 		callback = callback || this.submitMedia.bind(this);
 
+		// Convert date into a string usable by JavaScript's new Date()
 		createDate = data['create date'].split(' ');
 		createDate[0] = createDate[0].replace(/[:]/g, '-');
 		createDate = createDate.join('T');
-		preparedData.date = new Date(createDate);
 
+		// Set up file name to be split into filename and extension
 		file = data['file name'];
 		lastindex = file.lastIndexOf('.');
 
+		// Creates an array for width and height
+		sizearray = (data['image size']) ? data['image size'].split('x') : [];
+
 		preparedData.extension = file.substr(lastindex + 1);
-		preparedData.fileName = file.substr(0, file.length - preparedData.extension.length - 1);
-
+		preparedData.filename = file.substr(0, file.length - preparedData.extension.length - 1);
+		preparedData.title = preparedData.filename;
+		preparedData.tags = [];
+		preparedData.date = new Date(createDate);
+		preparedData.description = '';
 		preparedData.dimensions = data['image size'];
-
-		sizearray = (preparedData.dimensions) ? preparedData.dimensions.split('x') : [];
-
 		preparedData.width = Number(sizearray[0]);
 		preparedData.height = Number(sizearray[1]);
-
 		preparedData.layout = (preparedData.width > preparedData.height) ? 'landscape' : 'portrait';
 
 		if (preparedData.extension.match(/^(jpg|jpeg|png|gif)$/)) {
@@ -83,18 +86,25 @@ module.exports = {
 		callback(preparedData);
 	},
 
-	submitMedia: function (data, host, path) {
+	submitMedia: function (data, host, path, port) {
 		'use strict';
 
 		var options, 
 				req;
 
-		host = host || 'mags.rocks';
+		console.log(data);
+
+		data = JSON.stringify(data);
+		host = host || 'localhost';
 		path = path || '/api/v1/media';
+		port = port || 8080;
+
+		console.log(data);
 
 		options = {
 			host: host,
 			path: path,
+			port: port,
 			method: 'POST'
 		};
 
@@ -102,6 +112,7 @@ module.exports = {
 			var str = '';
 			response.on('data', function (chunk) {
 				str += chunk;
+				console.log(str);
 			});
 
 			response.on('end', function () {
@@ -111,5 +122,17 @@ module.exports = {
 
 		req.write(data);
 		req.end();
+	},
+
+	updateMedia: function (data, host, path) {
+		'use strict';
+
+
+	},
+
+	deleteMedia: function (data, host, path) {
+		'use strict';
+
+		
 	}
 };
