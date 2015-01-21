@@ -12,11 +12,16 @@ exports.postMedia = function(req, res) {
 	media.title				= req.body.title;
 	media.type				= req.body.type;
 	media.tags				= req.body.tags;
+	media.date				= req.body.date;
 	media.pubdate			= req.body.pubdate;
 	media.editdate		= req.body.editdate;
 	media.filename		= req.body.filename;
 	media.extension		= req.body.extension;
 	media.description	= req.body.description;
+	media.dimensions	= req.body.dimensions;
+	media.width				= req.body.width;
+	media.height			= req.body.height;
+	media.layout			= req.body.layout;
 
 	media.save(function(err) {
 		if (err)
@@ -54,11 +59,16 @@ exports.putFile = function(req, res) {
 		file.title				= req.body.title;
 		file.type					= req.body.type;
 		file.tags					= req.body.tags;
+		file.date					= req.body.date;
 		file.pubdate			= req.body.pubdate;
 		file.editdate			= req.body.editdate;
 		file.filename			= req.body.filename;
 		file.extension		= req.body.extension;
 		file.description	= req.body.description;
+		file.dimensions		= req.body.dimensions;
+		file.width				= req.body.width;
+		file.height				= req.body.height;
+		file.layout				= req.body.layout;
 
 		file.save(function(err) {
 			if (err)
