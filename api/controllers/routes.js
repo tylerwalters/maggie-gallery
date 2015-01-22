@@ -1,3 +1,11 @@
+/**
+ *
+ *	Route Controller
+ *	These methods handle creating, reading, updating, and deleting data from the
+ *	database based on API routes. 
+ *
+ **/
+
 // Database Schemas ===========================================================
 
 var Media		= require('../models/media');

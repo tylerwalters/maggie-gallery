@@ -1,3 +1,13 @@
+/**
+ *
+ *	Automated Tasks
+ *	These tasks watch the media directory for new, changed, or deleted images
+ *	and videos. It reads exif data from new media, converts the data into 
+ *	something usable, adds it to the database, and passes the passes it to the
+ *	media controller for processing. Deleted media is removed from the database.
+ *
+ **/
+
 var path		= require('path'),
 		hound		= require('hound'),
 		exif		= require('exif2'),
