@@ -1,7 +1,8 @@
 var path		= require('path'),
 		hound		= require('hound'),
 		exif		= require('exif2'),
-		http 		= require('http');
+		http 		= require('http'),
+		express = require('express');
 
 module.exports = {
 	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
@@ -92,30 +93,30 @@ module.exports = {
 		var options, 
 				req;
 
-		console.log(data);
-
 		data = JSON.stringify(data);
+
 		host = host || 'localhost';
 		path = path || '/api/v1/media';
 		port = port || 8080;
-
-		console.log(data);
 
 		options = {
 			host: host,
 			path: path,
 			port: port,
-			method: 'POST'
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		};
 
-		req = http.request(options, function () {
+		req = http.request(options, function (response) {
 			var str = '';
 			response.on('data', function (chunk) {
-				str += chunk;
-				console.log(str);
+				// A piece of data has been recieved
 			});
 
 			response.on('end', function () {
+				// Response has been recieved
 				console.log(str);
 			});
 		});
@@ -124,11 +125,11 @@ module.exports = {
 		req.end();
 	},
 
-	updateMedia: function (data, host, path) {
-		'use strict';
+	// updateMedia: function (data, host, path) {
+	// 	'use strict';
 
 
-	},
+	// },
 
 	deleteMedia: function (data, host, path) {
 		'use strict';
