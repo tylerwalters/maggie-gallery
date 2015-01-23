@@ -11,8 +11,7 @@
 var path		= require('path'),
 		hound		= require('hound'),
 		exif		= require('exif2'),
-		http 		= require('http'),
-		express = require('express');
+		http 		= require('http');
 
 module.exports = {
 	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
@@ -97,7 +96,7 @@ module.exports = {
 		callback(preparedData);
 	},
 
-	submitMedia: function (data, host, path, port) {
+	submitMedia: function (data, host, path, port, callback) {
 		'use strict';
 
 		var options, 
@@ -128,6 +127,9 @@ module.exports = {
 			response.on('end', function () {
 				// Response has been recieved
 				console.log(str);
+				if (callback) {
+					callback(str);
+				}
 			});
 		});
 
@@ -135,15 +137,41 @@ module.exports = {
 		req.end();
 	},
 
-	// updateMedia: function (data, host, path) {
-	// 	'use strict';
-
-
-	// },
-
-	deleteMedia: function (data, host, path) {
+	deleteMedia: function (data, host, path, port, callback) {
 		'use strict';
 
-		
+		var options, 
+				req;
+
+		data = JSON.stringify(data);
+
+		host = host || 'localhost';
+		path = path || '/api/v1/media';
+		port = port || 8080;
+
+		options = {
+			host: host,
+			path: path,
+			port: port,
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+
+		http.request(options, function (response) {
+			var str = '';
+			response.on('data', function (chunk) {
+				// A piece of data has been recieved
+			});
+
+			response.on('end', function () {
+				// Response has been recieved
+				console.log(str);
+				if (callback) {
+					callback(str);
+				}
+			});
+		}).end();
 	}
 };
