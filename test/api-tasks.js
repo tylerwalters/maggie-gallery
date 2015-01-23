@@ -111,74 +111,74 @@ describe('API Tasks', function () {
 		});
 
 		it('should convert exif date to JavaScript compatible date', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.date.should.deep.equal(new Date('2014-09-07T17:45:50'));
+			tasks.prepareData(data.image1, function (data) {
+				data.date.should.deep.equal(new Date('2014-09-07T17:45:50'));
 			});
 		});
 
 		it('should remove file extension and record the file name', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.filename.should.equal('prepare');
+			tasks.prepareData(data.image1, function (data) {
+				data.filename.should.equal('prepare');
 			});
 		});
 
 		it('should handle an extra period when recording file name (prepare.test.jpg)', function () {
-			tasks.prepareData(data.image2, function (preparedData) {
-				preparedData.filename.should.equal('prepare.test');
+			tasks.prepareData(data.image2, function (data) {
+				data.filename.should.equal('prepare.test');
 			});
 		});
 
 		it('should record the file extension', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.extension.should.equal('jpg');
+			tasks.prepareData(data.image1, function (data) {
+				data.extension.should.equal('jpg');
 			});
 		});
 
 		it('should handle an extra period when recording file extension (prepare.test.jpg)', function () {
-			tasks.prepareData(data.image2, function (preparedData) {
-				preparedData.extension.should.equal('jpg');
+			tasks.prepareData(data.image2, function (data) {
+				data.extension.should.equal('jpg');
 			});
 		});
 
 		it('should record the file dimensions', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.dimensions.should.equal('4160x2340');
+			tasks.prepareData(data.image1, function (data) {
+				data.dimensions.should.equal('4160x2340');
 			});
 		});
 
 		it('should record the file width', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.width.should.equal(4160);
+			tasks.prepareData(data.image1, function (data) {
+				data.width.should.equal(4160);
 			});
 		});
 
 		it('should record the file width', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.height.should.equal(2340);
+			tasks.prepareData(data.image1, function (data) {
+				data.height.should.equal(2340);
 			});
 		});
 
 		it('should record the file layout', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.layout.should.equal('landscape');
+			tasks.prepareData(data.image1, function (data) {
+				data.layout.should.equal('landscape');
 			});
 		});
 
 		it('should record if the file is a photo', function () {
-			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.type.should.equal('photo');
+			tasks.prepareData(data.image1, function (data) {
+				data.type.should.equal('photo');
 			});
 		});
 
 		it('should record if the file is a video', function () {
-			tasks.prepareData(data.video1, function (preparedData) {
-				preparedData.type.should.equal('video');
+			tasks.prepareData(data.video1, function (data) {
+				data.type.should.equal('video');
 			});
 		});
 
 		it('should record if the file type is not allowed', function () {
-			tasks.prepareData(data.pdf, function (preparedData) {
-				preparedData.type.should.equal('not allowed');
+			tasks.prepareData(data.pdf, function (data) {
+				data.type.should.equal('not allowed');
 			});
 		});
 	});
