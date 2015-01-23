@@ -22,7 +22,6 @@ describe('API Tasks', function () {
 
 		afterEach(function() {
 			watcher.clear();
-			watch = null;
 			directory = null;
 			testFile = null;
 		});
@@ -119,13 +118,13 @@ describe('API Tasks', function () {
 
 		it('should remove file extension and record the file name', function () {
 			tasks.prepareData(data.image1, function (preparedData) {
-				preparedData.fileName.should.equal('prepare');
+				preparedData.filename.should.equal('prepare');
 			});
 		});
 
 		it('should handle an extra period when recording file name (prepare.test.jpg)', function () {
 			tasks.prepareData(data.image2, function (preparedData) {
-				preparedData.fileName.should.equal('prepare.test');
+				preparedData.filename.should.equal('prepare.test');
 			});
 		});
 
@@ -185,18 +184,26 @@ describe('API Tasks', function () {
 	});
 
 	describe('tasks.submitMedia', function () {
-		it('should make a POST request to /api/v1/media to add new media to the database', function () {
-			// request(app)
-			// 	.post('/api/v1/media')
-			// 	.set('Accept', 'application/json')
-			// 	.end(function(err, res) {
-			// 		if (err) {
-			// 			throw err
-			// 		}
+		beforeEach(function() {
+			directory = __dirname + '/media';
+			testFile 	= directory + '/test/test.js';
+			fs.writeFile(testFile, 'testing testing');
+		});
 
-			// 		res.status.should.equal(200);
-			// 		done();
-			// 	});
+		afterEach(function() {
+			fs.unlink(testFile);
+			directory = null;
+			testFile = null;
+		});
+
+		it('should make a POST request to /api/v1/media to add new media to the database', function () {
+
+		});
+	});
+
+	describe('tasks.deleteMedia', function () {
+		it('should make a DELETE request to /api/v1/media/:file to add new media to the database', function () {
+
 		});
 	});
 });
