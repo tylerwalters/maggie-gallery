@@ -18,6 +18,7 @@ module.exports = {
 		'use strict';
 
 		createCallback = createCallback || this.readExif.bind(this);
+		deleteCallback = deleteCallback || this.deleteMedia.bind(this);
 		watcher = watcher || hound.watch(directory);
 
 		watcher.on('create', function(file, stats) {
@@ -32,6 +33,7 @@ module.exports = {
 
 		watcher.on('delete', function(file) {
 			if (deleteCallback !== undefined) {
+				console.log('file: ' + file);
 				deleteCallback(file);
 			}
 		});
@@ -137,16 +139,18 @@ module.exports = {
 		req.end();
 	},
 
-	deleteMedia: function (data, host, path, port, callback) {
+	deleteMedia: function (file, host, path, port, callback) {
 		'use strict';
 
 		var options, 
-				req;
+				req,
+				filename = '';
 
-		data = JSON.stringify(data);
+		filename = file.substring(file.lastIndexOf('/') + 1);
+		filename = filename.substring(0, filename.length - 4);
 
 		host = host || 'localhost';
-		path = path || '/api/v1/media';
+		path = path || '/api/v1/media/' + filename;
 		port = port || 8080;
 
 		options = {
