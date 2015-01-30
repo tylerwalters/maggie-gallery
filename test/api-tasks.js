@@ -1,4 +1,5 @@
-var fs				= require('fs'),
+var request 	= require('supertest'),
+		fs				= require('fs'),
 		hound			= require('hound'),
 		request 	= require('supertest'),
 		should 		= require('chai').should(),
@@ -184,20 +185,45 @@ describe('API Tasks', function () {
 	});
 
 	describe('tasks.submitMedia', function () {
-		beforeEach(function() {
-			directory = __dirname + '/media';
-			testFile 	= directory + '/test/test.js';
-			fs.writeFile(testFile, 'testing testing');
+		before(function() {
+			data = {
+				'extension': 'jpg',
+				'filename': 'test-image',
+				'title': 'test-image',
+				'tags': [],
+				'date': new Date(),
+				'description': '',
+				'dimensions': '4160x2340',
+				'width': 4160,
+				'height': 2340,
+				'layout': 'landscape',
+				'type': 'photo'
+			};
 		});
 
-		afterEach(function() {
-			fs.unlink(testFile);
-			directory = null;
-			testFile = null;
+		after(function() {
+			data = null;
 		});
 
-		it('should make a POST request to /api/v1/media to add new media to the database', function () {
+		it('should make a POST request to /api/v1/media to add new media to the database', function (done) {
+			tasks.submitMedia(data, 'localhost', '/api/v1/media', 8080);
 
+			request(app)
+				.get('/api/v1/media')
+				.set('Accept', 'application/json')
+				.end(function(err, res) {
+					if (err) {
+						throw err;
+					}
+
+					console.log(res.body);
+
+					res.status.should.equal(200);
+					// res.body.length.should.equal(1);
+					// res.body[0].title.should.equal('Test Photo');
+
+					done();
+				});
 		});
 	});
 
