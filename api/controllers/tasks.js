@@ -33,7 +33,6 @@ module.exports = {
 
 		watcher.on('delete', function(file) {
 			if (deleteCallback !== undefined) {
-				console.log('file: ' + file);
 				deleteCallback(file);
 			}
 		});
@@ -121,14 +120,12 @@ module.exports = {
 		};
 
 		req = http.request(options, function (response) {
-			var str = '';
 			response.on('data', function (chunk) {
 				// A piece of data has been recieved
 			});
 
 			response.on('end', function () {
 				// Response has been recieved
-				console.log(str);
 				if (callback) {
 					callback(str);
 				}
@@ -164,14 +161,12 @@ module.exports = {
 		};
 
 		http.request(options, function (response) {
-			var str = '';
 			response.on('data', function (chunk) {
 				// A piece of data has been recieved
 			});
 
 			response.on('end', function () {
 				// Response has been recieved
-				console.log(str);
 				if (callback) {
 					callback(str);
 				}
