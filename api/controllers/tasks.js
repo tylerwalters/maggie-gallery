@@ -127,7 +127,7 @@ module.exports = {
 			response.on('end', function () {
 				// Response has been recieved
 				if (callback) {
-					callback(str);
+					callback();
 				}
 			});
 		});
@@ -168,7 +168,7 @@ module.exports = {
 			response.on('end', function () {
 				// Response has been recieved
 				if (callback) {
-					callback(str);
+					callback();
 				}
 			});
 		}).end();
