@@ -6,3 +6,9 @@
  *	to names the website will use.
  *
  **/
+
+var fs = require('fs');
+
+module.exports = {
+
+};
