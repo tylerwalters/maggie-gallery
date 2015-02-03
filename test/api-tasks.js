@@ -184,52 +184,49 @@ describe('API Tasks', function () {
 		});
 	});
 
-	describe('tasks.submitMedia', function () {
-		before(function() {
-			data = {
-				'extension': 'jpg',
-				'filename': 'test-image',
-				'title': 'test-image',
-				'tags': [],
-				'date': new Date(),
-				'description': '',
-				'dimensions': '4160x2340',
-				'width': 4160,
-				'height': 2340,
-				'layout': 'landscape',
-				'type': 'photo'
-			};
-		});
+	// describe('tasks.submitMedia', function () {
+	// 	before(function() {
+	// 		data = {
+	// 			'extension': 'jpg',
+	// 			'filename': 'test-image',
+	// 			'title': 'test-image',
+	// 			'tags': [],
+	// 			'date': new Date(),
+	// 			'description': '',
+	// 			'dimensions': '4160x2340',
+	// 			'width': 4160,
+	// 			'height': 2340,
+	// 			'layout': 'landscape',
+	// 			'type': 'photo'
+	// 		};
+	// 	});
 
-		after(function() {
-			data = null;
-		});
+	// 	after(function() {
+	// 		data = null;
+	// 	});
 
-		it('should make a POST request to /api/v1/media to add new media to the database', function (done) {
-			tasks.submitMedia(data, 'localhost', '/api/v1/media', 8080);
+	// 	it('should make a POST request to /api/v1/media to add new media to the database', function (done) {
+	// 		tasks.submitMedia(data, 'localhost', '/api/v1/media', 8080);
 
-			request(app)
-				.get('/api/v1/media')
-				.set('Accept', 'application/json')
-				.end(function(err, res) {
-					if (err) {
-						throw err;
-					}
+	// 		request(app)
+	// 			.get('/api/v1/media')
+	// 			.set('Accept', 'application/json')
+	// 			.end(function(err, res) {
+	// 				if (err) {
+	// 					throw err;
+	// 				}
 
-					console.log(res.body);
+	// 				console.log(res.body);
 
-					res.status.should.equal(200);
-					// res.body.length.should.equal(1);
-					// res.body[0].title.should.equal('Test Photo');
+	// 				res.status.should.equal(200);
+	// 				done();
+	// 			});
+	// 	});
+	// });
 
-					done();
-				});
-		});
-	});
+	// describe('tasks.deleteMedia', function () {
+	// 	it('should make a DELETE request to /api/v1/media/:file to add new media to the database', function () {
 
-	describe('tasks.deleteMedia', function () {
-		it('should make a DELETE request to /api/v1/media/:file to add new media to the database', function () {
-
-		});
-	});
+	// 	});
+	// });
 });
