@@ -11,7 +11,8 @@
 var path		= require('path'),
 		hound		= require('hound'),
 		exif		= require('exif2'),
-		http 		= require('http');
+		http 		= require('http'),
+		MediaController = require('./media');
 
 module.exports = {
 	watchDirectory: function (directory, watcher, createCallback, changeCallback, deleteCallback) {
@@ -134,6 +135,19 @@ module.exports = {
 
 		req.write(data);
 		req.end();
+	},
+
+	optimizeImage: function (data, imagePath, destPath) {
+		imagePath = imagePath || __dirname + '../../public/media/photos';
+		destPath = destPath || __dirname + '../../public/media/photos/optimized';
+
+		var orig = imagePath + data.filename + '.' + data.extension;
+
+		MediaController.imageMobile(orig, destPath + data.filename + '.' + 'mob' + '.' + data.extension);
+		MediaController.imageDesktop(orig, destPath + data.filename + '.' + 'desk' + '.' + data.extension);
+		MediaController.imageThumb(orig, destPath + data.filename + '.' + 'thumb' + '.' + data.extension);
+		MediaController.imageLarge(orig, destPath + data.filename + '.' + 'large' + '.' + data.extension);
+		MediaController.imageBackground(orig, destPath + data.filename + '.' + 'bg' + '.' + data.extension);
 	},
 
 	deleteMedia: function (file, host, path, port, callback) {
