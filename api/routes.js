@@ -6,7 +6,7 @@ module.exports = function(app) {
 	var router = express.Router();
 	// API routes ===========================================================
 
-	router.get('/', function(req, res) {
+	router.get('/', function (req, res) {
 		res.json({ message: 'Welcome to the API!' });
 	});
 
@@ -55,7 +55,7 @@ module.exports = function(app) {
 	// frontend routes ===========================================================
 
 	/* Front End Routes Handled by Angular */
-	app.get('*', function(req, res) {
+	app.get('*', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public/views', 'index.html'));
 	});
 };
