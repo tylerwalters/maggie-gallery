@@ -14,7 +14,7 @@ var User		= require('../models/user');
 // Media Routes ===========================================================
 
 /* API POST endpoint for /api/v1/media */
-exports.postMedia = function(req, res) {
+exports.postMedia = function (req, res) {
 	var media = new Media();
 
 	media.title				= req.body.title;
@@ -39,7 +39,7 @@ exports.postMedia = function(req, res) {
 };
 
 /* API GET endpoint for /api/v1/media */
-exports.getMedia = function(req, res) {
+exports.getMedia = function (req, res) {
 	Media.find({}).sort({date: 'desc'}).exec(function(err, media) {
 		if (err)
 			res.send(err);
@@ -49,7 +49,7 @@ exports.getMedia = function(req, res) {
 };
 
 /* API GET endpoint for /api/v1/media/:file */
-exports.getFile = function(req, res) {
+exports.getFile = function (req, res) {
 	Media.findOne({'filename' : req.params.file}, function(err, file) {
 		if (err)
 			res.send(err);
@@ -59,7 +59,7 @@ exports.getFile = function(req, res) {
 };
 
 /* API PUT endpoint for /api/v1/media/:file */
-exports.putFile = function(req, res) {
+exports.putFile = function (req, res) {
 	Media.findOne({'filename' : req.params.file}, function(err, file) {
 		if (err)
 			res.send(err);
@@ -88,7 +88,7 @@ exports.putFile = function(req, res) {
 };
 
 /* API DELETE endpoint for /api/v1/media/:file */
-exports.deleteFile = function(req, res) {
+exports.deleteFile = function (req, res) {
 	Media.remove({'filename' : req.params.file}, function(err, file) {
 		if (err)
 			res.send(err);
@@ -100,7 +100,7 @@ exports.deleteFile = function(req, res) {
 // User Routes ===========================================================
 
 /* API POST endpoint for /api/v1/users */
-exports.postUsers = function(req, res) {
+exports.postUsers = function (req, res) {
 	var user = new User();
 
 	user.username	= req.body.username;
@@ -114,7 +114,7 @@ exports.postUsers = function(req, res) {
 };
 
 /* API GET endpoint for /api/v1/users */
-exports.getUsers = function(req, res) {
+exports.getUsers = function (req, res) {
 	User.find({}).sort({date: 'desc'}).exec(function(err, user) {
 		if (err)
 			res.send(err);
@@ -124,7 +124,7 @@ exports.getUsers = function(req, res) {
 };
 
 /* API GET endpoint for /api/v1/users/:user */
-exports.getUser = function(req, res) {
+exports.getUser = function (req, res) {
 	User.findOne({'filename' : req.params.file}, function(err, user) {
 		if (err)
 			res.send(err);
@@ -134,7 +134,7 @@ exports.getUser = function(req, res) {
 };
 
 /* API PUT endpoint for /api/v1/users/:user */
-exports.putUser = function(req, res) {
+exports.putUser = function (req, res) {
 	User.findOne({'filename' : req.params.user}, function(err, user) {
 		if (err)
 			res.send(err);
@@ -152,7 +152,7 @@ exports.putUser = function(req, res) {
 };
 
 /* API DELETE endpoint for /api/v1/users/:user */
-exports.deleteUser = function(req, res) {
+exports.deleteUser = function (req, res) {
 	User.remove({'filename' : req.params.user}, function(err, user) {
 		if (err)
 			res.send(err);
