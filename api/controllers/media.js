@@ -88,14 +88,18 @@ module.exports = {
 			.write(destPath, callback);
 	},
 
-	removeImage: function (imagePath, callback) {
+	removeMedia: function (mediaPath, callback) {
 		callback = callback || function(err) {
 			if (err)
 				throw err;
 
-			console.log('Successfully deleted ' + imagePath);
+			console.log('Successfully deleted ' + mediaPath);
 		};
 
-		fs.unlink(imagePath, callback);
+		fs.exists(mediaPath, function (exists) {
+			if (exists) {
+				fs.unlink(mediaPath, callback);
+			}
+		});
 	}
 };
