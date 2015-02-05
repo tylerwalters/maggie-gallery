@@ -98,13 +98,14 @@ module.exports = {
 		callback(preparedData);
 	},
 
-	submitMedia: function (data, host, path, port, callback) {
+	submitMedia: function (preparedData, host, path, port, callback) {
 		'use strict';
 
 		var options, 
-				req;
+				req,
+				data = JSON.stringify(preparedData);
 
-		data = JSON.stringify(data);
+		callback = (preparedData.type === 'photo') ? callback || this.optimizeImage.bind(this) : callback;
 
 		host = host || 'localhost';
 		path = path || '/api/v1/media';
@@ -128,7 +129,7 @@ module.exports = {
 			response.on('end', function () {
 				// Response has been recieved
 				if (callback) {
-					callback();
+					callback(preparedData);
 				}
 			});
 		});
@@ -138,8 +139,10 @@ module.exports = {
 	},
 
 	optimizeImage: function (data, imagePath, destPath) {
-		imagePath = imagePath || __dirname + '../../public/media/photos';
-		destPath = destPath || __dirname + '../../public/media/photos/optimized';
+		'use strict';
+
+		imagePath = imagePath || __dirname + '/../../public/media/photos/';
+		destPath = destPath || __dirname + '/../../public/images/';
 
 		var orig = imagePath + data.filename + '.' + data.extension;
 
@@ -155,10 +158,22 @@ module.exports = {
 
 		var options, 
 				req,
-				filename = '';
+				filename = '',
+				extension = '';
 
 		filename = file.substring(file.lastIndexOf('/') + 1);
 		filename = filename.substring(0, filename.length - 4);
+		extension = file.slice(-3);
+
+		if (file.indexOf('/photos/') !== -1) {
+			var imagePath = __dirname + '/../../public/images/';
+
+			MediaController.removeMedia(imagePath + filename + '.thumb.' + extension);
+			MediaController.removeMedia(imagePath + filename + '.mob.' + extension);
+			MediaController.removeMedia(imagePath + filename + '.desk.' + extension);
+			MediaController.removeMedia(imagePath + filename + '.large.' + extension);
+			MediaController.removeMedia(imagePath + filename + '.bg.' + extension);
+		}
 
 		host = host || 'localhost';
 		path = path || '/api/v1/media/' + filename;
@@ -186,5 +201,7 @@ module.exports = {
 				}
 			});
 		}).end();
+
+
 	}
 };
