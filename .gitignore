@@ -3,6 +3,7 @@ api/node_modules
 *.sublime-project
 public/lib
 public/media
+public/images
 .idea/
 api/config
 npm-debug.log
