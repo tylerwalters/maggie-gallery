@@ -97,6 +97,26 @@ exports.deleteFile = function (req, res) {
 	});
 };
 
+/* API GET endpoint for /api/v1/photos */
+exports.getPhotos = function (req, res) {
+	Media.find({'type' : 'photo'}).sort({date: 'desc'}).exec(function(err, photos) {
+		if (err)
+			res.send(err);
+
+		res.json(photos);
+	});
+};
+
+/* API GET endpoint for /api/v1/videos */
+exports.getVideos = function (req, res) {
+	Media.find({'type' : 'video'}).sort({date: 'desc'}).exec(function(err, videos) {
+		if (err)
+			res.send(err);
+
+		res.json(videos);
+	});
+};
+
 // User Routes ===========================================================
 
 /* API POST endpoint for /api/v1/users */
