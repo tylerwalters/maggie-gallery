@@ -24,6 +24,14 @@ module.exports = function(app) {
 		.put(RouteController.putFile)
 		.delete(RouteController.deleteFile);
 
+	// API route handlers for /photos
+	router.route('/photos')
+		.get(RouteController.getPhotos);
+
+	// API route handlers for /videos
+	router.route('/videos')
+		.get(RouteController.getVideos);
+
 	// API route handlers for /users
 	router.route('/users')
 		// .post(passwordless.restricted, RouteController.postUsers)
