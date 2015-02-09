@@ -93,7 +93,7 @@ module.exports = {
 			if (err)
 				throw err;
 
-			console.log('Successfully deleted ' + mediaPath);
+			console.log('Successfully deleted image ' + mediaPath);
 		};
 
 		fs.exists(mediaPath, function (exists) {
