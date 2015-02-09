@@ -29,3 +29,8 @@ To Do
 -----
 
 * Authentication for POST, PUT, and DELETE requests
+
+Issues
+------
+
+* deleteMedia task is giving an error when deleting from database
