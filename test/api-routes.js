@@ -141,7 +141,7 @@ describe('API Routing', function() {
 					}
 
 					res.status.should.equal(200);
-					res.body.message.should.equal('Successfully deleted test-photo');
+					res.body.message.should.equal('Successfully deleted entry test-photo');
 					done();
 				});
 		});
