@@ -10,7 +10,6 @@ Things it needs:
 
 * instance of ownCloud to sync local media files with the server
 * RESTful-ish API built on Node
-* potentially, an image server for resizing, optimizing, and serving images
 * a basic web server to serve up the content
 * potentially, a router if the routes will be handled on the backend
 
@@ -28,9 +27,18 @@ Things it needs:
 To Do
 -----
 
-* Authentication for POST, PUT, and DELETE requests
+* Backend: Authentication for POST, PUT, and DELETE requests
+* Backend: Write additional unit tests
+* Frontend: Establish app architecture
+* Frontend: Establish third party library dependencies (considering React.js)
+* Frontend: Build templates for Home, About, and Detail pages
+* Frontend: Review BEM CSS syntax
+* Frontend: Style individual pages
+* Frontend: Write frontend application code
+* DevOps: Create containers for application, ownCloud, and mongodb
+* DevOps: Figure out configuration of non-public information
+* DevOps: Deploy app
 
 Issues
 ------
 
-* deleteMedia task is giving an error when deleting from database
