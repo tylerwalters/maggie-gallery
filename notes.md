@@ -20,8 +20,8 @@ Frontend
 Things it needs:
 
 * a view layer with data binding
-* an ajax micro-library to connect to the API
-* a service function to connect to the API and manage data using the ajax library in a preconfigured way
+* an AJAX micro-library to connect to the API
+* a service function to connect to the API and manage data using the AJAX library in a preconfigured way
 * custom filters to filter the images and videos
 * potentially, a router if the routes will be handled on the frontend
 
