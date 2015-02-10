@@ -176,7 +176,7 @@ module.exports = {
 		}
 
 		host = host || 'localhost';
-		path = path || '/api/v1/media/' + filename;
+		path = path || '/api/v1/media/' + encodeURIComponent(filename);
 		port = port || 8080;
 
 		options = {
