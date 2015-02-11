@@ -1,9 +1,8 @@
-node_modules
-api/node_modules
+.idea/
 *.sublime-project
+npm-debug.log
+node_modules
+api/config
 public/lib
 public/media
 public/images
-.idea/
-api/config
-npm-debug.log
