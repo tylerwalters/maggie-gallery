@@ -129,7 +129,7 @@ exports.postUsers = function (req, res) {
 	user.save(function(err) {
 		if (err)
 			res.send(err);
-		res.json({ message: 'File added!', data: user });
+		res.json({ message: 'User added!', data: user });
 	});
 };
 
@@ -166,7 +166,7 @@ exports.putUser = function (req, res) {
 			if (err)
 				res.send(err);
 
-			res.json({ message: 'File updated!', data: user });
+			res.json({ message: 'User updated!', data: user });
 		});
 	});
 };
@@ -179,4 +179,20 @@ exports.deleteUser = function (req, res) {
 
 		res.json({ message: 'Successfully deleted ' + req.params.user });
 	});
+};
+
+/* API POST endpoint for /api/v1/users */
+exports.postSendToken = function (req, res) {
+	if (err)
+			res.send(err);
+
+	res.json({ message: 'Token sent!' });
+};
+
+/* API POST endpoint for /api/v1/users */
+exports.postLogin = function (req, res) {
+	if (err)
+			res.send(err);
+
+	res.json({ message: 'Login successful!' });
 };
