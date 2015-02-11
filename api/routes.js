@@ -1,6 +1,8 @@
 var express					= require('express'),
 		path						= require('path'),
-		RouteController = require('./controllers/routes');
+		passwordless 		= require('passwordless'),
+		RouteController = require('./controllers/routes'),
+		AuthController 	= require('./controllers/auth');
 
 module.exports = function(app) {
 	var router = express.Router();
@@ -46,10 +48,13 @@ module.exports = function(app) {
 		.put(RouteController.putUser)
 		.delete(RouteController.deleteUser);
 
+	// API route handlers for /sendtoken
+	router.route('/sendtoken')
+		.post(AuthController.requestToken, RouteController.postSendToken);
+
 	// API route handlers for /login
 	router.route('/login')
-		// .post(passwordless.sendtoken);
-		.post();
+		.post(passwordless.acceptToken, RouteController.postLogin);
 
 	// API route handlers for /logout
 	router.route('/logout')
