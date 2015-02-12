@@ -7,36 +7,41 @@
  *
  **/
 
-var passwordless = require('passwordless'),
-		MongoStore = require('passwordless-mongostore'),
-		smtpServer = require('../config/email'),
-		db = require('../config/db'),
-		User		= require('../models/user');
+var passwordless	= require('passwordless'),
+		MongoStore		= require('passwordless-mongostore'),
+		smtpServer		= require('../config/email'),
+		db						= require('../config/db'),
+		User					= require('../models/user');
 
 passwordless.init(new MongoStore(db.token));
 
+
+
 passwordless.addDelivery(function (tokenToSend, uidToSend, recipient, callback) {
-	var host = 'localhost:8080';
-	smtpServer.send({
-		text: 'Hello!\nAccess your account here: http://' + host + '/login?token=' + tokenToSend + '&uid=' + encodeURIComponent(uidToSend),
-		from: 'maggie-gallery@tylerwalters.com',
-		to: recipient,
-		subject: 'Token for ' + host
-	}, function (err, message) {
+	var host = 'localhost:8080',
+			mailOptions = {
+				from: 'maggie-gallery@tylerwalters.com',
+				to: recipient,
+				subject: 'Token for ' + host,
+				text: 'Hello!\nAccess your account here: http://' + host + '/login?token=' + tokenToSend + '&uid=' + encodeURIComponent(uidToSend)
+			};
+
+	smtpServer.sendMail(mailOptions, function (err, info) {
 		if (err)
 			console.log(err);
 
-		callback(err);
+		// console.log('Message sent: ' + info.response);
+		callback(info);
 	});
 });
 
 // app.use(passwordless.acceptToken({ successRedirect: '/'}));
 
 exports.requestToken = passwordless.requestToken(function (user, delivery, callback) {
-	User.find({email: user}, function (ret) {
-		if (ret)
-			callback(null, ret.id);
-		else
-			callback(null, null);
+	User.findOne({'email': user}, function (err, user) {
+		if (err)
+			res.send(err);
+
+		callback(null, user.id);
 	});
 });
