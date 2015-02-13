@@ -25,12 +25,12 @@ passwordless.addDelivery(function (tokenToSend, uidToSend, recipient, callback) 
 				text: 'Hello!\nAccess your account here: http://' + host + '/login?token=' + tokenToSend + '&uid=' + encodeURIComponent(uidToSend)
 			};
 
-	smtpServer.sendMail(mailOptions, function (err, info) {
+	smtpServer.send(mailOptions, function (err, message) {
 		if (err)
 			console.log(err);
 
-		// console.log('Message sent: ' + info.response);
-		callback(info);
+		console.log('Message sent: ' + message);
+		callback(message);
 	});
 });
 
