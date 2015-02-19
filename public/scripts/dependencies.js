@@ -1,2 +1,2 @@
-var	isotope = require('isotope'),
+var	isotope = require('isotope-layout'),
 		Router = require('react-router');
