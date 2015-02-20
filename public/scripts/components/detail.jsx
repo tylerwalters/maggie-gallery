@@ -18,8 +18,3 @@ var Detail = React.createClass({
 		);
 	}
 });
-
-React.render(
-	<Detail />,
-	document.getElementById('content')
-)

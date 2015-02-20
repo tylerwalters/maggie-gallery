@@ -32,8 +32,3 @@ var Header = React.createClass({
 		);
 	}
 });
-
-React.render(
-	<Header />,
-	document.getElementById('header')
-)
