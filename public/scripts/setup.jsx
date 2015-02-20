@@ -17,7 +17,7 @@ var Header = React.createClass({
 var Home = React.createClass({
 	render: function () {
 		return (
-			<div id="page">
+			<div>
 				<Header />
 				<Gallery />
 				<Footer />
@@ -28,7 +28,7 @@ var Home = React.createClass({
 
 React.render(
 	<Home />,
-	document.body
+	document.getElementById('page');
 );
 
 // (function () {
