@@ -24770,10 +24770,6 @@ module.exports = require('./lib/React');
 },{"./lib/React":81}],201:[function(require,module,exports){
 var	isotope = require('isotope-layout'),
 		Router = require('react-router');
-
-console.log('isotope');
-
-var globalVar = 'test';
 },{"isotope-layout":1,"react-router":40}],202:[function(require,module,exports){
 // shim for using process in browser
 
