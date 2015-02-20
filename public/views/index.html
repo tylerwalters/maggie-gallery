@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html></html>
+<html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,24 +12,11 @@
 	<script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
 </head>
 <body>
-	<header id="header"></header>
-	<main id="content"></main>
-	<footer id="footer"></footer>
 
 	<script type="text/js" src="../scripts/main.js"></script>
 	<script type="text/jsx" src="../scripts/components/header.jsx"></script>
 	<script type="text/jsx" src="../scripts/components/gallery.jsx"></script>
-	<script>
-		(function () {
-			var content = document.getElementById('content');
-
-			content.isotope({
-				itemSelector: '.gallery__image',
-				masonry: {
-					columnWidth: 200
-				}
-			});
-		})();
-	</script>
+	<script type="text/jsx" src="../scripts/components/footer.jsx"></script>
+	<script type="text/jsx" src="../scripts/setup.jsx"></script>
 </body>
 </html>
