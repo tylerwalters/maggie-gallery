@@ -2,7 +2,7 @@ var Footer = React.createClass({
 	render: function (data) {
 		return (
 			<footer className="content pure-g isotope">
-				<p>Test text</p>
+				<p className="pure-u-1-1">Test text</p>
 			</footer>
 		);
 	}
