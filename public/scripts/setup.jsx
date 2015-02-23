@@ -3,17 +3,6 @@ var data = [
 	{filename: "mom-maggie-and-marie", extension: "jpg", type: "photo", title: "mom-maggie-and-marie"}
 ];
 
-var Header = React.createClass({
-	render: function () {
-		return (
-			<header className="header pure-g">
-				<Logo />
-				<Navigation />
-			</header>
-		);
-	}
-});
-
 var Home = React.createClass({
 	render: function () {
 		return (
@@ -28,16 +17,5 @@ var Home = React.createClass({
 
 React.render(
 	<Home />,
-	document.getElementById('page');
+	document.getElementById('page')
 );
-
-// (function () {
-// 	var gallery = document.querySelector('#gallery');
-
-// 	var iso = new Isotope(gallery, {
-// 		itemSelector: '.gallery__image',
-// 		masonry: {
-// 			columnWidth: 200
-// 		}
-// 	})
-// })();
