@@ -5,6 +5,7 @@ var App = React.createClass({
 				<Header />
 				<RouteHandler />
 				<Footer />
+			</div>
 		)
 	}
 })
