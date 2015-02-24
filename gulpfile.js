@@ -2,27 +2,27 @@ console.time('Loading plugins');
 
 var gulp = require('gulp');
 
-gulp.task('lint', function() {
+gulp.task('lint', function () {
 	var jshint = require('gulp-jshint');
 
-  return gulp.src(['api/**/*.js', 'public/js/**/*.js', '*.js'])
-  	.pipe(jshint())
-  	.pipe(jshint.reporter('jshint-stylish'));
+	return gulp.src(['api/**/*.js', 'public/js/**/*.js', '*.js'])
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('stylus', function() {
+gulp.task('stylus', function () {
 	var stylus 	= require('gulp-stylus'),
-		nib		= require('nib');
+		nib				= require('nib');
 
 	return gulp.src('public/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
 		.pipe(gulp.dest('./public/styles'));
 });
 
-gulp.task('css-min', function() {
+gulp.task('css-min', function () {
 	var stylus 		= require('gulp-stylus'),
-		nib			= require('nib'),
-		minifycss 	= require('gulp-minify-css');
+			nib				= require('nib'),
+			minifycss = require('gulp-minify-css');
 
 	return gulp.src('public/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
@@ -30,7 +30,13 @@ gulp.task('css-min', function() {
 		.pipe(gulp.dest('./public/styles'));
 });
 
-
+gulp.task('jsx', function () {
+		var react = require('gulp-react');
+		
+		return gulp.src('public/scripts/jsx/components/app.jsx')
+			.pipe(react({harmony: false}))
+			.pipe(gulp.dest('./public/scripts'));
+});
 
 gulp.task('default', ['lint', 'stylus']);
 
