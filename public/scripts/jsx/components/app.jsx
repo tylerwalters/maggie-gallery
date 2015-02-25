@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var App = React.createClass({
 	render: function () {
 		return (
@@ -6,9 +8,9 @@ var App = React.createClass({
 				<RouteHandler />
 				<Footer />
 			</div>
-		)
+		);
 	}
-})
+});
 
 var GalleryImage = React.createClass({
 	render: function () {
@@ -16,16 +18,16 @@ var GalleryImage = React.createClass({
 			<div className="header__logo pure-u-1-4">
 				<img src="../images/logo.png" alt="Maggie Walters Media Gallery Logo" className="header__logo" />
 			</div>
-		)
+		);
 	}
-})
+});
 
 var Detail = React.createClass({
 	render: function (data) {
 		return (
 			<main className="content pure-g">
 				<DetailImage src=""></DetailImage>
-				<DetailDescription title={} ></DetailDescription>
+				<DetailDescription></DetailDescription>
 			</main>
 		);
 	}
