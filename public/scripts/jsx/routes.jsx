@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var data = [
 	{filename: "grandparents-day", extension: "jpg", type: "photo", title: "grandparents-day"},
 	{filename: "mom-maggie-and-marie", extension: "jpg", type: "photo", title: "mom-maggie-and-marie"}
