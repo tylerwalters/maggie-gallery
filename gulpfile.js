@@ -31,13 +31,30 @@ gulp.task('css-min', function () {
 });
 
 gulp.task('jsx', function () {
-		var react = require('gulp-react');
-		
-		return gulp.src('public/scripts/jsx/components/app.jsx')
-			.pipe(react({harmony: false}))
-			.pipe(gulp.dest('./public/scripts'));
+	var react = require('gulp-react');
+	
+	return gulp.src('public/scripts/jsx/**/*.jsx')
+		.pipe(react({harmony: false}))
+		.pipe(gulp.dest('./public/scripts'));
 });
 
-gulp.task('default', ['lint', 'stylus']);
+gulp.task('browserify', function () {
+	var browserify		= require('browserify'),
+			transform			= require('vinyl-transform'),
+			concat				= require('gulp-concat'),
+			browserified;
+
+	browserified = transform(function (filename) {
+		var b = browserify(filename);
+
+		return b.bundle();
+	});
+
+	return gulp.src('public/scripts/**/*.js')
+		.pipe(browserified)
+		.pipe(gulp.dest('public/scripts/output/bundle.js'));
+});
+
+gulp.task('default', ['lint', 'css-min', 'jsx', 'browserify']);
 
 console.timeEnd('Loading plugins');
