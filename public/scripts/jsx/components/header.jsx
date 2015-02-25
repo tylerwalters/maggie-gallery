@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var Logo = React.createClass({
 	render: function () {
 		return (
@@ -6,7 +8,7 @@ var Logo = React.createClass({
 			</div>
 		)
 	}
-})
+});
 
 var Navigation = React.createClass({
 	render: function () {
@@ -20,7 +22,7 @@ var Navigation = React.createClass({
 			</nav>
 		)
 	}
-})
+});
 
 var Header = React.createClass({
 	render: function () {
