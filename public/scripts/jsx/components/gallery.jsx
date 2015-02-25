@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var GalleryImage = React.createClass({
 	render: function () {
 		return (
@@ -6,7 +8,7 @@ var GalleryImage = React.createClass({
 			</div>
 		)
 	}
-})
+});
 
 var Gallery = React.createClass({
 	render: function (data) {
