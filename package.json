@@ -45,6 +45,8 @@
     "jshint-stylish": "^1.0.0",
     "nib": "^1.0.4",
     "supertest": "^0.15.0",
-    "gulp-react": "^2.0.0"
+    "gulp-react": "^2.0.0",
+    "vinyl-transform": "^1.0.0",
+    "browserify": "^9.0.3"
   }
 }
