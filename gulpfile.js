@@ -12,7 +12,7 @@ gulp.task('lint', function () {
 
 gulp.task('stylus', function () {
 	var stylus 	= require('gulp-stylus'),
-		nib				= require('nib');
+			nib			= require('nib');
 
 	return gulp.src('public/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
