@@ -51,8 +51,9 @@ gulp.task('browserify', function () {
 	});
 
 	return gulp.src('public/scripts/**/*.js')
+		.pipe(concat('main.js'))
 		.pipe(browserified)
-		.pipe(gulp.dest('public/scripts/output/bundle.js'));
+		.pipe(gulp.dest('public/scripts'));
 });
 
 gulp.task('default', ['lint', 'css-min', 'jsx', 'browserify']);
