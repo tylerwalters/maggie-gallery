@@ -108,7 +108,7 @@ module.exports = {
 		callback = (preparedData.type === 'photo') ? callback || this.optimizeImage.bind(this) : callback;
 
 		host = host || 'localhost';
-		path = path || '/api/v1/media';
+		path = path || '/api/v1/photos';
 		port = port || 8080;
 
 		options = {
