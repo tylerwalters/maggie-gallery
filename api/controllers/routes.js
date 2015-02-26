@@ -8,116 +8,154 @@
 
 // Database Schemas ===========================================================
 
-var Media		= require('../models/media');
-var User		= require('../models/user');
+var db = require('../config/db'),
+		FirebaseClient = require('firebase-client'),
+		firebase;
 
-// Media Routes ===========================================================
+firebase = new FirebaseClient({
+	url: 'https://maggie-gallery.firebaseio.com/',
+	auth: db.firebaseSecret
+});
 
-/* API POST endpoint for /api/v1/media */
-exports.postMedia = function (req, res) {
-	var media = new Media();
+// Media Routes ===============================================================
 
-	media.title				= req.body.title;
-	media.type				= req.body.type;
-	media.tags				= req.body.tags;
-	media.date				= req.body.date;
-	media.pubdate			= req.body.pubdate;
-	media.editdate		= req.body.editdate;
-	media.filename		= req.body.filename;
-	media.extension		= req.body.extension;
-	media.description	= req.body.description;
-	media.dimensions	= req.body.dimensions;
-	media.width				= req.body.width;
-	media.height			= req.body.height;
-	media.layout			= req.body.layout;
-
-	media.save(function(err) {
-		if (err)
-			res.send(err);
-		res.json({ message: 'File added!', data: media });
-	});
-};
-
-/* API GET endpoint for /api/v1/media */
+/* API GET endpoint for /api/v1/photos */
 exports.getMedia = function (req, res) {
-	Media.find({}).sort({date: 'desc'}).exec(function(err, media) {
-		if (err)
+	firebase
+		.get('media')
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
 			res.send(err);
-
-		res.json(media);
-	});
-};
-
-/* API GET endpoint for /api/v1/media/:file */
-exports.getFile = function (req, res) {
-	Media.findOne({'filename' : req.params.file}, function(err, file) {
-		if (err)
-			res.send(err);
-
-		res.json(file);
-	});
-};
-
-/* API PUT endpoint for /api/v1/media/:file */
-exports.putFile = function (req, res) {
-	Media.findOne({'filename' : req.params.file}, function(err, file) {
-		if (err)
-			res.send(err);
-
-		file.title				= req.body.title;
-		file.type					= req.body.type;
-		file.tags					= req.body.tags;
-		file.date					= req.body.date;
-		file.pubdate			= req.body.pubdate;
-		file.editdate			= req.body.editdate;
-		file.filename			= req.body.filename;
-		file.extension		= req.body.extension;
-		file.description	= req.body.description;
-		file.dimensions		= req.body.dimensions;
-		file.width				= req.body.width;
-		file.height				= req.body.height;
-		file.layout				= req.body.layout;
-
-		file.save(function(err) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'File updated!', data: file });
 		});
-	});
 };
 
-/* API DELETE endpoint for /api/v1/media/:file */
-exports.deleteFile = function (req, res) {
-	Media.remove({'filename' : req.params.file}, function(err, file) {
-		if (err)
-			res.send(err);
-
-		res.json({ message: 'Successfully deleted entry ' + req.params.file });
-	});
-};
+// Photo Routes ===============================================================
 
 /* API GET endpoint for /api/v1/photos */
 exports.getPhotos = function (req, res) {
-	Media.find({'type' : 'photo'}).sort({date: 'desc'}).exec(function(err, photos) {
-		if (err)
+	firebase
+		.get('media/photos')
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
 			res.send(err);
+		});
+};
 
-		res.json(photos);
+/* API GET endpoint for /api/v1/photos/:id */
+exports.getPhoto = function (req, res) {
+	firebase
+		.get('media/photos/' + req.params.id)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API POST endpoint for /api/v1/photos */
+exports.postPhotos = function (req, res) {
+	firebase
+		.push('media/photos', req.body)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API PUT endpoint for /api/v1/photos/:id */
+exports.putPhoto = function (req, res) {
+	firebase
+		.update('media/photos/' + req.params.id, req.body)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API DELETE endpoint for /api/v1/photos/:id */
+exports.deletePhoto = function (req, res) {
+	firebase
+	.delete('media/photos/' + req.params.id)
+	.then(function () {
+		res.json({ message: 'Successfully deleted entry ' + req.params.id });
+	})
+	.fail(function (err) {
+		res.send(err);
 	});
 };
+
+// Video Routes ===============================================================
 
 /* API GET endpoint for /api/v1/videos */
 exports.getVideos = function (req, res) {
-	Media.find({'type' : 'video'}).sort({date: 'desc'}).exec(function(err, videos) {
-		if (err)
+	firebase
+		.get('media/videos')
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
 			res.send(err);
+		});
+};
 
-		res.json(videos);
+/* API GET endpoint for /api/v1/videos/:id */
+exports.getVideo = function (req, res) {
+	firebase
+		.get('media/videos/' + req.params.id)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API POST endpoint for /api/v1/videos */
+exports.postVideos = function (req, res) {
+	firebase
+		.push('media/videos', req.body)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API PUT endpoint for /api/v1/videos/:id */
+exports.putVideo = function (req, res) {
+	firebase
+		.update('media/videos/' + req.params.id, req.body)
+		.then(function (data) {
+			res.json(data);
+		})
+		.fail(function (err) {
+			res.send(err);
+		});
+};
+
+/* API DELETE endpoint for /api/v1/videos/:id */
+exports.deleteVideo = function (req, res) {
+	firebase
+	.delete('media/videos/' + req.params.id)
+	.then(function () {
+		res.json({ message: 'Successfully deleted entry ' + req.params.id });
+	})
+	.fail(function (err) {
+		res.send(err);
 	});
 };
 
-// User Routes ===========================================================
+// User Routes ================================================================
 
 /* API POST endpoint for /api/v1/users */
 exports.postUsers = function (req, res) {
