@@ -6,33 +6,46 @@ var express					= require('express'),
 
 module.exports = function(app) {
 	var router = express.Router();
-	// API routes ===========================================================
+	// ==========================================================================
+	// API Routes ===============================================================
+	// ==========================================================================
 
 	router.get('/', function (req, res) {
 		res.json({ message: 'Welcome to the API!' });
 	});
 
+	// Media Routes =============================================================
+
 	// API route handlers for /media
 	router.route('/media')
-		// .post(passwordless.restricted, RouteController.postMedia)
-		.post(RouteController.postMedia)
 		.get(RouteController.getMedia);
 
-	// API route handlers for /media/:file
-	router.route('/media/:file')
-		.get(RouteController.getFile)
-		// .put(passwordless.restricted, RouteController.putFile)
-		// .delete(passwordless.restricted, RouteController.deleteFile);
-		.put(RouteController.putFile)
-		.delete(RouteController.deleteFile);
-
+	// Photo Routes =============================================================
 	// API route handlers for /photos
 	router.route('/photos')
-		.get(RouteController.getPhotos);
+		.get(RouteController.getPhotos)
+		.post(RouteController.postPhotos);
+
+	// API route handlers for /photos/:id
+	router.route('/photos/:id')
+		.get(RouteController.getPhoto)
+		.put(RouteController.putPhoto)
+		.delete(RouteController.deletePhoto);
+
+	// Video Routes =============================================================
 
 	// API route handlers for /videos
 	router.route('/videos')
-		.get(RouteController.getVideos);
+		.get(RouteController.getVideos)
+		.post(RouteController.postVideos);
+
+	// API route handlers for /photos/:id
+	router.route('/videos/:id')
+		.get(RouteController.getVideo)
+		.put(RouteController.putVideo)
+		.delete(RouteController.deleteVideo);
+
+	// User Routes ==============================================================
 
 	// API route handlers for /users
 	router.route('/users')
@@ -62,10 +75,11 @@ module.exports = function(app) {
 		.post();
 
 
-	/* Register API Routes */
+	// Register API Routes ======================================================
+
 	app.use('/api/v1', router);
 
-	// frontend routes ===========================================================
+	// Frontend rRutes ==========================================================
 
 	/* Front End Routes Handled by Angular */
 	app.get('*', function (req, res) {
