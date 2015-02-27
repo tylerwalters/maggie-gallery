@@ -73,7 +73,7 @@ describe('API Routing', function() {
 				});
 		});
 
-		it('should respond with all photo as JSON to a GET request', function (done) {
+		it('should respond with all photos as JSON to a GET request', function (done) {
 			request(app)
 				.get('/api/v1/photos')
 				.set('Accept', 'application/json')
@@ -143,8 +143,7 @@ describe('API Routing', function() {
 					res.body.type.should.equal('photo');
 					res.body.tags.should.deep.equal(['test', 'test2', 'asdf']);
 					res.body.filename.should.equal('test-photo');
-					res.body.extension.length.should.equal(1);
-					res.body.extension.should.deep.equal(['jpg']);
+					res.body.extension.should.equal('jpg');
 					res.body.description.should.equal('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus euismod orci, eu tempus turpis dictum in. Phasellus eget consequat lacus.');
 					done();
 				});
