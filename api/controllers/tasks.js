@@ -1,3 +1,9 @@
+var path		= require('path'),
+		hound		= require('hound'),
+		exif		= require('exif2'),
+		http 		= require('http'),
+		MediaController = require('./media');
+
 /** 
 	* MediaTasks tasks watch the media directory for new, changed, or deleted images
 	* and videos. It reads exif data from new media, converts the data into 
@@ -7,26 +13,26 @@
 	* @namespace MediaTasks
 	*/
 
-var path		= require('path'),
-		hound		= require('hound'),
-		exif		= require('exif2'),
-		http 		= require('http'),
-		MediaController = require('./media');
-
 (function () {
 	var MediaTasks;
 
-	MediaTasks = (function (tasks) {
+	MediaTasks = (function (MediaTasks) {
+		'use strict';
+
 		/**
 			* Watches specified directory for new, changed, or deleted media and
 			* calls the appropriate funtions to handle them.
 			* 
+			* @param {string} directory The directory to watch for changes.
+			* @param {object} watcher The object returned from a call to hound.watch().
+			* @param {function} createCallback The function to run when a new file is created.
+			* @param {function} changeCallback The function to run when a file is modified.
+			* @param {function} deleteCallback The function to run when a file is deleted.
+			* 
 			* @memberof MediaTasks
 			* @public
 			*/
-		tasks.watchDirectory = function (directory, watcher, createCallback, changeCallback, deleteCallback) {
-			'use strict';
-
+		MediaTasks.watchDirectory = function (directory, watcher, createCallback, changeCallback, deleteCallback) {
 			createCallback = createCallback || readExif;
 			deleteCallback = deleteCallback || deleteMedia;
 			watcher = watcher || hound.watch(directory);
@@ -52,11 +58,11 @@ var path		= require('path'),
 			* Reads exif data from new media and passes it to the prepareData()
 			* function.
 			* 
+			* @param {string} file The file to read exif data from.
+			* 
 			* @memberof MediaTasks
 			*/
 		function readExif (file) {
-			'use strict';
-
 			exif(file, function (err, obj) {
 				if (err) throw err;
 
@@ -68,11 +74,11 @@ var path		= require('path'),
 			* Parses exif data from readExit() and prepares it so it is ready to be
 			* submitted to the database with submitMedia().
 			* 
+			* @param {object} data The data from the new media.
+			* 
 			* @memberof MediaTasks
 			*/
 		function prepareData (data) {
-			'use strict';
-
 			var preparedData = {},
 					createDate, 
 					file, 
@@ -120,11 +126,14 @@ var path		= require('path'),
 			* database via an HTTP request. Then passes the data to optimizeImage()
 			* or optimizeVideo() to prepare the media for the web.
 			* 
+			* @param {object} preparedData The data passed from perpareData().
+			* @param {string} host The hostname for the HTTP call.
+			* @param {string} path The path for the HTTP call.
+			* @param {number} port The port number for the HTTP call.
+			* 
 			* @memberof MediaTasks
 			*/
 		function submitMedia (preparedData, host, path, port) {
-			'use strict';
-
 			var options, 
 					req,
 					data = JSON.stringify(preparedData),
@@ -167,21 +176,19 @@ var path		= require('path'),
 			* Converts full resolution image to web optimized versions to be used on
 			* on the website and other applications.
 			* 
+			* @param {object} data The data passed from submitMedia().
+			* @param {string} imagePath The path of the full resolution image.
+			* @param {string} destPath The path where new images will be placed.
+			* 
 			* @memberof MediaTasks
 			*/
 		function optimizeImage (data, imagePath, destPath) {
-			'use strict';
-
 			imagePath = imagePath || __dirname + '/../../public/media/photos/';
 			destPath = destPath || __dirname + '/../../public/images/';
 
 			var orig = imagePath + data.filename + '.' + data.extension;
 
-			MediaController.imageMobile(orig, destPath + data.filename + '.' + 'mob' + '.' + data.extension);
-			MediaController.imageDesktop(orig, destPath + data.filename + '.' + 'desk' + '.' + data.extension);
-			MediaController.imageThumb(orig, destPath + data.filename + '.' + 'thumb' + '.' + data.extension);
-			MediaController.imageLarge(orig, destPath + data.filename + '.' + 'large' + '.' + data.extension);
-			MediaController.imageBackground(orig, destPath + data.filename + '.' + 'bg' + '.' + data.extension);
+			MediaController.makeImages(orig, destPath, data.filename, data.extension);
 		}
 
 		/**
@@ -189,11 +196,14 @@ var path		= require('path'),
 			* the optimized media files and send a call to the API to delete the item
 			* from the database.
 			* 
+			* @param {string} file The file to be deleted.
+			* @param {string} host The hostname for the HTTP call.
+			* @param {string} path The path for the HTTP call.
+			* @param {number} port The port number for the HTTP call.
+			* 
 			* @memberof MediaTasks
 			*/
 		function deleteMedia (file, host, path, port) {
-			'use strict';
-
 			var options, 
 					req,
 					filename = '',
@@ -239,7 +249,7 @@ var path		= require('path'),
 			}).end();
 		}
 
-		return tasks;
+		return MediaTasks;
 	})({});
 
 	module.exports = MediaTasks;
