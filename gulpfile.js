@@ -1,5 +1,3 @@
-console.time('Loading plugins');
-
 var gulp = require('gulp');
 
 gulp.task('lint', function () {
@@ -57,5 +55,3 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('default', ['lint', 'css-min', 'jsx', 'browserify']);
-
-console.timeEnd('Loading plugins');
