@@ -1,10 +1,11 @@
 // modules =================================================
 
-var express					= require('express');
-var app							= express();
-var mongoose				= require('mongoose');
-var bodyParser			= require('body-parser');
-var methodOverride	= require('method-override');
+var express					= require('express'),
+		app							= express(),
+		mongoose				= require('mongoose'),
+		bodyParser			= require('body-parser'),
+		methodOverride	= require('method-override'),
+		MediaTasks			= require('./api/controllers/tasks');
 
 // configuration ===========================================
 
@@ -30,8 +31,7 @@ require('./api/routes')(app);
 
 // tasks ===================================================
 
-var tasks = require('./api/controllers/tasks');
-tasks.watchDirectory(__dirname + '/public/media');
+MediaTasks.watchDirectory(__dirname + '/public/media');
 
 // start app ===============================================
 
