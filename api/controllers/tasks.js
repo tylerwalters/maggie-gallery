@@ -33,8 +33,8 @@ var path		= require('path'),
 			* @public
 			*/
 		MediaTasks.watchDirectory = function (directory, watcher, createCallback, changeCallback, deleteCallback) {
-			createCallback = createCallback || readExif;
-			deleteCallback = deleteCallback || deleteMedia;
+			createCallback = createCallback || _readExif;
+			deleteCallback = deleteCallback || _deleteMedia;
 			watcher = watcher || hound.watch(directory);
 
 			watcher.on('create', function(file, stats) {
@@ -55,30 +55,30 @@ var path		= require('path'),
 		};
 
 		/**
-			* Reads exif data from new media and passes it to the prepareData()
+			* Reads exif data from new media and passes it to the _prepareData()
 			* function.
 			* 
 			* @param {string} file The file to read exif data from.
 			* 
 			* @memberof MediaTasks
 			*/
-		function readExif (file) {
+		function _readExif (file) {
 			exif(file, function (err, obj) {
 				if (err) throw err;
 
-				prepareData(obj);
+				_prepareData(obj);
 			});
 		}
 
 		/**
 			* Parses exif data from readExit() and prepares it so it is ready to be
-			* submitted to the database with submitMedia().
+			* submitted to the database with _submitMedia().
 			* 
 			* @param {object} data The data from the new media.
 			* 
 			* @memberof MediaTasks
 			*/
-		function prepareData (data) {
+		function _prepareData (data) {
 			var preparedData = {},
 					createDate, 
 					file, 
@@ -118,12 +118,12 @@ var path		= require('path'),
 				preparedData.type = 'not allowed';
 			}
 
-			submitMedia(preparedData);
+			_submitMedia(preparedData);
 		}
 
 		/**
-			* Passes the data from prepareData() to the API that submits it to the
-			* database via an HTTP request. Then passes the data to optimizeImage()
+			* Passes the data from _prepareData() to the API that submits it to the
+			* database via an HTTP request. Then passes the data to _optimizeImage()
 			* or optimizeVideo() to prepare the media for the web.
 			* 
 			* @param {object} preparedData The data passed from perpareData().
@@ -133,13 +133,13 @@ var path		= require('path'),
 			* 
 			* @memberof MediaTasks
 			*/
-		function submitMedia (preparedData, host, path, port) {
+		function _submitMedia (preparedData, host, path, port) {
 			var options, 
 					req,
 					data = JSON.stringify(preparedData),
 					callback;
 
-			callback = (preparedData.type === 'video') ? optimizeVideo : optimizeImage;
+			callback = (preparedData.type === 'video') ? optimizeVideo : _optimizeImage;
 
 			host = host || 'localhost';
 			path = (preparedData.type === 'video') ? '/api/v1/videos' : '/api/v1/photos';
@@ -176,13 +176,13 @@ var path		= require('path'),
 			* Converts full resolution image to web optimized versions to be used on
 			* on the website and other applications.
 			* 
-			* @param {object} data The data passed from submitMedia().
+			* @param {object} data The data passed from _submitMedia().
 			* @param {string} imagePath The path of the full resolution image.
 			* @param {string} destPath The path where new images will be placed.
 			* 
 			* @memberof MediaTasks
 			*/
-		function optimizeImage (data, imagePath, destPath) {
+		function _optimizeImage (data, imagePath, destPath) {
 			imagePath = imagePath || __dirname + '/../../public/media/photos/';
 			destPath = destPath || __dirname + '/../../public/images/';
 
@@ -203,7 +203,7 @@ var path		= require('path'),
 			* 
 			* @memberof MediaTasks
 			*/
-		function deleteMedia (file, host, path, port) {
+		function _deleteMedia (file, host, path, port) {
 			var options, 
 					req,
 					filename = '',

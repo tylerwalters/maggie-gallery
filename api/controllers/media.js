@@ -35,11 +35,11 @@ var fs = require('fs'),
 				console.log('Mobile image created: ' + destPath);
 			};
 
-			MediaController.imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
-			MediaController.imageDesktop(imagePath, destPath + filename + '.' + 'desk' + '.' + extension, callback);
-			MediaController.imageThumb(imagePath, destPath + filename + '.' + 'thumb' + '.' + extension, callback);
-			MediaController.imageLarge(imagePath, destPath + filename + '.' + 'large' + '.' + extension, callback);
-			MediaController.imageBackground(imagePath, destPath + filename + '.' + 'bg' + '.' + extension, callback);
+			MediaController._imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
+			MediaController._imageDesktop(imagePath, destPath + filename + '.' + 'desk' + '.' + extension, callback);
+			MediaController._imageThumb(imagePath, destPath + filename + '.' + 'thumb' + '.' + extension, callback);
+			MediaController._imageLarge(imagePath, destPath + filename + '.' + 'large' + '.' + extension, callback);
+			MediaController._imageBackground(imagePath, destPath + filename + '.' + 'bg' + '.' + extension, callback);
 		};
 
 		/**
@@ -75,7 +75,7 @@ var fs = require('fs'),
 			* 
 			* @memberof MediaController
 			*/
-		function imageMobile (imagePath, destPath, callback) {
+		function _imageMobile (imagePath, destPath, callback) {
 			gm(imagePath)
 				.resize(320)
 				.autoOrient()
@@ -92,7 +92,7 @@ var fs = require('fs'),
 			* 
 			* @memberof MediaController
 			*/
-		function imageDesktop (imagePath, destPath, callback) {
+		function _imageDesktop (imagePath, destPath, callback) {
 			gm(imagePath)
 				.resize(600, 700)
 				.autoOrient()
@@ -109,7 +109,7 @@ var fs = require('fs'),
 			* 
 			* @memberof MediaController
 			*/
-		function imageThumb (imagePath, destPath, callback) {
+		function _imageThumb (imagePath, destPath, callback) {
 			gm(imagePath)
 				.resize(100, 100)
 				.crop(100, 100, 0, 0)
@@ -127,7 +127,7 @@ var fs = require('fs'),
 			* 
 			* @memberof MediaController
 			*/
-		function imageLarge (imagePath, destPath, callback) {
+		function _imageLarge (imagePath, destPath, callback) {
 			gm(imagePath)
 				.resize(1100, 1100)
 				.autoOrient()
@@ -144,7 +144,7 @@ var fs = require('fs'),
 			* 
 			* @memberof MediaController
 			*/
-		function imageBackground (imagePath, destPath, callback) {
+		function _imageBackground (imagePath, destPath, callback) {
 			gm(imagePath)
 				.blur(30, 20)
 				.resize(800, 800)
