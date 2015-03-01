@@ -1,8 +1,8 @@
-var path		= require('path'),
-		hound		= require('hound'),
-		exif		= require('exif2'),
-		http 		= require('http'),
-		MediaController = require('./media');
+var path						= require('path'),
+		hound						= require('hound'),
+		exif						= require('exif2'),
+		http						= require('http'),
+		MediaController	= require('./media');
 
 /** 
 	* MediaTasks tasks watch the media directory for new, changed, or deleted images
