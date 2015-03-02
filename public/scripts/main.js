@@ -1,7 +1,3 @@
-require('./dependencies');
-require('./components/header');
-require('./components/gallery');
-require('./components/detail');
-require('./components/footer');
-require('./components/app');
-require('./routes');
+var Isotope 		= require('isotope-layout'),
+		Router 			= require('react-router'),
+		Components 	= require('./components');
