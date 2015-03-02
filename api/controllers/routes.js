@@ -1,5 +1,5 @@
-var db = require('../config/db'),
-		FirebaseClient = require('firebase-client'),
+var db							= require('../config/db'),
+		FirebaseClient	= require('firebase-client'),
 		firebase;
 
 firebase = new FirebaseClient({
@@ -32,7 +32,6 @@ firebase = new FirebaseClient({
 			* @public
 			*/
 		RouteController.getMedia = function (req, res) {
-			console.log('req: ' + req, 'res ' + res);
 			firebase
 				.get('media')
 				.then(function (data) {
