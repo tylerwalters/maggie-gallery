@@ -48,10 +48,16 @@ gulp.task('browserify', function () {
 		return b.bundle();
 	});
 
-	return gulp.src('public/scripts/**/*.js')
-		.pipe(concat('main.js'))
+	return gulp.src('public/scripts/main.js')
 		.pipe(browserified)
+		.pipe(concat('bundle.js'))
 		.pipe(gulp.dest('public/scripts'));
+});
+
+gulp.task('watch', function () {
+	gulp.watch('public/styles/stylus/**/*.styl', ['stylus']);
+	gulp.watch('public/scripts/jsx/**/*.jsx', ['jsx']);
+	gulp.watch(['public/scripts/**/*.js', '!public/scripts/bundle.js'], ['browserify']);
 });
 
 gulp.task('default', ['lint', 'css-min', 'jsx', 'browserify']);
