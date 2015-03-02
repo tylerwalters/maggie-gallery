@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var GalleryImage = React.createClass({
 	render: function () {
 		return (

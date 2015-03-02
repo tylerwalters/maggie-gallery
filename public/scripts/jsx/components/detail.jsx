@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var DetailImage = React.createClass({
 	render: function () {
 		return (

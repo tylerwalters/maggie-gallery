@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var Footer = React.createClass({
 	render: function (data) {
 		return (

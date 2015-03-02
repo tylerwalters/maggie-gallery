@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var Logo = React.createClass({
 	render: function () {
 		return (
