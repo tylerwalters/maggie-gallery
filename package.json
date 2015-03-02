@@ -48,6 +48,7 @@
     "supertest": "^0.15.0",
     "gulp-react": "^2.0.0",
     "vinyl-transform": "^1.0.0",
-    "browserify": "^9.0.3"
+    "browserify": "^9.0.3",
+    "gulp-sourcemaps": "^1.5.0"
   }
 }
