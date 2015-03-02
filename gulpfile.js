@@ -29,10 +29,15 @@ gulp.task('css-min', function () {
 });
 
 gulp.task('jsx', function () {
-	var react = require('gulp-react');
+	var react				= require('gulp-react'),
+			concat			= require('gulp-concat'),
+			sourcemaps	= require('gulp-sourcemaps');
 	
-	return gulp.src('public/scripts/jsx/**/*.jsx')
+	return gulp.src(['public/scripts/jsx/components/header.jsx', 'public/scripts/jsx/components/gallery.jsx', 'public/scripts/jsx/components/detail.jsx', 'public/scripts/jsx/components/footer.jsx', 'public/scripts/jsx/components/app.jsx', 'public/scripts/jsx/routes.jsx'])
+		.pipe(sourcemaps.init())
 		.pipe(react({harmony: false}))
+		.pipe(concat('components.js'))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/scripts'));
 });
 
