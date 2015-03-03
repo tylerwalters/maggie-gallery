@@ -1,8 +1,8 @@
-var About = React.createClass({
+var Donate = React.createClass({
 	render: function (data) {
 		return (
 			<main className="content pure-g">
-				<h1>About Maggie</h1>
+				<h1>Donate</h1>
 				<p>About Maggie.</p>
 			</main>
 		);
