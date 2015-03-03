@@ -32,7 +32,7 @@ var fs = require('fs'),
 				if (err)
 					throw err;
 
-				console.log('Mobile image created: ' + destPath);
+				console.log('New images created for: ' + filename);
 			};
 
 			_imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
@@ -94,7 +94,7 @@ var fs = require('fs'),
 			*/
 		function _imageDesktop (imagePath, destPath, callback) {
 			gm(imagePath)
-				.resize(600, 700)
+				.resize(800, 700)
 				.autoOrient()
 				.noProfile()
 				.write(destPath, callback);
