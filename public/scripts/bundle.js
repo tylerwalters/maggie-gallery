@@ -24856,7 +24856,7 @@ var Header = React.createClass({displayName: "Header",
 var GalleryImage = React.createClass({displayName: "GalleryImage",
 	render: function () {
 		return (
-			React.createElement("div", {className: "gallery__image"}, 
+			React.createElement("div", {className: this.props.className}, 
 				React.createElement("img", {src: this.props.src, alt: this.props.title})
 			)
 		)
@@ -24867,13 +24867,38 @@ var Gallery = React.createClass({displayName: "Gallery",
 	render: function (data) {
 		return (
 			React.createElement("main", {id: "gallery", className: "content pure-g isotope"}, 
-				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie"}), 
-				React.createElement(GalleryImage, {src: "../images/grandparents-day.desk.jpg", title: "grandparents-day"}), 
-				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie"}), 
-				React.createElement(GalleryImage, {src: "../images/grandparents-day.desk.jpg", title: "grandparents-day"}), 
-				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie"}), 
-				React.createElement(GalleryImage, {src: "../images/grandparents-day.desk.jpg", title: "grandparents-day"}), 
-				React.createElement(GalleryImage, {src: "../images/grandparents-day.desk.jpg", title: "grandparents-day"})
+				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0717.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0720.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0745.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0712.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0751.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0769.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0770.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0790.desk.jpg", title: "grandparents-day", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0771.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/2012-07-31_13-18-45_503.desk.jpg", title: "grandparents-day", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0736.desk.jpg", title: "grandparents-day", className: "gallery__image"})
+			)
+		);
+	}
+});
+var About = React.createClass({displayName: "About",
+	render: function (data) {
+		return (
+			React.createElement("main", {className: "content pure-g"}, 
+				React.createElement("h1", null, "About Maggie"), 
+				React.createElement("p", null, "About Maggie.")
+			)
+		);
+	}
+});
+var Donate = React.createClass({displayName: "Donate",
+	render: function (data) {
+		return (
+			React.createElement("main", {className: "content pure-g"}, 
+				React.createElement("h1", null, "Donate"), 
+				React.createElement("p", null, "About Maggie.")
 			)
 		);
 	}
@@ -24922,7 +24947,7 @@ var App = React.createClass({displayName: "App",
 		return (
 			React.createElement("div", {class: "page"}, 
 				React.createElement(Header, null), 
-				React.createElement(Gallery, null), 
+				React.createElement(Router.RouteHandler, null), 
 				React.createElement(Footer, null)
 			)
 		);
@@ -24933,7 +24958,8 @@ var App = React.createClass({displayName: "App",
 // 	{filename: "mom-maggie-and-marie", extension: "jpg", type: "photo", title: "mom-maggie-and-marie"}
 // ];
 
-var Router 	= require('react-router'),
+var Isotope = require('isotope-layout'),
+		Router 	= require('react-router'),
 		DefaultRoute = Router.DefaultRoute,
 		Link = Router.Link,
 		Route = Router.Route,
@@ -24949,13 +24975,24 @@ routes = (
 	)
 )
 
-Router.run(routes, function (Handler) {
-	React.render(React.createElement(Handler, null), document.getElementById('container'))
+Router.run(routes, Router.HistoryLocation, function (Handler) {
+	React.render(React.createElement(Handler, null), document.body);
 });
+
+(function() {
+  
+  var gallery = document.querySelector('#gallery');
+
+	var iso = new Isotope(gallery, {
+    itemSelector: '.gallery__image',
+    masonry: {}
+  });
+
+})();
 
 // React.render(<App />, document.getElementById('container'));
 
-},{"react-router":41}],203:[function(require,module,exports){
+},{"isotope-layout":2,"react-router":41}],203:[function(require,module,exports){
 var Isotope 		= require('isotope-layout'),
 		Router 			= require('react-router'),
 		Components 	= require('./components');
