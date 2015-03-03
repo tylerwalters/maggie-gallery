@@ -24986,8 +24986,9 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 	var iso = new Isotope(gallery, {
 		itemSelector: '.gallery__image',
 		masonry: {
-			columnWidth: 50,
-			gutter: 10
+			columnWidth: 100,
+			gutter: 0,
+			isFitWidth: true
 		}
 	});
 
