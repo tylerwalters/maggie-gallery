@@ -35,11 +35,11 @@ var fs = require('fs'),
 				console.log('Mobile image created: ' + destPath);
 			};
 
-			MediaController._imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
-			MediaController._imageDesktop(imagePath, destPath + filename + '.' + 'desk' + '.' + extension, callback);
-			MediaController._imageThumb(imagePath, destPath + filename + '.' + 'thumb' + '.' + extension, callback);
-			MediaController._imageLarge(imagePath, destPath + filename + '.' + 'large' + '.' + extension, callback);
-			MediaController._imageBackground(imagePath, destPath + filename + '.' + 'bg' + '.' + extension, callback);
+			_imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
+			_imageDesktop(imagePath, destPath + filename + '.' + 'desk' + '.' + extension, callback);
+			_imageThumb(imagePath, destPath + filename + '.' + 'thumb' + '.' + extension, callback);
+			_imageLarge(imagePath, destPath + filename + '.' + 'large' + '.' + extension, callback);
+			_imageBackground(imagePath, destPath + filename + '.' + 'bg' + '.' + extension, callback);
 		};
 
 		/**
