@@ -3,7 +3,8 @@
 // 	{filename: "mom-maggie-and-marie", extension: "jpg", type: "photo", title: "mom-maggie-and-marie"}
 // ];
 
-var Router 	= require('react-router'),
+var Isotope = require('isotope-layout'),
+		Router 	= require('react-router'),
 		DefaultRoute = Router.DefaultRoute,
 		Link = Router.Link,
 		Route = Router.Route,
@@ -19,8 +20,19 @@ routes = (
 	</Route>
 )
 
-Router.run(routes, function (Handler) {
-	React.render(<Handler/>, document.getElementById('container'))
+Router.run(routes, Router.HistoryLocation, function (Handler) {
+	React.render(<Handler/>, document.body);
 });
+
+(function() {
+  
+  var gallery = document.querySelector('#gallery');
+
+	var iso = new Isotope(gallery, {
+    itemSelector: '.gallery__image',
+    masonry: {}
+  });
+
+})();
 
 // React.render(<App />, document.getElementById('container'));
