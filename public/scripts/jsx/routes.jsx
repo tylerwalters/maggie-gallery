@@ -5,6 +5,7 @@
 
 var Isotope = require('isotope-layout'),
 		Router 	= require('react-router'),
+		imagesLoaded = require('imagesloaded'),
 		DefaultRoute = Router.DefaultRoute,
 		Link = Router.Link,
 		Route = Router.Route,
@@ -24,18 +25,17 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 	React.render(<Handler/>, document.body);
 });
 
-(function() {
+(function () {
+	var gallery = document.querySelector('#gallery'),
+			iso;
 
-	var gallery = document.querySelector('#gallery');
-
-	var iso = new Isotope(gallery, {
-		itemSelector: '.gallery__image',
-		masonry: {
-			columnWidth: '.gallery__image--grid-set',
-			gutter: 0
-		}
-	});
-
+	imagesLoaded(gallery, function () {
+		iso = new Isotope(gallery, {
+			itemSelector: '.gallery__image',
+			masonry: {
+				columnWidth: '.gallery__image--grid-set',
+				gutter: 0
+			}
+		});
+	})
 })();
-
-// React.render(<App />, document.getElementById('container'));
