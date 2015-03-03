@@ -59,7 +59,7 @@ process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
 /*!
- * Isotope v2.1.0
+ * Isotope v2.1.1
  * Filter & sort magical layouts
  * http://isotope.metafizzy.co
  */
@@ -237,7 +237,23 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     this.option( opts );
     this._getIsInstant();
     // filter, sort, and layout
-    this.filteredItems = this._filter( this.items );
+
+    // filter
+    var filtered = this._filter( this.items );
+    this.filteredItems = filtered.matches;
+
+    var _this = this;
+    function hideReveal() {
+      _this.reveal( filtered.needReveal );
+      _this.hide( filtered.needHide );
+    }
+
+    if ( this._isInstant ) {
+      this._noTransition( hideReveal );
+    } else {
+      hideReveal();
+    }
+
     this._sort();
     this._layout();
   };
@@ -286,19 +302,12 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
       }
     }
 
-    var _this = this;
-    function hideReveal() {
-      _this.reveal( hiddenMatched );
-      _this.hide( visibleUnmatched );
-    }
-
-    if ( this._isInstant ) {
-      this._noTransition( hideReveal );
-    } else {
-      hideReveal();
-    }
-
-    return matches;
+    // return collections of items to be manipulated
+    return {
+      matches: matches,
+      needReveal: hiddenMatched,
+      needHide: visibleUnmatched
+    };
   };
 
   // get a jQuery, function, or a matchesSelector test given the filter
@@ -516,6 +525,7 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     if ( !items.length ) {
       return;
     }
+    // filter, layout, reveal new items
     var filteredItems = this._filterRevealAdded( items );
     // add to filteredItems
     this.filteredItems = this.filteredItems.concat( filteredItems );
@@ -527,28 +537,26 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     if ( !items.length ) {
       return;
     }
-    // add items to beginning of collection
-    var previousItems = this.items.slice(0);
-    this.items = items.concat( previousItems );
     // start new layout
     this._resetLayout();
     this._manageStamps();
-    // layout new stuff without transition
+    // filter, layout, reveal new items
     var filteredItems = this._filterRevealAdded( items );
     // layout previous items
-    this.layoutItems( previousItems );
-    // add to filteredItems
+    this.layoutItems( this.filteredItems );
+    // add to items and filteredItems
     this.filteredItems = filteredItems.concat( this.filteredItems );
+    this.items = items.concat( this.items );
   };
 
   Isotope.prototype._filterRevealAdded = function( items ) {
-    var filteredItems = this._noTransition( function() {
-      return this._filter( items );
-    });
-    // layout and reveal just the new items
-    this.layoutItems( filteredItems, true );
-    this.reveal( filteredItems );
-    return items;
+    var filtered = this._filter( items );
+    this.hide( filtered.needHide );
+    // reveal all new items
+    this.reveal( filtered.matches );
+    // layout new items, no transition
+    this.layoutItems( filtered.matches, true );
+    return filtered.matches;
   };
 
   /**
@@ -568,24 +576,7 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
       this.element.appendChild( item.element );
     }
     // filter new stuff
-    /*
-    // this way adds hides new filtered items with NO transition
-    // so user can't see if new hidden items have been inserted
-    var filteredInsertItems;
-    this._noTransition( function() {
-      filteredInsertItems = this._filter( items );
-      // hide all new items
-      this.hide( filteredInsertItems );
-    });
-    // */
-    // this way hides new filtered items with transition
-    // so user at least sees that something has been added
-    var filteredInsertItems = this._filter( items );
-    // hide all newitems
-    this._noTransition( function() {
-      this.hide( filteredInsertItems );
-    });
-    // */
+    var filteredInsertItems = this._filter( items ).matches;
     // set flag
     for ( i=0; i < len; i++ ) {
       items[i].isLayoutInstant = true;
@@ -1571,7 +1562,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 },{}],11:[function(require,module,exports){
 /*!
- * Masonry v3.2.1
+ * Masonry v3.2.2
  * Cascading grid layout library
  * http://masonry.desandro.com
  * MIT License
@@ -1766,7 +1757,8 @@ if ( typeof define === 'function' && define.amd ) {
       'get-size/get-size'
     ],
     masonryDefinition );
-} else if (typeof exports === 'object') {
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
   module.exports = masonryDefinition(
     require('outlayer'),
     require('get-size')
@@ -24964,7 +24956,7 @@ Router.run(routes, function (Handler) {
 // React.render(<App />, document.getElementById('container'));
 
 },{"react-router":41}],203:[function(require,module,exports){
-var Isotope = require('isotope-layout'),
-		Router 	= require('react-router'),
-		Header 	= require('./components');
+var Isotope 		= require('isotope-layout'),
+		Router 			= require('react-router'),
+		Components 	= require('./components');
 },{"./components":202,"isotope-layout":2,"react-router":41}]},{},[203]);
