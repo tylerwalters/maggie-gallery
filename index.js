@@ -9,17 +9,13 @@ var express					= require('express'),
 
 // configuration ===========================================
 
-/* Database */
-var db = require('./api/config/db');
-mongoose.connect(db.app);
-
 /* Port */
 var port = process.env.PORT || 8080;
 
 /* API Parsing */
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({type: 'application/vnd.api+json'}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 /* Assets */
