@@ -15,6 +15,18 @@ I want to have the ability for approved users to update and add to the image dat
 * RESTful API backend built on Node.js
 * Backbone + Ractive frontend
 
+## Linux Dependencies
+
+exiftool
+
+		sudo apt-get install libimage-exiftool-perl
+
+graphicsmagick
+
+		sudo add-apt-repository ppa:dhor/myway
+		sudo apt-get update
+		sudo apt-get install graphicsmagick
+
 ## API Routes
 
 All API routes return JSON.
