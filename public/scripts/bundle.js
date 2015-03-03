@@ -25363,18 +25363,4 @@ var Isotope 		= require('isotope-layout'),
 		Router 			= require('react-router'),
 		imagesLoaded = require('imagesloaded'),
 		Components 	= require('./components');
-
-(function() {
-
-	var gallery = document.querySelector('#gallery');
-
-	var iso = new Isotope(gallery, {
-		itemSelector: '.gallery__image',
-		masonry: {
-			columnWidth: '.gallery__image--grid-set',
-			gutter: 0
-		}
-	});
-
-})();
 },{"./components":205,"imagesloaded":2,"isotope-layout":5,"react-router":44}]},{},[206]);
