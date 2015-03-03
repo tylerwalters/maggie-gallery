@@ -59,7 +59,7 @@ process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
 /*!
- * Isotope v2.1.1
+ * Isotope v2.1.0
  * Filter & sort magical layouts
  * http://isotope.metafizzy.co
  */
@@ -237,23 +237,7 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     this.option( opts );
     this._getIsInstant();
     // filter, sort, and layout
-
-    // filter
-    var filtered = this._filter( this.items );
-    this.filteredItems = filtered.matches;
-
-    var _this = this;
-    function hideReveal() {
-      _this.reveal( filtered.needReveal );
-      _this.hide( filtered.needHide );
-    }
-
-    if ( this._isInstant ) {
-      this._noTransition( hideReveal );
-    } else {
-      hideReveal();
-    }
-
+    this.filteredItems = this._filter( this.items );
     this._sort();
     this._layout();
   };
@@ -302,12 +286,19 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
       }
     }
 
-    // return collections of items to be manipulated
-    return {
-      matches: matches,
-      needReveal: hiddenMatched,
-      needHide: visibleUnmatched
-    };
+    var _this = this;
+    function hideReveal() {
+      _this.reveal( hiddenMatched );
+      _this.hide( visibleUnmatched );
+    }
+
+    if ( this._isInstant ) {
+      this._noTransition( hideReveal );
+    } else {
+      hideReveal();
+    }
+
+    return matches;
   };
 
   // get a jQuery, function, or a matchesSelector test given the filter
@@ -525,7 +516,6 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     if ( !items.length ) {
       return;
     }
-    // filter, layout, reveal new items
     var filteredItems = this._filterRevealAdded( items );
     // add to filteredItems
     this.filteredItems = this.filteredItems.concat( filteredItems );
@@ -537,26 +527,28 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     if ( !items.length ) {
       return;
     }
+    // add items to beginning of collection
+    var previousItems = this.items.slice(0);
+    this.items = items.concat( previousItems );
     // start new layout
     this._resetLayout();
     this._manageStamps();
-    // filter, layout, reveal new items
+    // layout new stuff without transition
     var filteredItems = this._filterRevealAdded( items );
     // layout previous items
-    this.layoutItems( this.filteredItems );
-    // add to items and filteredItems
+    this.layoutItems( previousItems );
+    // add to filteredItems
     this.filteredItems = filteredItems.concat( this.filteredItems );
-    this.items = items.concat( this.items );
   };
 
   Isotope.prototype._filterRevealAdded = function( items ) {
-    var filtered = this._filter( items );
-    this.hide( filtered.needHide );
-    // reveal all new items
-    this.reveal( filtered.matches );
-    // layout new items, no transition
-    this.layoutItems( filtered.matches, true );
-    return filtered.matches;
+    var filteredItems = this._noTransition( function() {
+      return this._filter( items );
+    });
+    // layout and reveal just the new items
+    this.layoutItems( filteredItems, true );
+    this.reveal( filteredItems );
+    return items;
   };
 
   /**
@@ -576,7 +568,24 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
       this.element.appendChild( item.element );
     }
     // filter new stuff
-    var filteredInsertItems = this._filter( items ).matches;
+    /*
+    // this way adds hides new filtered items with NO transition
+    // so user can't see if new hidden items have been inserted
+    var filteredInsertItems;
+    this._noTransition( function() {
+      filteredInsertItems = this._filter( items );
+      // hide all new items
+      this.hide( filteredInsertItems );
+    });
+    // */
+    // this way hides new filtered items with transition
+    // so user at least sees that something has been added
+    var filteredInsertItems = this._filter( items );
+    // hide all newitems
+    this._noTransition( function() {
+      this.hide( filteredInsertItems );
+    });
+    // */
     // set flag
     for ( i=0; i < len; i++ ) {
       items[i].isLayoutInstant = true;
@@ -1562,7 +1571,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 },{}],11:[function(require,module,exports){
 /*!
- * Masonry v3.2.2
+ * Masonry v3.2.1
  * Cascading grid layout library
  * http://masonry.desandro.com
  * MIT License
@@ -1757,8 +1766,7 @@ if ( typeof define === 'function' && define.amd ) {
       'get-size/get-size'
     ],
     masonryDefinition );
-} else if ( typeof exports === 'object' ) {
-  // CommonJS
+} else if (typeof exports === 'object') {
   module.exports = masonryDefinition(
     require('outlayer'),
     require('get-size')
@@ -24866,7 +24874,19 @@ var GalleryImage = React.createClass({displayName: "GalleryImage",
 var Gallery = React.createClass({displayName: "Gallery",
 	render: function (data) {
 		return (
-			React.createElement("main", {id: "gallery", className: "content pure-g isotope"}, 
+			React.createElement("main", {id: "gallery", className: "content gallery isotope"}, 
+				React.createElement(GalleryImage, {src: "../images/IMAG0717.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image gallery__image--grid-set"}), 
+				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0720.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0745.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0712.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0751.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0769.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0770.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0790.desk.jpg", title: "grandparents-day", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0771.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
+				React.createElement(GalleryImage, {src: "../images/2012-07-31_13-18-45_503.desk.jpg", title: "grandparents-day", className: "gallery__image gallery__image--w2"}), 
+				React.createElement(GalleryImage, {src: "../images/IMAG0736.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
 				React.createElement(GalleryImage, {src: "../images/mom-maggie-and-marie.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image gallery__image--w2"}), 
 				React.createElement(GalleryImage, {src: "../images/IMAG0717.desk.jpg", title: "mom-maggie-and-marie", className: "gallery__image"}), 
 				React.createElement(GalleryImage, {src: "../images/IMAG0720.desk.jpg", title: "grandparents-day", className: "gallery__image"}), 
@@ -24986,9 +25006,8 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 	var iso = new Isotope(gallery, {
 		itemSelector: '.gallery__image',
 		masonry: {
-			columnWidth: 100,
-			gutter: 0,
-			isFitWidth: true
+			columnWidth: '.gallery__image--grid-set',
+			gutter: 0
 		}
 	});
 
