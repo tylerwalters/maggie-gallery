@@ -24980,13 +24980,16 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 });
 
 (function() {
-  
-  var gallery = document.querySelector('#gallery');
+
+	var gallery = document.querySelector('#gallery');
 
 	var iso = new Isotope(gallery, {
-    itemSelector: '.gallery__image',
-    masonry: {}
-  });
+		itemSelector: '.gallery__image',
+		masonry: {
+			columnWidth: 50,
+			gutter: 10
+		}
+	});
 
 })();
 

@@ -391,6 +391,12 @@ img {
   max-width: 100%;
 }
 .gallery,
+.gallery__image {
+  width: 200px;
+}
+.gallery__image--w2 {
+  width: 400px;
+}
 .detail__image {
   display: block;
   float: left;
