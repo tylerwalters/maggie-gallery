@@ -12,32 +12,20 @@ gulp.task('stylus', function () {
 	var stylus 	= require('gulp-stylus'),
 			nib			= require('nib');
 
-	return gulp.src('public/styles/stylus/main.styl')
+	return gulp.src('build/styles/stylus/main.styl')
 		.pipe(stylus({use: [nib()]}))
-		.pipe(gulp.dest('./public/styles'));
-});
-
-gulp.task('css-min', function () {
-	var stylus 		= require('gulp-stylus'),
-			nib				= require('nib'),
-			minifycss = require('gulp-minify-css');
-
-	return gulp.src('public/styles/stylus/main.styl')
-		.pipe(stylus({use: [nib()]}))
-		.pipe(minifycss())
-		.pipe(gulp.dest('./public/styles'));
+		.pipe(gulp.dest('public/styles'));
 });
 
 gulp.task('jsx', function () {
 	var react				= require('gulp-react'),
-			concat			= require('gulp-concat'),
 			sourcemaps	= require('gulp-sourcemaps');
 	
 	return gulp.src('build/scripts/jsx/**/*.jsx')
 		.pipe(sourcemaps.init())
 		.pipe(react({harmony: false}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('./build/scripts'));
+		.pipe(gulp.dest('build/scripts'));
 });
 
 gulp.task('browserify', function () {
@@ -52,16 +40,36 @@ gulp.task('browserify', function () {
 		return b.bundle();
 	});
 
-	return gulp.src('public/scripts/main.js')
+	return gulp.src('build/scripts/main.js')
 		.pipe(browserified)
-		.pipe(concat('bundle.js'))
+		.pipe(gulp.dest('public/scripts'));
+});
+
+gulp.task('css-min', function () {
+	var minifycss = require('gulp-minify-css'),
+			concat		= require('gulp-concat');
+
+	return gulp.src('public/styles/main.css')
+		.pipe(minifycss())
+		.pipe(concat('main.min.css'))
+		.pipe(gulp.dest('public/styles'));
+});
+
+gulp.task('js-min', function () {
+	var uglify = require('gulp-uglify'),
+			concat = require('gulp-concat');
+
+	return gulp.src('public/scripts/main.js')
+		.pipe(uglify())
+		.pipe(concat('main.min.js'))
 		.pipe(gulp.dest('public/scripts'));
 });
 
 gulp.task('watch', function () {
-	gulp.watch('public/styles/stylus/**/*.styl', ['stylus']);
-	gulp.watch('public/scripts/jsx/**/*.jsx', ['jsx']);
-	gulp.watch(['public/scripts/**/*.js', '!public/scripts/bundle.js'], ['browserify']);
+	gulp.watch('build/styles/stylus/**/*.styl', ['stylus']);
+	gulp.watch('build/scripts/jsx/**/*.jsx', ['jsx']);
+	gulp.watch('build/scripts/**/*.js', ['browserify']);
 });
 
-gulp.task('default', ['lint', 'css-min', 'jsx', 'browserify']);
+gulp.task('minify', ['css-min', 'js-min']);
+gulp.task('build', ['lint', 'stylus', 'jsx', 'browserify', 'css-min', 'js-min']);
