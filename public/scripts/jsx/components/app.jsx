@@ -3,7 +3,7 @@ var App = React.createClass({
 		return (
 			<div class="page">
 				<Header />
-				<Router.RouteHandler/>
+				<RouteHandler {...this.props}/>
 				<Footer />
 			</div>
 		);
