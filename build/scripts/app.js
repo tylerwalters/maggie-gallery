@@ -1,50 +1,3 @@
-var data = {
-	photos: [
-		{
-			filename: 'IMAG0717',
-			extension: 'jpg',
-			title: 'IMAG0717',
-			layout: 'portrait'
-		},
-		{
-			filename: 'mom-maggie-and-marie',
-			extension: 'jpg',
-			title: 'mom-maggie-and-marie',
-			layout: 'landscape'
-		},
-		{
-			filename: 'IMAG0720',
-			extension: 'jpg',
-			title: 'IMAG0720',
-			layout: 'portrait'
-		},
-		{
-			filename: 'IMAG0745',
-			extension: 'jpg',
-			title: 'IMAG0745',
-			layout: 'portrait'
-		},
-		{
-			filename: 'IMAG0712',
-			extension: 'jpg',
-			title: 'IMAG0712',
-			layout: 'portrait'
-		},
-		{
-			filename: 'IMAG0751',
-			extension: 'jpg',
-			title: 'IMAG0751',
-			layout: 'portrait'
-		},
-		{
-			filename: 'grandparents-day',
-			extension: 'jpg',
-			title: 'grandparents-day',
-			layout: 'landscape'
-		}
-	]
-}
-
 var Isotope = require('isotope-layout'),
 		Router 	= require('react-router'),
 		imagesLoaded = require('imagesloaded'),
@@ -54,13 +7,13 @@ var Isotope = require('isotope-layout'),
 		Footer = require('./components/footer'),
 		Gallery = require('./components/gallery'),
 		Header = require('./components/header'),
-		Routes = require('./components/Routes'),
+		Routes = require('./components/routes'),
 		Index = require('./components/index');
 
 
-Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(Routes, Router.HistoryLocation, function (Handler) {
 	var data = data;
-	React.render(React.createElement(Handler, {data: data}), document.body);
+	React.render(React.createElement(Handler, null), document.body);
 });
 
 (function () {
@@ -77,4 +30,4 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 		});
 	})
 })();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJhcHAuanN4Il0sInNvdXJjZXNDb250ZW50IjpbInZhciBkYXRhID0ge1xuXHRwaG90b3M6IFtcblx0XHR7XG5cdFx0XHRmaWxlbmFtZTogJ0lNQUcwNzE3Jyxcblx0XHRcdGV4dGVuc2lvbjogJ2pwZycsXG5cdFx0XHR0aXRsZTogJ0lNQUcwNzE3Jyxcblx0XHRcdGxheW91dDogJ3BvcnRyYWl0J1xuXHRcdH0sXG5cdFx0e1xuXHRcdFx0ZmlsZW5hbWU6ICdtb20tbWFnZ2llLWFuZC1tYXJpZScsXG5cdFx0XHRleHRlbnNpb246ICdqcGcnLFxuXHRcdFx0dGl0bGU6ICdtb20tbWFnZ2llLWFuZC1tYXJpZScsXG5cdFx0XHRsYXlvdXQ6ICdsYW5kc2NhcGUnXG5cdFx0fSxcblx0XHR7XG5cdFx0XHRmaWxlbmFtZTogJ0lNQUcwNzIwJyxcblx0XHRcdGV4dGVuc2lvbjogJ2pwZycsXG5cdFx0XHR0aXRsZTogJ0lNQUcwNzIwJyxcblx0XHRcdGxheW91dDogJ3BvcnRyYWl0J1xuXHRcdH0sXG5cdFx0e1xuXHRcdFx0ZmlsZW5hbWU6ICdJTUFHMDc0NScsXG5cdFx0XHRleHRlbnNpb246ICdqcGcnLFxuXHRcdFx0dGl0bGU6ICdJTUFHMDc0NScsXG5cdFx0XHRsYXlvdXQ6ICdwb3J0cmFpdCdcblx0XHR9LFxuXHRcdHtcblx0XHRcdGZpbGVuYW1lOiAnSU1BRzA3MTInLFxuXHRcdFx0ZXh0ZW5zaW9uOiAnanBnJyxcblx0XHRcdHRpdGxlOiAnSU1BRzA3MTInLFxuXHRcdFx0bGF5b3V0OiAncG9ydHJhaXQnXG5cdFx0fSxcblx0XHR7XG5cdFx0XHRmaWxlbmFtZTogJ0lNQUcwNzUxJyxcblx0XHRcdGV4dGVuc2lvbjogJ2pwZycsXG5cdFx0XHR0aXRsZTogJ0lNQUcwNzUxJyxcblx0XHRcdGxheW91dDogJ3BvcnRyYWl0J1xuXHRcdH0sXG5cdFx0e1xuXHRcdFx0ZmlsZW5hbWU6ICdncmFuZHBhcmVudHMtZGF5Jyxcblx0XHRcdGV4dGVuc2lvbjogJ2pwZycsXG5cdFx0XHR0aXRsZTogJ2dyYW5kcGFyZW50cy1kYXknLFxuXHRcdFx0bGF5b3V0OiAnbGFuZHNjYXBlJ1xuXHRcdH1cblx0XVxufVxuXG52YXIgSXNvdG9wZSA9IHJlcXVpcmUoJ2lzb3RvcGUtbGF5b3V0JyksXG5cdFx0Um91dGVyIFx0PSByZXF1aXJlKCdyZWFjdC1yb3V0ZXInKSxcblx0XHRpbWFnZXNMb2FkZWQgPSByZXF1aXJlKCdpbWFnZXNsb2FkZWQnKSxcblx0XHRBYm91dCA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9hYm91dCcpLFxuXHRcdERldGFpbCA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9kZXRhaWwnKSxcblx0XHREb25hdGUgPSByZXF1aXJlKCcuL2NvbXBvbmVudHMvZG9uYXRlJyksXG5cdFx0Rm9vdGVyID0gcmVxdWlyZSgnLi9jb21wb25lbnRzL2Zvb3RlcicpLFxuXHRcdEdhbGxlcnkgPSByZXF1aXJlKCcuL2NvbXBvbmVudHMvZ2FsbGVyeScpLFxuXHRcdEhlYWRlciA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9oZWFkZXInKSxcblx0XHRSb3V0ZXMgPSByZXF1aXJlKCcuL2NvbXBvbmVudHMvUm91dGVzJyksXG5cdFx0SW5kZXggPSByZXF1aXJlKCcuL2NvbXBvbmVudHMvaW5kZXgnKTtcblxuXG5Sb3V0ZXIucnVuKHJvdXRlcywgUm91dGVyLkhpc3RvcnlMb2NhdGlvbiwgZnVuY3Rpb24gKEhhbmRsZXIpIHtcblx0dmFyIGRhdGEgPSBkYXRhO1xuXHRSZWFjdC5yZW5kZXIoPEhhbmRsZXIgZGF0YT17ZGF0YX0gLz4sIGRvY3VtZW50LmJvZHkpO1xufSk7XG5cbihmdW5jdGlvbiAoKSB7XG5cdHZhciBnYWxsZXJ5ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2dhbGxlcnknKSxcblx0XHRcdGlzbztcblxuXHRpbWFnZXNMb2FkZWQoZ2FsbGVyeSwgZnVuY3Rpb24gKCkge1xuXHRcdGlzbyA9IG5ldyBJc290b3BlKGdhbGxlcnksIHtcblx0XHRcdGl0ZW1TZWxlY3RvcjogJy5nYWxsZXJ5X19pbWFnZScsXG5cdFx0XHRtYXNvbnJ5OiB7XG5cdFx0XHRcdGNvbHVtbldpZHRoOiAnLmdhbGxlcnlfX2ltYWdlLS1wb3J0cmFpdCcsXG5cdFx0XHRcdGd1dHRlcjogMFxuXHRcdFx0fVxuXHRcdH0pO1xuXHR9KVxufSkoKTsiXSwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJhcHAuanN4Il0sInNvdXJjZXNDb250ZW50IjpbInZhciBJc290b3BlID0gcmVxdWlyZSgnaXNvdG9wZS1sYXlvdXQnKSxcblx0XHRSb3V0ZXIgXHQ9IHJlcXVpcmUoJ3JlYWN0LXJvdXRlcicpLFxuXHRcdGltYWdlc0xvYWRlZCA9IHJlcXVpcmUoJ2ltYWdlc2xvYWRlZCcpLFxuXHRcdEFib3V0ID0gcmVxdWlyZSgnLi9jb21wb25lbnRzL2Fib3V0JyksXG5cdFx0RGV0YWlsID0gcmVxdWlyZSgnLi9jb21wb25lbnRzL2RldGFpbCcpLFxuXHRcdERvbmF0ZSA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9kb25hdGUnKSxcblx0XHRGb290ZXIgPSByZXF1aXJlKCcuL2NvbXBvbmVudHMvZm9vdGVyJyksXG5cdFx0R2FsbGVyeSA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9nYWxsZXJ5JyksXG5cdFx0SGVhZGVyID0gcmVxdWlyZSgnLi9jb21wb25lbnRzL2hlYWRlcicpLFxuXHRcdFJvdXRlcyA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9yb3V0ZXMnKSxcblx0XHRJbmRleCA9IHJlcXVpcmUoJy4vY29tcG9uZW50cy9pbmRleCcpO1xuXG5cblJvdXRlci5ydW4oUm91dGVzLCBSb3V0ZXIuSGlzdG9yeUxvY2F0aW9uLCBmdW5jdGlvbiAoSGFuZGxlcikge1xuXHR2YXIgZGF0YSA9IGRhdGE7XG5cdFJlYWN0LnJlbmRlcig8SGFuZGxlciAvPiwgZG9jdW1lbnQuYm9keSk7XG59KTtcblxuKGZ1bmN0aW9uICgpIHtcblx0dmFyIGdhbGxlcnkgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjZ2FsbGVyeScpLFxuXHRcdFx0aXNvO1xuXG5cdGltYWdlc0xvYWRlZChnYWxsZXJ5LCBmdW5jdGlvbiAoKSB7XG5cdFx0aXNvID0gbmV3IElzb3RvcGUoZ2FsbGVyeSwge1xuXHRcdFx0aXRlbVNlbGVjdG9yOiAnLmdhbGxlcnlfX2ltYWdlJyxcblx0XHRcdG1hc29ucnk6IHtcblx0XHRcdFx0Y29sdW1uV2lkdGg6ICcuZ2FsbGVyeV9faW1hZ2UtLXBvcnRyYWl0Jyxcblx0XHRcdFx0Z3V0dGVyOiAwXG5cdFx0XHR9XG5cdFx0fSk7XG5cdH0pXG59KSgpOyJdLCJmaWxlIjoiYXBwLmpzIiwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
