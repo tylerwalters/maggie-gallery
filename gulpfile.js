@@ -33,12 +33,11 @@ gulp.task('jsx', function () {
 			concat			= require('gulp-concat'),
 			sourcemaps	= require('gulp-sourcemaps');
 	
-	return gulp.src(['public/scripts/jsx/components/header.jsx', 'public/scripts/jsx/components/gallery.jsx', 'public/scripts/jsx/components/about.jsx', 'public/scripts/jsx/components/donate.jsx', 'public/scripts/jsx/components/detail.jsx', 'public/scripts/jsx/components/footer.jsx', 'public/scripts/jsx/components/app.jsx', 'public/scripts/jsx/routes.jsx'])
+	return gulp.src('build/scripts/jsx/**/*.jsx')
 		.pipe(sourcemaps.init())
 		.pipe(react({harmony: false}))
-		.pipe(concat('components.js'))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('./public/scripts'));
+		.pipe(gulp.dest('./build/scripts'));
 });
 
 gulp.task('browserify', function () {
