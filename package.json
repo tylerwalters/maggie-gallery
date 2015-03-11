@@ -16,7 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.10.2",
-    "mongoose": "^3.8.19",
     "method-override": "^2.3.0",
     "body-parser": "^1.9.2",
     "hound": "^1.0.4",
@@ -30,10 +29,10 @@
     "isotope-layout": "^2.1.0",
     "react-router": "^0.12.0",
     "firebase-client": "^0.1.0",
-    "localforage": "^1.2.2",
     "imagesloaded": "^3.1.8",
     "fuzzysearch": "^1.0.1",
-    "aias": "^1.0.0"
+    "aias": "^1.2.0",
+    "lodash": "^3.5.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
