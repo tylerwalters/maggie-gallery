@@ -108,94 +108,13 @@ var Footer = React.createClass({displayName: "Footer",
 module.exports = Footer;
 
 },{}],6:[function(require,module,exports){
-// var data = {
-// 	photos: [
-// 		{
-// 			filename: '2012-07-31_13-18-45_503',
-// 			extension: 'jpg',
-// 			title: '2012-07-31_13-18-45_503',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'grandparents-day',
-// 			extension: 'jpg',
-// 			title: 'grandparents-day',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'IMAG0712',
-// 			extension: 'jpg',
-// 			title: 'IMAG0712',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0717',
-// 			extension: 'jpg',
-// 			title: 'IMAG0717',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0720',
-// 			extension: 'jpg',
-// 			title: 'IMAG0720',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0736',
-// 			extension: 'jpg',
-// 			title: 'IMAG0736',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0745',
-// 			extension: 'jpg',
-// 			title: 'IMAG0745',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0751',
-// 			extension: 'jpg',
-// 			title: 'IMAG0751',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0769',
-// 			extension: 'jpg',
-// 			title: 'IMAG0769',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0770',
-// 			extension: 'jpg',
-// 			title: 'IMAG0770',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0771',
-// 			extension: 'jpg',
-// 			title: 'IMAG0771',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0790',
-// 			extension: 'jpg',
-// 			title: 'IMAG0790',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'mom-maggie-and-marie',
-// 			extension: 'jpg',
-// 			title: 'mom-maggie-and-marie',
-// 			layout: 'landscape'
-// 		},
-// 	]
-// }
-
 var DataService = require('../modules/data'),
-		data;
+		data = [];
 
-DataService.initialize();
-data = DataService.getPhotos();
+DataService.setData().then(function (res) {
+	data = DataService.getPhotos(res);
+	console.log(data);
+});
 
 var GalleryImage = React.createClass({displayName: "GalleryImage",
 	render: function () {
@@ -271,25 +190,8 @@ var Header = React.createClass({displayName: "Header",
 module.exports = Header;
 
 },{}],8:[function(require,module,exports){
-var Router = require('react-router'),
-		Header = require('./header'),
-		Footer = require('./footer');
 
-var Index = React.createClass({displayName: "Index",
-	render: function () {
-		return (
-			React.createElement("div", {class: "page"}, 
-				React.createElement(Header, null), 
-				React.createElement(Router.RouteHandler, React.__spread({},  this.props)), 
-				React.createElement(Footer, null)
-			)
-		);
-	}
-});
-
-module.exports = Index;
-
-},{"./footer":5,"./header":7,"react-router":67}],9:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var Router 	= require('react-router'),
 		DefaultRoute = Router.DefaultRoute,
 		Link = Router.Link,
@@ -335,16 +237,6 @@ module.exports = (function () {
 			_data,
 			_initialized = false;
 
-	DataService.initialize = function () {
-		if (!_initialized) {
-			_initialized = true;
-
-			_data = _setData();
-			console.log('_data');
-			console.log(_data);
-		}
-	};
-
 	DataService.filterByTag = function (tags, data) {
 		var matchedSet = [];
 
@@ -378,6 +270,7 @@ module.exports = (function () {
 			return element.type === 'photo';
 		});
 
+		console.log("photos");
 		console.log(data);
 
 		return data;
@@ -412,28 +305,20 @@ module.exports = (function () {
 		return dataArray;
 	}
 
-	function _setData () {
-		var data;
-
-		if (sessionStorage.data) {
-			data = sessionStorage.getItem('data');
-			data = JSON.parse(data);
-			_parseData(data);
-			return data;
-		}
-		else {
+	DataService.setData = function () {
+		return new Promise (function () {
 			aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
 				sessionStorage.setItem('data', JSON.stringify(res));
-				data = _parseData(res);
+				_data = _parseData(res);
+				fulfill(_data);
 			});
-			return data;
-		}
-	}
+		});
+	};
 
 	return DataService;
 })();
 },{"aias":12,"lodash":39}],12:[function(require,module,exports){
-!function(e){"use strict";function t(e){console.log(e);try{return JSON.parse(e)}catch(t){return e}}function n(n,o,u){return new r(function(r,i){var s=e.XMLHttpRequest||ActiveXObject,d=new s("MSXML2.XMLHTTP.3.0");d.open(n,o,!0),d.setRequestHeader("Content-type","application/x-www-form-urlencoded"),d.onreadystatechange=function(){if(4===this.readyState)if(200===this.status){var e=t(d.responseText);r(e,d)}else i(new Error("Request responded with status "+d.status))},d.send(u)})}var r="undefined"!=typeof module&&module.exports?require("promise"):e.Promise,o={};o.get=function(e){return n("GET",e)},o.post=function(e,t){return n("POST",e,t)},o.put=function(e,t){return n("PUT",e,t)},o["delete"]=function(e){return n("DELETE",e)},"function"==typeof define&&define.amd?define("aias",function(){return o}):"undefined"!=typeof module&&module.exports?module.exports=o:e.aias=o}(this);
+!function(e){"use strict";function t(e){try{return JSON.parse(e)}catch(t){return e}}function n(n,o,u){return new r(function(r,i){var s=e.XMLHttpRequest||ActiveXObject,d=new s("MSXML2.XMLHTTP.3.0");d.open(n,o,!0),d.setRequestHeader("Content-type","application/x-www-form-urlencoded"),d.onreadystatechange=function(){if(4===this.readyState)if(200===this.status){var e=t(d.responseText);r(e,d)}else i(new Error("Request responded with status "+d.status))},d.send(u)})}var r="undefined"!=typeof module&&module.exports?require("promise"):e.Promise,o={};o.get=function(e){return n("GET",e)},o.post=function(e,t){return n("POST",e,t)},o.put=function(e,t){return n("PUT",e,t)},o["delete"]=function(e){return n("DELETE",e)},"function"==typeof define&&define.amd?define("aias",function(){return o}):"undefined"!=typeof module&&module.exports?module.exports=o:e.aias=o}(this);
 },{"promise":13}],13:[function(require,module,exports){
 'use strict';
 

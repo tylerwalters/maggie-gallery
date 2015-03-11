@@ -1,91 +1,10 @@
-// var data = {
-// 	photos: [
-// 		{
-// 			filename: '2012-07-31_13-18-45_503',
-// 			extension: 'jpg',
-// 			title: '2012-07-31_13-18-45_503',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'grandparents-day',
-// 			extension: 'jpg',
-// 			title: 'grandparents-day',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'IMAG0712',
-// 			extension: 'jpg',
-// 			title: 'IMAG0712',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0717',
-// 			extension: 'jpg',
-// 			title: 'IMAG0717',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0720',
-// 			extension: 'jpg',
-// 			title: 'IMAG0720',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0736',
-// 			extension: 'jpg',
-// 			title: 'IMAG0736',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0745',
-// 			extension: 'jpg',
-// 			title: 'IMAG0745',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0751',
-// 			extension: 'jpg',
-// 			title: 'IMAG0751',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0769',
-// 			extension: 'jpg',
-// 			title: 'IMAG0769',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0770',
-// 			extension: 'jpg',
-// 			title: 'IMAG0770',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0771',
-// 			extension: 'jpg',
-// 			title: 'IMAG0771',
-// 			layout: 'portrait'
-// 		},
-// 		{
-// 			filename: 'IMAG0790',
-// 			extension: 'jpg',
-// 			title: 'IMAG0790',
-// 			layout: 'landscape'
-// 		},
-// 		{
-// 			filename: 'mom-maggie-and-marie',
-// 			extension: 'jpg',
-// 			title: 'mom-maggie-and-marie',
-// 			layout: 'landscape'
-// 		},
-// 	]
-// }
-
 var DataService = require('../modules/data'),
-		data;
+		data = [];
 
-DataService.initialize();
-data = DataService.getPhotos();
+DataService.setData().then(function (res) {
+	data = DataService.getPhotos(res);
+	console.log(data);
+});
 
 var GalleryImage = React.createClass({
 	render: function () {
