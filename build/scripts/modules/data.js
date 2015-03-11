@@ -17,16 +17,6 @@ module.exports = (function () {
 			_data,
 			_initialized = false;
 
-	DataService.initialize = function () {
-		if (!_initialized) {
-			_initialized = true;
-
-			_data = _setData();
-			console.log('_data');
-			console.log(_data);
-		}
-	};
-
 	DataService.filterByTag = function (tags, data) {
 		var matchedSet = [];
 
@@ -60,6 +50,7 @@ module.exports = (function () {
 			return element.type === 'photo';
 		});
 
+		console.log("photos");
 		console.log(data);
 
 		return data;
@@ -94,23 +85,15 @@ module.exports = (function () {
 		return dataArray;
 	}
 
-	function _setData () {
-		var data;
-
-		if (sessionStorage.data) {
-			data = sessionStorage.getItem('data');
-			data = JSON.parse(data);
-			_parseData(data);
-			return data;
-		}
-		else {
+	DataService.setData = function () {
+		return new Promise (function () {
 			aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
 				sessionStorage.setItem('data', JSON.stringify(res));
-				data = _parseData(res);
+				_data = _parseData(res);
+				fulfill(_data);
 			});
-			return data;
-		}
-	}
+		});
+	};
 
 	return DataService;
 })();
