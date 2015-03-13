@@ -23,12 +23,12 @@ module.exports = function(app) {
 	// Photo Routes =============================================================
 	// API route handlers for /photos
 	router.route('/photos')
-		.get(RouteController.getPhotos)
-		.post(RouteController.postPhotos);
+		.get(RouteController.getPhotos);
 
-	// API route handlers for /photos/:id
-	router.route('/photos/:id')
+	// API route handlers for /photos/:filename
+	router.route('/photos/:filename')
 		.get(RouteController.getPhoto)
+		.post(RouteController.postPhoto)
 		.put(RouteController.putPhoto)
 		.delete(RouteController.deletePhoto);
 
@@ -36,12 +36,12 @@ module.exports = function(app) {
 
 	// API route handlers for /videos
 	router.route('/videos')
-		.get(RouteController.getVideos)
-		.post(RouteController.postVideos);
+		.get(RouteController.getVideos);
 
-	// API route handlers for /photos/:id
-	router.route('/videos/:id')
+	// API route handlers for /photos/:filename
+	router.route('/videos/:filename')
 		.get(RouteController.getVideo)
+		.post(RouteController.postVideo)
 		.put(RouteController.putVideo)
 		.delete(RouteController.deleteVideo);
 
