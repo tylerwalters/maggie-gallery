@@ -124,7 +124,7 @@ var path						= require('path'),
 		/**
 			* Passes the data from _prepareData() to the API that submits it to the
 			* database via an HTTP request. Then passes the data to _optimizeImage()
-			* or optimizeVideo() to prepare the media for the web.
+			* or _optimizeVideo() to prepare the media for the web.
 			* 
 			* @param {object} preparedData The data passed from perpareData().
 			* @param {string} host The hostname for the HTTP call.
@@ -139,10 +139,10 @@ var path						= require('path'),
 					data = JSON.stringify(preparedData),
 					callback;
 
-			callback = (preparedData.type === 'video') ? optimizeVideo : _optimizeImage;
+			callback = (preparedData.type === 'video') ? _optimizeVideo : _optimizeImage;
 
 			host = host || 'localhost';
-			path = (preparedData.type === 'video') ? '/api/v1/videos' : '/api/v1/photos';
+			path = (preparedData.type === 'video') ? '/api/v1/videos/' + encodeURIComponent(preparedData.filename) : '/api/v1/photos/' + encodeURIComponent(preparedData.filename);
 			port = port || 8080;
 
 			options = {
@@ -224,7 +224,7 @@ var path						= require('path'),
 			}
 
 			host = host || 'localhost';
-			path = (file.indexOf('/photos/') === -1) ? '/api/v1/videos' + encodeURIComponent(filename) : '/api/v1/photos' + encodeURIComponent(filename);
+			path = (file.indexOf('/photos/') === -1) ? '/api/v1/videos/' + encodeURIComponent(filename) : '/api/v1/photos/' + encodeURIComponent(filename);
 			port = port || 8080;
 
 			options = {
