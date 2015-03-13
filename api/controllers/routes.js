@@ -65,7 +65,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API GET endpoint for /api/v1/photos/:id.
+			* API GET endpoint for /api/v1/photos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -75,7 +75,7 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.getPhoto = function (req, res) {
 			firebase
-				.get('media/photos/' + req.params.id)
+				.get('media/photos/' + req.params.filename)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -85,7 +85,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API POST endpoint for /api/v1/photos.
+			* API POST endpoint for /api/v1/photos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -93,9 +93,9 @@ firebase = new FirebaseClient({
 			* @memberof MediaController
 			* @public
 			*/
-		RouteController.postPhotos = function (req, res) {
+		RouteController.postPhoto = function (req, res) {
 			firebase
-				.push('media/photos', req.body)
+				.set('media/photos/' + req.params.filename, req.body)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -105,7 +105,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API PUT endpoint for /api/v1/photos/:id.
+			* API PUT endpoint for /api/v1/photos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -115,7 +115,7 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.putPhoto = function (req, res) {
 			firebase
-				.update('media/photos/' + req.params.id, req.body)
+				.update('media/photos/' + req.params.filename, req.body)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -125,7 +125,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API DELETE endpoint for /api/v1/photos/:id.
+			* API DELETE endpoint for /api/v1/photos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -135,13 +135,13 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.deletePhoto = function (req, res) {
 			firebase
-			.delete('media/photos/' + req.params.id)
-			.then(function () {
-				res.json({ message: 'Successfully deleted entry ' + req.params.id });
-			})
-			.fail(function (err) {
-				res.send(err);
-			});
+				.delete('media/photos/' + req.params.filename)
+				.then(function () {
+					res.json({ message: 'Successfully deleted entry ' + req.params.filename });
+				})
+				.fail(function (err) {
+					res.send(err);
+				});
 		};
 
 		// Video Routes ===============================================================
@@ -167,7 +167,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API GET endpoint for /api/v1/videos/:id.
+			* API GET endpoint for /api/v1/videos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -177,7 +177,7 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.getVideo = function (req, res) {
 			firebase
-				.get('media/videos/' + req.params.id)
+				.get('media/videos/' + req.params.filename)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -187,7 +187,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API POST endpoint for /api/v1/videos.
+			* API POST endpoint for /api/v1/videos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -195,9 +195,9 @@ firebase = new FirebaseClient({
 			* @memberof MediaController
 			* @public
 			*/
-		RouteController.postVideos = function (req, res) {
+		RouteController.postVideo = function (req, res) {
 			firebase
-				.push('media/videos', req.body)
+				.set('media/videos/' + req.params.filename, req.body)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -207,7 +207,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API PUT endpoint for /api/v1/videos/:id.
+			* API PUT endpoint for /api/v1/videos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -217,7 +217,7 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.putVideo = function (req, res) {
 			firebase
-				.update('media/videos/' + req.params.id, req.body)
+				.update('media/videos/' + req.params.filename, req.body)
 				.then(function (data) {
 					res.json(data);
 				})
@@ -227,7 +227,7 @@ firebase = new FirebaseClient({
 		};
 
 		/**
-			* API DELETE endpoint for /api/v1/videos/:id.
+			* API DELETE endpoint for /api/v1/videos/:filename.
 			* 
 			* @param {object} req The Express request object.
 			* @param {object} res The Express response object.
@@ -237,9 +237,9 @@ firebase = new FirebaseClient({
 			*/
 		RouteController.deleteVideo = function (req, res) {
 			firebase
-			.delete('media/videos/' + req.params.id)
+			.delete('media/videos/' + req.params.filename)
 			.then(function () {
-				res.json({ message: 'Successfully deleted entry ' + req.params.id });
+				res.json({ message: 'Successfully deleted entry ' + req.params.filename });
 			})
 			.fail(function (err) {
 				res.send(err);
