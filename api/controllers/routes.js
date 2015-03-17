@@ -8,8 +8,8 @@ firebase = new FirebaseClient({
 });
 
 /** 
-	* RouteController methods handle creating, reading, updating, and deleting data from the
-	* database based on API routes. 
+	* RouteController methods handle creating, reading, updating, and deleting
+	* data from the database based on API routes. 
 	*
 	* @namespace RouteController
 	*/
