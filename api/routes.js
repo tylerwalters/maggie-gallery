@@ -1,8 +1,6 @@
 var express					= require('express'),
 		path						= require('path'),
-		passwordless		= require('passwordless'),
 		RouteController	= require('./controllers/routes');
-		//AuthController	= require('./controllers/auth');
 
 module.exports = function(app) {
 	var router = express.Router();
