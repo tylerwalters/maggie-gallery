@@ -79,3 +79,7 @@ All API routes return JSON.
 /api/v1/videos/tags/:tag
 
 * GET: retrieve all video data containing a specific tag
+
+## License
+
+This is free software distributed under the MIT License.
