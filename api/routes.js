@@ -45,38 +45,6 @@ module.exports = function(app) {
 		.put(RouteController.putVideo)
 		.delete(RouteController.deleteVideo);
 
-	// User Routes ==============================================================
-
-	// API route handlers for /users
-	router.route('/users')
-		// .post(passwordless.restricted, RouteController.postUsers)
-		.post(RouteController.postUsers)
-		.get(RouteController.getUsers);
-
-	// API route handlers for /users/:user
-	router.route('/users/:user')
-		.get(RouteController.getUser)
-		// .put(passwordless.restricted, RouteController.putUser)
-		// .delete(passwordless.restricted, RouteController.deleteUser);
-		.put(RouteController.putUser)
-		.delete(RouteController.deleteUser);
-
-	// API route handlers for /sendtoken
-	router.route('/sendtoken')
-		//.post(AuthController.requestToken, RouteController.postSendToken);
-		.post(RouteController.postSendToken);
-
-	// API route handlers for /login
-	router.route('/login')
-		//.post(passwordless.acceptToken, RouteController.postLogin);
-		.post(RouteController.postLogin);
-
-	// API route handlers for /logout
-	router.route('/logout')
-		// .post(passwordless.logout);
-		.post();
-
-
 	// Register API Routes ======================================================
 
 	app.use('/api/v1', router);
