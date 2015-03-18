@@ -1,11 +1,3 @@
-var DataService = require('../modules/data'),
-		data = [];
-
-DataService.setData().then(function (res) {
-	data = DataService.getPhotos(res);
-	console.log(data);
-});
-
 var GalleryImage = React.createClass({
 	render: function () {
 		return (
@@ -18,7 +10,7 @@ var GalleryImage = React.createClass({
 
 var Gallery = React.createClass({
 	render: function () {
-		var imageNodes = data.map(function (image) {
+		var imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
 				className: 'gallery__image gallery__image--' + image.layout,
 				page: '/detail/' + image.title,
