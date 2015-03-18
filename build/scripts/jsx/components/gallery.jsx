@@ -1,4 +1,5 @@
-var Isotope = require('isotope-layout');
+var Isotope = require('isotope-layout'),
+		imagesLoaded = require('imagesloaded');
 
 var GalleryImage = React.createClass({
 	render: function () {
