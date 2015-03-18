@@ -1,15 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Router 	= require('react-router'),
-		Routes = require('./components/routes'),
-		imagesLoaded = require('imagesloaded');
+		Routes = require('./components/routes');
 
 
 Router.run(Routes, Router.HistoryLocation, function (Handler) {
-	var data = data;
 	React.render(React.createElement(Handler, null), document.body);
 });
 
-},{"./components/routes":6,"imagesloaded":21,"react-router":68}],2:[function(require,module,exports){
+},{"./components/routes":6,"react-router":68}],2:[function(require,module,exports){
 var Footer = React.createClass({displayName: "Footer",
 	render: function (data) {
 		return (
@@ -23,7 +21,8 @@ var Footer = React.createClass({displayName: "Footer",
 module.exports = Footer;
 
 },{}],3:[function(require,module,exports){
-var Isotope = require('isotope-layout');
+var Isotope = require('isotope-layout'),
+		imagesLoaded = require('imagesloaded');
 
 var GalleryImage = React.createClass({displayName: "GalleryImage",
 	render: function () {
@@ -74,7 +73,7 @@ var Gallery = React.createClass({displayName: "Gallery",
 
 module.exports = Gallery;
 
-},{"isotope-layout":24}],4:[function(require,module,exports){
+},{"imagesloaded":21,"isotope-layout":24}],4:[function(require,module,exports){
 var Logo = React.createClass({displayName: "Logo",
 	render: function () {
 		return (
@@ -155,7 +154,9 @@ module.exports = routes;
 
 },{"../pages/about":9,"../pages/detail":10,"../pages/donate":11,"../pages/home":12,"./index":5,"react-router":68}],7:[function(require,module,exports){
 var App = require('./app');
-},{"./app":1}],8:[function(require,module,exports){
+
+window.aias = require('aias');
+},{"./app":1,"aias":13}],8:[function(require,module,exports){
 var aias = require('aias'),
 		_ = require('lodash');
 
@@ -244,18 +245,24 @@ module.exports = (function () {
 	}
 
 	DataService.setData = function () {
-		// return new Promise (function () {
-		// 	aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
-		// 		console.log('test2');
-		// 		sessionStorage.setItem('data', JSON.stringify(res));
-		// 		_data = _parseData(res);
-		// 		fulfill(_data);
-		// 	});
+		var data;
+		// 		dataPromise = Promise.resolve(aias.get('http://localhost:8080/api/v1/media'));
+
+		// dataPromise.then(function (res) {
+		// 	data = _parseData(res);
+		// 	sessionStorage.setItem('data', JSON.stringify(res));
+		// 	_data = data;
+		// 	return data;
 		// });
-		aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
+
+		return new Promise (function () {
+			aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
+				data = _parseData(res);
+				fulfill(data);
+			});
+		}).then(function (data) {
 			sessionStorage.setItem('data', JSON.stringify(res));
-			_data = _parseData(res);
-			return res;
+			_data = data;
 		});
 	};
 
@@ -332,7 +339,11 @@ var Home = React.createClass({displayName: "Home",
 		return {data: []};
 	},
 	componentDidMount: function () {
-		this.setState({data: DataService.setData()});
+		DataService.setData().then(function(response) {
+			console.log('test');
+			console.log(response);
+			this.setState({data: response});
+		}.bind(this));
 	},
 	render: function (data) {
 		return (
@@ -346,7 +357,7 @@ var Home = React.createClass({displayName: "Home",
 module.exports = Home;
 
 },{"../components/gallery":3,"../modules/data":8}],13:[function(require,module,exports){
-!function(e){"use strict";function t(e){try{return JSON.parse(e)}catch(t){return e}}function n(n,o,u){return new r(function(r,i){var s=e.XMLHttpRequest||ActiveXObject,d=new s("MSXML2.XMLHTTP.3.0");d.open(n,o,!0),d.setRequestHeader("Content-type","application/x-www-form-urlencoded"),d.onreadystatechange=function(){if(4===this.readyState)if(200===this.status){var e=t(d.responseText);r(e,d)}else i(new Error("Request responded with status "+d.status))},d.send(u)})}var r="undefined"!=typeof module&&module.exports?require("promise"):e.Promise,o={};o.get=function(e){return n("GET",e)},o.post=function(e,t){return n("POST",e,t)},o.put=function(e,t){return n("PUT",e,t)},o["delete"]=function(e){return n("DELETE",e)},"function"==typeof define&&define.amd?define("aias",function(){return o}):"undefined"!=typeof module&&module.exports?module.exports=o:e.aias=o}(this);
+(function(){"use strict";function e(e){try{return JSON.parse(e)}catch(t){return e}}function t(t,r,o){return new n(function(n,u){var i=window.XMLHttpRequest||ActiveXObject;req=new i("MSXML2.XMLHTTP.3.0"),req.open(t,r,!0),req.setRequestHeader("Content-type","application/x-www-form-urlencoded"),req.onreadystatechange=function(){if(4===this.readyState)if(200===this.status){var t=e(req.responseText);n(t)}else u(new Error("Request responded with status "+req.status))},req.send(o)})}var n="undefined"!=typeof module&&module.exports?require("promise"):this.Promise,r={};r.get=function(e){return t("GET",e)},r.post=function(e,n){return t("POST",e,n)},r.put=function(e,n){return t("PUT",e,n)},r["delete"]=function(e){return t("DELETE",e)},"function"==typeof define&&define.amd?define("aias",function(){return r}):"undefined"!=typeof module&&module.exports?module.exports=r:this.aias=r}).call(window);
 },{"promise":14}],14:[function(require,module,exports){
 'use strict';
 
