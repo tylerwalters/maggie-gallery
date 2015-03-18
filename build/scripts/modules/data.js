@@ -95,10 +95,9 @@ module.exports = (function () {
 		// 	});
 		// });
 		aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
-			console.log('test1');
 			sessionStorage.setItem('data', JSON.stringify(res));
 			_data = _parseData(res);
-			return _data;
+			return res;
 		});
 	};
 
