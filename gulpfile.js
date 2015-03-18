@@ -24,6 +24,7 @@ gulp.task('jsx', function () {
 	return gulp.src('build/scripts/jsx/**/*.jsx')
 		.pipe(sourcemaps.init())
 		.pipe(react({harmony: false}))
+		.on('error', console.log.bind(console))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('build/scripts'));
 });
