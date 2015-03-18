@@ -1,7 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Router 	= require('react-router'),
 		Routes = require('./components/routes'),
-		Isotope = require('isotope-layout'),
 		imagesLoaded = require('imagesloaded');
 
 
@@ -10,22 +9,7 @@ Router.run(Routes, Router.HistoryLocation, function (Handler) {
 	React.render(React.createElement(Handler, null), document.body);
 });
 
-(function () {
-	var gallery = document.querySelector('#gallery'),
-			iso;
-
-	imagesLoaded(gallery, function () {
-		iso = new Isotope(gallery, {
-			itemSelector: '.gallery__image',
-			masonry: {
-				columnWidth: '.gallery__image--portrait',
-				gutter: 0
-			}
-		});
-	})
-})();
-
-},{"./components/routes":6,"imagesloaded":21,"isotope-layout":24,"react-router":68}],2:[function(require,module,exports){
+},{"./components/routes":6,"imagesloaded":21,"react-router":68}],2:[function(require,module,exports){
 var Footer = React.createClass({displayName: "Footer",
 	render: function (data) {
 		return (
@@ -39,6 +23,8 @@ var Footer = React.createClass({displayName: "Footer",
 module.exports = Footer;
 
 },{}],3:[function(require,module,exports){
+var Isotope = require('isotope-layout');
+
 var GalleryImage = React.createClass({displayName: "GalleryImage",
 	render: function () {
 		return (
@@ -50,6 +36,20 @@ var GalleryImage = React.createClass({displayName: "GalleryImage",
 });
 
 var Gallery = React.createClass({displayName: "Gallery",
+	componentDidMount: function () {
+		var gallery = document.querySelector('#gallery'),
+				iso;
+
+		imagesLoaded(gallery, function () {
+			iso = new Isotope(gallery, {
+				itemSelector: '.gallery__image',
+				masonry: {
+					columnWidth: '.gallery__image--portrait',
+					gutter: 0
+				}
+			});
+		})
+	},
 	render: function () {
 		var imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
@@ -74,7 +74,7 @@ var Gallery = React.createClass({displayName: "Gallery",
 
 module.exports = Gallery;
 
-},{}],4:[function(require,module,exports){
+},{"isotope-layout":24}],4:[function(require,module,exports){
 var Logo = React.createClass({displayName: "Logo",
 	render: function () {
 		return (
@@ -262,6 +262,18 @@ module.exports = (function () {
 	return DataService;
 })();
 },{"aias":13,"lodash":40}],9:[function(require,module,exports){
+var About = React.createClass({displayName: "About",
+	render: function (data) {
+		return (
+			React.createElement("main", {className: "content pure-g"}, 
+				React.createElement("h1", null, "About Maggie"), 
+				React.createElement("p", null, "About Maggie.")
+			)
+		);
+	}
+});
+
+module.exports = About;
 
 },{}],10:[function(require,module,exports){
 var DetailImage = React.createClass({displayName: "DetailImage",
