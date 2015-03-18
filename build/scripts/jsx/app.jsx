@@ -1,14 +1,7 @@
-var Isotope = require('isotope-layout'),
-		Router 	= require('react-router'),
-		imagesLoaded = require('imagesloaded'),
-		About = require('./components/about'),
-		Detail = require('./components/detail'),
-		Donate = require('./components/donate'),
-		Footer = require('./components/footer'),
-		Gallery = require('./components/gallery'),
-		Header = require('./components/header'),
+var Router 	= require('react-router'),
 		Routes = require('./components/routes'),
-		Index = require('./components/index');
+		Isotope = require('isotope-layout'),
+		imagesLoaded = require('imagesloaded');
 
 
 Router.run(Routes, Router.HistoryLocation, function (Handler) {
