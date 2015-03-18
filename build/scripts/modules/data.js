@@ -86,12 +86,19 @@ module.exports = (function () {
 	}
 
 	DataService.setData = function () {
-		return new Promise (function () {
-			aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
-				sessionStorage.setItem('data', JSON.stringify(res));
-				_data = _parseData(res);
-				fulfill(_data);
-			});
+		// return new Promise (function () {
+		// 	aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
+		// 		console.log('test2');
+		// 		sessionStorage.setItem('data', JSON.stringify(res));
+		// 		_data = _parseData(res);
+		// 		fulfill(_data);
+		// 	});
+		// });
+		aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
+			console.log('test1');
+			sessionStorage.setItem('data', JSON.stringify(res));
+			_data = _parseData(res);
+			return _data;
 		});
 	};
 
