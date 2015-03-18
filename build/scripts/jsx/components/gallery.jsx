@@ -1,3 +1,5 @@
+var Isotope = require('isotope-layout');
+
 var GalleryImage = React.createClass({
 	render: function () {
 		return (
@@ -9,6 +11,20 @@ var GalleryImage = React.createClass({
 });
 
 var Gallery = React.createClass({
+	componentDidMount: function () {
+		var gallery = document.querySelector('#gallery'),
+				iso;
+
+		imagesLoaded(gallery, function () {
+			iso = new Isotope(gallery, {
+				itemSelector: '.gallery__image',
+				masonry: {
+					columnWidth: '.gallery__image--portrait',
+					gutter: 0
+				}
+			});
+		})
+	},
 	render: function () {
 		var imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
