@@ -6,11 +6,10 @@ var Home = React.createClass({
 		return {data: []};
 	},
 	componentDidMount: function () {
-		DataService.setData().then(function(response) {
-			console.log('test');
-			console.log(response);
-			this.setState({data: response});
-		}.bind(this));
+		DataService.setData()
+			.then(function(res) {
+				this.setState({data: DataService.getData()});
+			}.bind(this));
 	},
 	render: function (data) {
 		return (
