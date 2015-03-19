@@ -31,5 +31,5 @@ MediaTasks.watchDirectory(__dirname + '/public/media');
 // start app ===============================================
 
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Listening on port ' + port);
 exports = module.exports = app;
