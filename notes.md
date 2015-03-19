@@ -29,14 +29,10 @@ To Do
 
 * Backend: Authentication for POST, PUT, and DELETE requests
 * Backend: Write additional unit tests
-* Frontend: Establish app architecture
-* Frontend: Establish third party library dependencies (considering React.js)
 * Frontend: Build templates for Home, About, and Detail pages
-* Frontend: Review BEM CSS syntax
 * Frontend: Style individual pages
 * Frontend: Write frontend application code
-* DevOps: Create containers for application, ownCloud, and mongodb
-* DevOps: Figure out configuration of non-public information
+* DevOps: Create containers for application and ownCloud
 * DevOps: Deploy app
 
 Issues
