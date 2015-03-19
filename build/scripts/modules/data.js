@@ -1,4 +1,4 @@
-var aias = require('aias'),
+var aias = require('aias/src/aias'),
 		_ = require('lodash');
 
 /** 
@@ -50,9 +50,6 @@ module.exports = (function () {
 			return element.type === 'photo';
 		});
 
-		console.log("photos");
-		console.log(data);
-
 		return data;
 	};
 
@@ -70,6 +67,26 @@ module.exports = (function () {
 		return _data;
 	};
 
+	DataService.setData = function () {
+		var data,
+				dataPromise,
+				sessionData = JSON.parse(sessionStorage.getItem('data'));
+
+		if (sessionData !== null && sessionData.length !== 0) {
+			dataPromise = Promise.resolve(_data = sessionData);
+		}
+		else {
+			dataPromise = Promise.resolve(aias.get('http://localhost:8080/api/v1/media'));
+			dataPromise.then(function (res) {
+				data = _parseData(res);
+				sessionStorage.setItem('data', JSON.stringify(data));
+				_data = data;
+			});
+		}
+
+		return dataPromise;
+	};
+
 	function _parseData (data) {
 		var dataArray = [],
 				photo, video;
@@ -84,28 +101,6 @@ module.exports = (function () {
 
 		return dataArray;
 	}
-
-	DataService.setData = function () {
-		var data;
-		// 		dataPromise = Promise.resolve(aias.get('http://localhost:8080/api/v1/media'));
-
-		// dataPromise.then(function (res) {
-		// 	data = _parseData(res);
-		// 	sessionStorage.setItem('data', JSON.stringify(res));
-		// 	_data = data;
-		// 	return data;
-		// });
-
-		return new Promise (function () {
-			aias.get('http://localhost:8080/api/v1/media').then(function (res, req) {
-				data = _parseData(res);
-				fulfill(data);
-			});
-		}).then(function (data) {
-			sessionStorage.setItem('data', JSON.stringify(res));
-			_data = data;
-		});
-	};
 
 	return DataService;
 })();
