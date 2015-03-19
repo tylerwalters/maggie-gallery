@@ -34,9 +34,25 @@ var GalleryImage = React.createClass({displayName: "GalleryImage",
 	}
 });
 
+var GallerySort = React.createClass({displayName: "GallerySort",
+	render: function () {
+		return (
+			React.createElement("div", {className: "gallery__sort"}, 
+				React.createElement("ul", null, 
+					React.createElement("li", null, React.createElement("div", {onClick: this.props.onClick}, "Shuffle"))
+				)
+			)
+		)
+	}
+});
+
 var Gallery = React.createClass({displayName: "Gallery",
+	handleClick: function () {
+		// console.log(this.props);
+		this.props.sortData();
+	},
 	componentDidMount: function () {
-		var gallery = document.querySelector('#gallery'),
+		var gallery = document.querySelector('#gallery__box'),
 				iso;
 
 		imagesLoaded(gallery, function () {
@@ -50,6 +66,7 @@ var Gallery = React.createClass({displayName: "Gallery",
 		})
 	},
 	render: function () {
+		var boundClick = this.handleClick.bind(this);
 		var imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
 				className: 'gallery__image gallery__image--' + image.layout,
@@ -63,7 +80,10 @@ var Gallery = React.createClass({displayName: "Gallery",
 		})
 		return (
 			React.createElement("div", {id: "gallery", className: "pure-u-1 gallery isotope"}, 
-				imageNodes
+				React.createElement(GallerySort, {onClick: boundClick}), 
+				React.createElement("div", {id: "gallery__box", class: "gallery__box"}, 
+					imageNodes
+				)
 			)
 		);
 	}
@@ -326,6 +346,9 @@ var DataService = require('../modules/data'),
 		Gallery = require('../components/gallery');
 
 var Home = React.createClass({displayName: "Home",
+	sortData: function () {
+		this.setState({data: this.state.data.sort()});
+	},
 	getInitialState: function () {
 		return {data: []};
 	},
@@ -338,7 +361,7 @@ var Home = React.createClass({displayName: "Home",
 	render: function (data) {
 		return (
 			React.createElement("main", {className: "content pure-g"}, 
-				React.createElement(Gallery, {data: this.state.data})
+				React.createElement(Gallery, {data: this.state.data, sortData: this.sortData})
 			)
 		);
 	}
@@ -774,7 +797,7 @@ module.exports = asap;
 	* @namespace aias
 	*/
 
-(function (context) {
+(function () {
 	'use strict';
 
 	var Promise = (typeof module !== 'undefined' && module.exports) ? require('promise') : context.Promise,
@@ -788,7 +811,6 @@ module.exports = asap;
 	* @memberof aias
 	*/
 	function prepareResponse (res) {
-		console.log(res);
 		try {
 			return JSON.parse(res);
 		}
@@ -809,7 +831,7 @@ module.exports = asap;
 	function request (type, url, data) {
 		return new Promise(function (fulfill, reject) {
 			// Set ajax to correct XHR type. Source: https://gist.github.com/jed/993585
-			var Xhr = context.XMLHttpRequest||ActiveXObject,
+			var Xhr = window.XMLHttpRequest||ActiveXObject,
 					req = new Xhr('MSXML2.XMLHTTP.3.0');
 
 			req.open(type, url, true);
@@ -821,7 +843,7 @@ module.exports = asap;
 						fulfill(res, req);
 					}
 					else {
-						reject(new Error('Request responded with status ' + req.status));
+						reject(new Error('Request responded with status ' + req.statusText));
 					}
 				}
 			};
@@ -887,9 +909,9 @@ module.exports = asap;
 	}
 	// Global library
 	else {
-		context.aias = aias;
+		this.aias = aias;
 	}
-})(window);
+}).call(window);
 },{"promise":13}],20:[function(require,module,exports){
 // shim for using process in browser
 
