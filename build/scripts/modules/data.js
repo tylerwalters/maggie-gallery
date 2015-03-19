@@ -1,4 +1,4 @@
-var aias = require('aias/src/aias'),
+var aias = require('aias'),
 		_ = require('lodash');
 
 /** 

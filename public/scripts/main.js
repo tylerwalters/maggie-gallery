@@ -175,7 +175,7 @@ module.exports = routes;
 },{"../pages/about":9,"../pages/detail":10,"../pages/donate":11,"../pages/home":12,"./index":5,"react-router":68}],7:[function(require,module,exports){
 var App = require('./app');
 },{"./app":1}],8:[function(require,module,exports){
-var aias = require('aias/src/aias'),
+var aias = require('aias'),
 		_ = require('lodash');
 
 /** 
@@ -281,7 +281,7 @@ module.exports = (function () {
 
 	return DataService;
 })();
-},{"aias/src/aias":19,"lodash":40}],9:[function(require,module,exports){
+},{"aias":13,"lodash":40}],9:[function(require,module,exports){
 var About = React.createClass({displayName: "About",
 	render: function (data) {
 		return (
@@ -375,13 +375,15 @@ var Home = React.createClass({displayName: "Home",
 module.exports = Home;
 
 },{"../components/gallery":3,"../modules/data":8}],13:[function(require,module,exports){
+(function(){"use strict";function e(e){try{return JSON.parse(e)}catch(t){return e}}function t(t,r,o){return new n(function(n,u){var i=window.XMLHttpRequest||ActiveXObject,s=new i("MSXML2.XMLHTTP.3.0");s.open(t,r,!0),s.setRequestHeader("Content-type","application/x-www-form-urlencoded"),s.onreadystatechange=function(){if(4===this.readyState)if(200===this.status){var t=e(s.responseText);n(t,s)}else u(new Error("Request responded with status "+s.statusText))},s.send(o)})}var n="undefined"!=typeof module&&module.exports?require("promise"):context.Promise,r={};r.get=function(e){return t("GET",e)},r.post=function(e,n){return t("POST",e,n)},r.put=function(e,n){return t("PUT",e,n)},r["delete"]=function(e){return t("DELETE",e)},"function"==typeof define&&define.amd?define("aias",function(){return r}):"undefined"!=typeof module&&module.exports?module.exports=r:this.aias=r}).call(window);
+},{"promise":14}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/core.js')
 require('./lib/done.js')
 require('./lib/es6-extensions.js')
 require('./lib/node-extensions.js')
-},{"./lib/core.js":14,"./lib/done.js":15,"./lib/es6-extensions.js":16,"./lib/node-extensions.js":17}],14:[function(require,module,exports){
+},{"./lib/core.js":15,"./lib/done.js":16,"./lib/es6-extensions.js":17,"./lib/node-extensions.js":18}],15:[function(require,module,exports){
 'use strict';
 
 var asap = require('asap')
@@ -488,7 +490,7 @@ function doResolve(fn, onFulfilled, onRejected) {
   }
 }
 
-},{"asap":18}],15:[function(require,module,exports){
+},{"asap":19}],16:[function(require,module,exports){
 'use strict';
 
 var Promise = require('./core.js')
@@ -503,7 +505,7 @@ Promise.prototype.done = function (onFulfilled, onRejected) {
     })
   })
 }
-},{"./core.js":14,"asap":18}],16:[function(require,module,exports){
+},{"./core.js":15,"asap":19}],17:[function(require,module,exports){
 'use strict';
 
 //This file contains the ES6 extensions to the core Promises/A+ API
@@ -613,7 +615,7 @@ Promise.prototype['catch'] = function (onRejected) {
   return this.then(null, onRejected);
 }
 
-},{"./core.js":14,"asap":18}],17:[function(require,module,exports){
+},{"./core.js":15,"asap":19}],18:[function(require,module,exports){
 'use strict';
 
 //This file contains then/promise specific extensions that are only useful for node.js interop
@@ -678,7 +680,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
   })
 }
 
-},{"./core.js":14,"asap":18}],18:[function(require,module,exports){
+},{"./core.js":15,"asap":19}],19:[function(require,module,exports){
 (function (process){
 
 // Use the fastest possible means to execute a task in a future turn
@@ -795,129 +797,7 @@ module.exports = asap;
 
 
 }).call(this,require('_process'))
-},{"_process":20}],19:[function(require,module,exports){
-/** 
-	* A standalone AJAX library using JavaScript promises.
-	*
-	* @namespace aias
-	*/
-
-(function () {
-	'use strict';
-
-	var Promise = (typeof module !== 'undefined' && module.exports) ? require('promise') : context.Promise,
-			aias = {};
-
-/**
-	* Attempts to parse the response as JSON otherwise returns it untouched.
-	* 
-	* @param {string} res The response to be processed.
-	* 
-	* @memberof aias
-	*/
-	function prepareResponse (res) {
-		try {
-			return JSON.parse(res);
-		}
-		catch (e) {
-			return res;
-		}
-	}
-
-/**
-	* Attempts to parse the response as JSON otherwise returns it untouched.
-	* 
-	* @param {string} type The HTTP verb to be used.
-	* @param {string} url The url for the XHR request.
-	* @param {object} data Optional. The data to be passed with a POST or PUT request.
-	* 
-	* @memberof aias
-	*/
-	function request (type, url, data) {
-		return new Promise(function (fulfill, reject) {
-			// Set ajax to correct XHR type. Source: https://gist.github.com/jed/993585
-			var Xhr = window.XMLHttpRequest||ActiveXObject,
-					req = new Xhr('MSXML2.XMLHTTP.3.0');
-
-			req.open(type, url, true);
-			req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			req.onreadystatechange = function (e) {
-				if (this.readyState === 4) {
-					if (this.status === 200) {
-						var res = prepareResponse(req.responseText);
-						fulfill(res, req);
-					}
-					else {
-						reject(new Error('Request responded with status ' + req.statusText));
-					}
-				}
-			};
-			req.send(data);
-		});
-	}
-
-/**
-	* Calls request() using the GET verb.
-	* 
-	* @param {string} url The url for the XHR request.
-	* 
-	* @memberof aias
-	*/
-	aias.get = function (url) {
-		return request('GET', url);
-	};
-
-/**
-	* Calls request() using the POST verb.
-	* 
-	* @param {string} url The url for the XHR request.
-	* @param {object} data Optional. The data to be passed with the request.
-	* 
-	* @memberof aias
-	*/
-	aias.post = function (url, data) {
-		return request('POST', url, data);
-	};
-
-/**
-	* Calls request() using the PUT verb.
-	* 
-	* @param {string} url The url for the XHR request.
-	* @param {object} data Optional. The data to be passed with the request.
-	* 
-	* @memberof aias
-	*/
-	aias.put = function (url, data) {
-		return request('PUT', url, data);
-	};
-
-/**
-	* Calls request() using the DELETE verb.
-	* 
-	* @param {string} url The url for the XHR request.
-	* 
-	* @memberof aias
-	*/
-	aias.delete = function (url) {
-		return request('DELETE', url);
-	};
-
-	// AMD module
-	if (typeof define === 'function' && define.amd) {
-		define('aias', function () {
-			return aias;
-		});
-	}
-	// Require.js module
-	else if (typeof module !== 'undefined' && module.exports) {
-		module.exports = aias;
-	}
-	// Global library
-	else {
-		this.aias = aias;
-	}
-}).call(window);
-},{"promise":13}],20:[function(require,module,exports){
+},{"_process":20}],20:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
