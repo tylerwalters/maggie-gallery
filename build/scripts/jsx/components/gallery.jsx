@@ -11,9 +11,25 @@ var GalleryImage = React.createClass({
 	}
 });
 
+var GallerySort = React.createClass({
+	render: function () {
+		return (
+			<div className="gallery__sort">
+				<ul>
+					<li><div onClick={this.props.onClick}>Shuffle</div></li>
+				</ul>
+			</div>
+		)
+	}
+});
+
 var Gallery = React.createClass({
+	handleClick: function () {
+		// console.log(this.props);
+		this.props.sortData();
+	},
 	componentDidMount: function () {
-		var gallery = document.querySelector('#gallery'),
+		var gallery = document.querySelector('#gallery__box'),
 				iso;
 
 		imagesLoaded(gallery, function () {
@@ -27,6 +43,7 @@ var Gallery = React.createClass({
 		})
 	},
 	render: function () {
+		var boundClick = this.handleClick.bind(this);
 		var imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
 				className: 'gallery__image gallery__image--' + image.layout,
@@ -40,7 +57,10 @@ var Gallery = React.createClass({
 		})
 		return (
 			<div id="gallery" className="pure-u-1 gallery isotope">
-				{imageNodes}
+				<GallerySort onClick={boundClick} />
+				<div id="gallery__box" class="gallery__box">
+					{imageNodes}
+				</div>
 			</div>
 		);
 	}
