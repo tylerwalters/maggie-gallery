@@ -51,6 +51,7 @@ var Gallery = React.createClass({displayName: "Gallery",
 		// console.log(this.props);
 		this.props.sortData();
 	},
+	
 	componentDidMount: function () {
 		var gallery = document.querySelector('#gallery__box'),
 				iso;
@@ -65,6 +66,7 @@ var Gallery = React.createClass({displayName: "Gallery",
 			});
 		})
 	},
+
 	render: function () {
 		var boundClick = this.handleClick.bind(this);
 		var imageNodes = this.props.data.map(function (image) {
@@ -349,15 +351,18 @@ var Home = React.createClass({displayName: "Home",
 	sortData: function () {
 		this.setState({data: this.state.data.sort()});
 	},
+
 	getInitialState: function () {
 		return {data: []};
 	},
+
 	componentDidMount: function () {
 		DataService.setData()
 			.then(function(res) {
 				this.setState({data: DataService.getData()});
 			}.bind(this));
 	},
+	
 	render: function (data) {
 		return (
 			React.createElement("main", {className: "content pure-g"}, 

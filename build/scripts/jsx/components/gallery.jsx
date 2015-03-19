@@ -28,6 +28,7 @@ var Gallery = React.createClass({
 		// console.log(this.props);
 		this.props.sortData();
 	},
+	
 	componentDidMount: function () {
 		var gallery = document.querySelector('#gallery__box'),
 				iso;
@@ -42,6 +43,7 @@ var Gallery = React.createClass({
 			});
 		})
 	},
+
 	render: function () {
 		var boundClick = this.handleClick.bind(this);
 		var imageNodes = this.props.data.map(function (image) {
