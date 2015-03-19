@@ -39,11 +39,9 @@ var Gallery = React.createClass({
 			)
 		})
 		return (
-			<main className="content pure-g">
-				<div id="gallery" className="pure-u-1 gallery isotope">
-					{imageNodes}
-				</div>
-			</main>
+			<div id="gallery" className="pure-u-1 gallery isotope">
+				{imageNodes}
+			</div>
 		);
 	}
 });
