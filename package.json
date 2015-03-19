@@ -18,7 +18,7 @@
     "start": "node index"
   },
   "dependencies": {
-    "aias": "^1.2.0",
+    "aias": "^1.0.0",
     "body-parser": "^1.9.2",
     "emailjs": "^0.3.12",
     "exif2": "0.0.1",
