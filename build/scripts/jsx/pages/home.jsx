@@ -13,7 +13,7 @@ var Home = React.createClass({
 	componentDidMount: function () {
 		DataService.setData()
 			.then(function(res) {
-				this.setState({data: DataService.getData()});
+				this.setState({data: DataService.sortByShuffle()});
 			}.bind(this));
 	},
 	
