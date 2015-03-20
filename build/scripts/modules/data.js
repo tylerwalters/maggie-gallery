@@ -186,35 +186,6 @@ module.exports = (function () {
 	* @memberof DataService
 	*/
 	DataService.sortByDate = function (data) {
-		data = data || _data;
-
-		data = data.sort(function (a, b) {
-			a = new Date(a.date);
-			b = new Date(b.date);
-
-			if (a > b) {
-				return -1;
-			}
-			else if (a < b) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		});
-
-		return data;
-	};
-
-/**
-	* Sorts data by date.
-	* 
-	* @param {Array} data The data to be sorted. Defaults to _data.
-	* @returms {Array} Sorted data.
-	* 
-	* @memberof DataService
-	*/
-	DataService.sortByDate = function (data) {
 		data = data || _data.slice();
 
 		data = data.sort(function (a, b) {
@@ -257,6 +228,32 @@ module.exports = (function () {
 			data[current] = data[random];
 			data[random] = temp;
 		}
+
+		return data;
+	};
+
+/**
+	* Sorts data by date.
+	* 
+	* @param {Array} data The data to be sorted. Defaults to _data.
+	* @returms {Array} Sorted data.
+	* 
+	* @memberof DataService
+	*/
+	DataService.sortByTitle = function (data) {
+		data = data || _data.slice();
+
+		data = data.sort(function (a, b) {
+			if (a.title > b.title) {
+				return 1;
+			}
+			else if (a.title < b.title) {
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		});
 
 		return data;
 	};
