@@ -243,7 +243,7 @@ module.exports = (function () {
 	* 
 	* @memberof DataService
 	*/
-	DataService.sortBySuffle = function (data) {
+	DataService.sortByShuffle = function (data) {
 		var current,
 				temp, 
 				random;
