@@ -420,7 +420,7 @@ module.exports = (function () {
 	* 
 	* @memberof DataService
 	*/
-	DataService.sortBySuffle = function (data) {
+	DataService.sortByShuffle = function (data) {
 		var current,
 				temp, 
 				random;
@@ -542,7 +542,7 @@ var Home = React.createClass({displayName: "Home",
 	componentDidMount: function () {
 		DataService.setData()
 			.then(function(res) {
-				this.setState({data: DataService.getData()});
+				this.setState({data: DataService.sortByShuffle()});
 			}.bind(this));
 	},
 	
