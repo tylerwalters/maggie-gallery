@@ -16,7 +16,7 @@ var GallerySort = React.createClass({
 		return (
 			<div className="gallery__sort">
 				<ul>
-					<li><div onClick={this.props.onClick}>Shuffle</div></li>
+					<li><button onClick={this.props.onClick}>Shuffle</button></li>
 				</ul>
 			</div>
 		)
