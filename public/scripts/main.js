@@ -39,7 +39,7 @@ var GallerySort = React.createClass({displayName: "GallerySort",
 		return (
 			React.createElement("div", {className: "gallery__sort"}, 
 				React.createElement("ul", null, 
-					React.createElement("li", null, React.createElement("div", {onClick: this.props.onClick}, "Shuffle"))
+					React.createElement("li", null, React.createElement("button", {onClick: this.props.onClick}, "Shuffle"))
 				)
 			)
 		)
@@ -363,35 +363,6 @@ module.exports = (function () {
 	* @memberof DataService
 	*/
 	DataService.sortByDate = function (data) {
-		data = data || _data;
-
-		data = data.sort(function (a, b) {
-			a = new Date(a.date);
-			b = new Date(b.date);
-
-			if (a > b) {
-				return -1;
-			}
-			else if (a < b) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		});
-
-		return data;
-	};
-
-/**
-	* Sorts data by date.
-	* 
-	* @param {Array} data The data to be sorted. Defaults to _data.
-	* @returms {Array} Sorted data.
-	* 
-	* @memberof DataService
-	*/
-	DataService.sortByDate = function (data) {
 		data = data || _data.slice();
 
 		data = data.sort(function (a, b) {
@@ -434,6 +405,32 @@ module.exports = (function () {
 			data[current] = data[random];
 			data[random] = temp;
 		}
+
+		return data;
+	};
+
+/**
+	* Sorts data by date.
+	* 
+	* @param {Array} data The data to be sorted. Defaults to _data.
+	* @returms {Array} Sorted data.
+	* 
+	* @memberof DataService
+	*/
+	DataService.sortByTitle = function (data) {
+		data = data || _data.slice();
+
+		data = data.sort(function (a, b) {
+			if (a.title > b.title) {
+				return 1;
+			}
+			else if (a.title < b.title) {
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		});
 
 		return data;
 	};
@@ -531,8 +528,25 @@ var DataService = require('../modules/data'),
 		Gallery = require('../components/gallery');
 
 var Home = React.createClass({displayName: "Home",
-	sortData: function () {
-		this.setState({data: this.state.data.sort()});
+	sortData: function (sortBy) {
+		var sortedData;
+
+		switch (sortBy) {
+			case 'shuffle':
+				sortedData = DataService.sortByShuffle(this.state.data);
+				break;
+			case 'date':
+				sortedData = DataService.sortByDate(this.state.data);
+				break;
+			case 'title':
+				sortedData = DataService.sortByTitle(this.state.data);
+				break;
+			default:
+				sortedData = DataService.sortByShuffle(this.state.data);
+				break;
+		}
+
+		this.setState({data: sortedData});
 	},
 
 	getInitialState: function () {
