@@ -25,7 +25,6 @@ var GallerySort = React.createClass({
 
 var Gallery = React.createClass({
 	handleClick: function () {
-		// console.log(this.props);
 		this.props.sortData();
 	},
 	
@@ -45,8 +44,10 @@ var Gallery = React.createClass({
 	},
 
 	render: function () {
-		var boundClick = this.handleClick.bind(this);
-		var imageNodes = this.props.data.map(function (image) {
+		var boundClick = this.handleClick.bind(this),
+				imageNodes;
+
+		imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
 				className: 'gallery__image gallery__image--' + image.layout,
 				page: '/detail/' + image.title,
