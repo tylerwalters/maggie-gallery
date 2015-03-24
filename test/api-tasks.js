@@ -1,11 +1,9 @@
 var fs				= require('fs'),
 		hound			= require('hound'),
-		should 		= require('chai').should();
-
-var tasks = require('../api/controllers/tasks');
+		should 		= require('chai').should(),
+		tasks 		= require('../api/controllers/tasks');
 
 describe('API Tasks', function () {
-
 	describe('tasks.watchDirectory', function () {
 		beforeEach(function() {
 			directory = __dirname + '/media';
