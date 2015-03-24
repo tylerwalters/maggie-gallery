@@ -1,8 +1,7 @@
-var request 	= require('supertest'),
-		should 		= require('chai').should(),
-		express 	= require('express'),
-		// mongoose 	= require('mongoose'),
-		app				= express(),
+var request 				= require('supertest'),
+		should 					= require('chai').should(),
+		express 				= require('express'),
+		app							= express(),
 		bodyParser			= require('body-parser'),
 		methodOverride	= require('method-override');
 
@@ -12,8 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 require('../api/routes')(app);
-
-var db = require('./config/db');
 
 describe('API Routing', function() {
 	describe('/api/v1/media', function () {
