@@ -207,7 +207,7 @@ module.exports = (function () {
 	DataService.filterByTag = function (tags, data) {
 		var matchedSet = [];
 
-		data = data || _data;
+		data = data || _data.slice();
 
 		data = data.filter(function (element) {
 			matchedSet = _.intersection(element.tags, tags);
@@ -229,7 +229,7 @@ module.exports = (function () {
 	DataService.filterByPerson = function (people, data) {
 		var matchedSet = [];
 
-		data = data || _data;
+		data = data || _data.slice();
 
 		data = data.filter(function (element) {
 			matchedSet = _.intersection(element.people, people);
@@ -248,10 +248,10 @@ module.exports = (function () {
 	* 
 	* @memberof DataService
 	*/
-	DataService.getChunkedData = function (index, data) {
+	DataService.getChunkedData = function (data, index) {
 		// Each time the default index is used it is incremented by 1
 		index = index || _chunkIndex++;
-		data = data || _chunkedData;
+		data = data || _chunkedData.slice();
 
 		return data[index];
 	};
@@ -263,8 +263,10 @@ module.exports = (function () {
 	* 
 	* @memberof DataService
 	*/
-	DataService.getData = function () {
-		return _data;
+	DataService.getData = function (data) {
+		data = data || _data.slice();
+
+		return data;
 	};
 
 /**
@@ -276,7 +278,7 @@ module.exports = (function () {
 	* @memberof DataService
 	*/
 	DataService.getPhotos = function (data) {
-		data = data || _data;
+		data = data || _data.slice();
 
 		data = data.filter(function (element) {
 			return element.type === 'photo';
@@ -294,7 +296,7 @@ module.exports = (function () {
 	* @memberof DataService
 	*/
 	DataService.getVideos = function (data) {
-		data = data || _data;
+		data = data || _data.slice();
 
 		data = data.filter(function (element) {
 			return element.type === 'video';
@@ -340,8 +342,10 @@ module.exports = (function () {
 	* @memberof DataService
 	*/
 	DataService.setChunkedData = function (quantity, data) {
+		var chunkedData;
+
 		quantity = quantity || 20;
-		data = data || _data;
+		data = data || _data.slice();
 
 		chunkedData = _.chunk(data, quantity);
 
