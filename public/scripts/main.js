@@ -39,7 +39,9 @@ var GallerySort = React.createClass({displayName: "GallerySort",
 		return (
 			React.createElement("div", {className: "gallery__sort"}, 
 				React.createElement("ul", null, 
-					React.createElement("li", null, React.createElement("button", {onClick: this.props.onClick}, "Shuffle"))
+					React.createElement("li", null, React.createElement("button", {ref: "shuffle", "data-sort": "shuffle", onClick: this.props.onClick}, "Shuffle")), 
+					React.createElement("li", null, React.createElement("button", {ref: "date", "data-sort": "date", onClick: this.props.onClick}, "Date")), 
+					React.createElement("li", null, React.createElement("button", {ref: "title", "data-sort": "title", onClick: this.props.onClick}, "Title"))
 				)
 			)
 		)
@@ -47,8 +49,9 @@ var GallerySort = React.createClass({displayName: "GallerySort",
 });
 
 var Gallery = React.createClass({displayName: "Gallery",
-	handleClick: function () {
-		this.props.sortData();
+	handleClick: function (sortType) {
+		console.log(sortType);
+		this.props.sortData(sortType);
 	},
 	
 	componentDidMount: function () {
@@ -68,7 +71,13 @@ var Gallery = React.createClass({displayName: "Gallery",
 
 	render: function () {
 		var boundClick = this.handleClick.bind(this),
+				sortClick,
 				imageNodes;
+
+		sortClick = function () {
+			console.log(this);
+			boundClick(this.dataset.sort);
+		}
 
 		imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
@@ -80,10 +89,11 @@ var Gallery = React.createClass({displayName: "Gallery",
 			return (
 				React.createElement(GalleryImage, {className: preparedData.className, page: preparedData.page, src: preparedData.src, title: image.title})
 			)
-		})
+		});
+
 		return (
 			React.createElement("div", {id: "gallery", className: "pure-u-1 gallery isotope"}, 
-				React.createElement(GallerySort, {onClick: boundClick}), 
+				React.createElement(GallerySort, {onClick: sortClick}), 
 				React.createElement("div", {id: "gallery__box", class: "gallery__box"}, 
 					imageNodes
 				)
