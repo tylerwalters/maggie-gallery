@@ -11,24 +11,18 @@ var GalleryImage = React.createClass({
 	}
 });
 
-var GallerySort = React.createClass({
+var GallerySortItem = React.createClass({
 	render: function () {
 		return (
-			<div className="gallery__sort">
-				<ul>
-					<li><button ref="shuffle" data-sort="shuffle" onClick={this.props.onClick}>Shuffle</button></li>
-					<li><button ref="date" data-sort="date" onClick={this.props.onClick}>Date</button></li>
-					<li><button ref="title" data-sort="title" onClick={this.props.onClick}>Title</button></li>
-				</ul>
-			</div>
+			<li><button data-sort={this.props.name} onClick={this.props.onClick}>{this.props.display}</button></li>
 		)
 	}
 });
 
 var Gallery = React.createClass({
-	handleClick: function (sortType) {
-		console.log(sortType);
+	handleSort: function (sortType) {
 		this.props.sortData(sortType);
+		this.componentDidMount();
 	},
 	
 	componentDidMount: function () {
@@ -47,14 +41,8 @@ var Gallery = React.createClass({
 	},
 
 	render: function () {
-		var boundClick = this.handleClick.bind(this),
-				sortClick,
+		var sortClick,
 				imageNodes;
-
-		sortClick = function () {
-			console.log(this);
-			boundClick(this.dataset.sort);
-		}
 
 		imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
@@ -70,7 +58,13 @@ var Gallery = React.createClass({
 
 		return (
 			<div id="gallery" className="pure-u-1 gallery isotope">
-				<GallerySort onClick={sortClick} />
+				<div className="gallery__sort">
+					<ul>
+						<GallerySortItem name="shuffle" display="Shuffle" onClick={this.handleSort.bind(this, 'shuffle')} />
+						<GallerySortItem name="date" display="Date" onClick={this.handleSort.bind(this, 'date')} />
+						<GallerySortItem name="title" display="Title" onClick={this.handleSort.bind(this, 'title')} />
+					</ul>
+				</div>
 				<div id="gallery__box" class="gallery__box">
 					{imageNodes}
 				</div>

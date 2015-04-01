@@ -34,24 +34,18 @@ var GalleryImage = React.createClass({displayName: "GalleryImage",
 	}
 });
 
-var GallerySort = React.createClass({displayName: "GallerySort",
+var GallerySortItem = React.createClass({displayName: "GallerySortItem",
 	render: function () {
 		return (
-			React.createElement("div", {className: "gallery__sort"}, 
-				React.createElement("ul", null, 
-					React.createElement("li", null, React.createElement("button", {ref: "shuffle", "data-sort": "shuffle", onClick: this.props.onClick}, "Shuffle")), 
-					React.createElement("li", null, React.createElement("button", {ref: "date", "data-sort": "date", onClick: this.props.onClick}, "Date")), 
-					React.createElement("li", null, React.createElement("button", {ref: "title", "data-sort": "title", onClick: this.props.onClick}, "Title"))
-				)
-			)
+			React.createElement("li", null, React.createElement("button", {"data-sort": this.props.name, onClick: this.props.onClick}, this.props.display))
 		)
 	}
 });
 
 var Gallery = React.createClass({displayName: "Gallery",
-	handleClick: function (sortType) {
-		console.log(sortType);
+	handleSort: function (sortType) {
 		this.props.sortData(sortType);
+		this.componentDidMount();
 	},
 	
 	componentDidMount: function () {
@@ -70,14 +64,8 @@ var Gallery = React.createClass({displayName: "Gallery",
 	},
 
 	render: function () {
-		var boundClick = this.handleClick.bind(this),
-				sortClick,
+		var sortClick,
 				imageNodes;
-
-		sortClick = function () {
-			console.log(this);
-			boundClick(this.dataset.sort);
-		}
 
 		imageNodes = this.props.data.map(function (image) {
 			var preparedData = {
@@ -93,7 +81,13 @@ var Gallery = React.createClass({displayName: "Gallery",
 
 		return (
 			React.createElement("div", {id: "gallery", className: "pure-u-1 gallery isotope"}, 
-				React.createElement(GallerySort, {onClick: sortClick}), 
+				React.createElement("div", {className: "gallery__sort"}, 
+					React.createElement("ul", null, 
+						React.createElement(GallerySortItem, {name: "shuffle", display: "Shuffle", onClick: this.handleSort.bind(this, 'shuffle')}), 
+						React.createElement(GallerySortItem, {name: "date", display: "Date", onClick: this.handleSort.bind(this, 'date')}), 
+						React.createElement(GallerySortItem, {name: "title", display: "Title", onClick: this.handleSort.bind(this, 'title')})
+					)
+				), 
 				React.createElement("div", {id: "gallery__box", class: "gallery__box"}, 
 					imageNodes
 				)
