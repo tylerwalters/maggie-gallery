@@ -5,7 +5,7 @@ var Router = require('react-router'),
 var Index = React.createClass({
 	render: function () {
 		return (
-			<div class="page">
+			<div className="page">
 				<Header />
 				<Router.RouteHandler {...this.props}/>
 				<Footer />
