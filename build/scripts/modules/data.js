@@ -82,12 +82,32 @@ module.exports = (function () {
 /**
 	* Returns current data stored in _data.
 	* 
+	* @param {Array} data The data to be filtered. Defaults to _data.
 	* @returms {Array} Full data set.
 	* 
 	* @memberof DataService
 	*/
 	DataService.getData = function (data) {
 		data = data || _data.slice();
+
+		return data;
+	};
+
+/**
+	* Returns single item stored in _data based on title.
+	* 
+	* @param {String} title The title of the item to return.
+	* @param {Array} data The data to be filtered. Defaults to _data.
+	* @returms {Array} Data containing single item.
+	* 
+	* @memberof DataService
+	*/
+	DataService.getItem = function (title, data) {
+		data = data || _data.slice();
+
+		data = data.filter(function (element) {
+			return element.title === title;
+		});
 
 		return data;
 	};
