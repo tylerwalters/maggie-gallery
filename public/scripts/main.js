@@ -3,8 +3,9 @@ var Router 	= require('react-router'),
 		Routes = require('./components/routes');
 
 
-Router.run(Routes, Router.HistoryLocation, function (Handler) {
-	React.render(React.createElement(Handler, null), document.body);
+Router.run(Routes, Router.HistoryLocation, function (Handler, state) {
+	var params = state.params;
+	React.render(React.createElement(Handler, {params: params}), document.body);
 });
 
 },{"./components/routes":6,"react-router":68}],2:[function(require,module,exports){
@@ -144,7 +145,7 @@ var Router = require('react-router'),
 var Index = React.createClass({displayName: "Index",
 	render: function () {
 		return (
-			React.createElement("div", {class: "page"}, 
+			React.createElement("div", {className: "page"}, 
 				React.createElement(Header, null), 
 				React.createElement(Router.RouteHandler, React.__spread({},  this.props)), 
 				React.createElement(Footer, null)
@@ -168,7 +169,9 @@ var Router 	= require('react-router'),
 
 routes = (
 	React.createElement(Route, {name: "index", path: "/", handler: Index}, 
-		React.createElement(Route, {name: "detail", handler: Detail}), 
+		React.createElement(Route, {name: "detail", handler: Detail}, 
+			React.createElement(Route, {name: "detailItem", path: ":mediaId", handler: Detail})
+		), 
 		React.createElement(Route, {name: "about", handler: About}), 
 		React.createElement(Route, {name: "donate", handler: Donate}), 
 		React.createElement(Router.DefaultRoute, {handler: Home})
@@ -264,12 +267,32 @@ module.exports = (function () {
 /**
 	* Returns current data stored in _data.
 	* 
+	* @param {Array} data The data to be filtered. Defaults to _data.
 	* @returms {Array} Full data set.
 	* 
 	* @memberof DataService
 	*/
 	DataService.getData = function (data) {
 		data = data || _data.slice();
+
+		return data;
+	};
+
+/**
+	* Returns single item stored in _data based on title.
+	* 
+	* @param {String} title The title of the item to return.
+	* @param {Array} data The data to be filtered. Defaults to _data.
+	* @returms {Array} Data containing single item.
+	* 
+	* @memberof DataService
+	*/
+	DataService.getItem = function (title, data) {
+		data = data || _data.slice();
+
+		data = data.filter(function (element) {
+			return element.title === title;
+		});
 
 		return data;
 	};
@@ -485,11 +508,17 @@ var About = React.createClass({displayName: "About",
 module.exports = About;
 
 },{}],10:[function(require,module,exports){
+var DataService = require('../modules/data');
+
 var DetailImage = React.createClass({displayName: "DetailImage",
 	render: function () {
+		var preparedData = {
+			src: '../images/' + this.props.item.filename + '.desk.' + this.props.item.extension
+		}
+
 		return (
-			React.createElement("div", {className: "header__logo pure-u-1-4"}, 
-				React.createElement("img", {src: "../images/logo.png", alt: "Maggie Walters Media Gallery Logo", className: "header__logo"})
+			React.createElement("div", {className: "detail__media pure-u-1-2"}, 
+				React.createElement("img", {src: preparedData.src, alt: this.props.item.title})
 			)
 		);
 	}
@@ -498,19 +527,39 @@ var DetailImage = React.createClass({displayName: "DetailImage",
 var DetailDescription = React.createClass({displayName: "DetailDescription",
 	render: function () {
 		return (
-			React.createElement("div", {className: "header__logo pure-u-1-4"}, 
-				React.createElement("img", {src: "../images/logo.png", alt: "Maggie Walters Media Gallery Logo", className: "header__logo"})
+			React.createElement("div", {className: "detail__description pure-u-1-2"}, 
+				React.createElement("p", null, this.props.item)
 			)
 		);
 	}
 });
 
 var Detail = React.createClass({displayName: "Detail",
-	render: function (data) {
+	getInitialState: function () {
+		return {data: [{
+			filename: '',
+			extension: '',
+			title: ''
+		}]};
+	},
+
+	componentDidMount: function () {
+		DataService.setData()
+			.then(function(res) {
+				this.setState({data: DataService.getItem(this.props.params.mediaId)});
+			}.bind(this));
+	},
+
+	contextTypes: {
+		router: React.PropTypes.func
+	},
+
+	render: function () {
 		return (
-			React.createElement("main", {className: "content pure-g"}, 
-				React.createElement(DetailImage, {src: ""}), 
-				React.createElement(DetailDescription, null)
+			React.createElement("main", {className: "detail content pure-g"}, 
+				React.createElement("h1", {className: "title pure-u-1-1"}, this.state.data[0].title), 
+				React.createElement(DetailImage, {item: this.state.data[0]}), 
+				React.createElement(DetailDescription, {item: this.state.data[0]})
 			)
 		);
 	}
@@ -518,7 +567,7 @@ var Detail = React.createClass({displayName: "Detail",
 
 module.exports = Detail;
 
-},{}],11:[function(require,module,exports){
+},{"../modules/data":8}],11:[function(require,module,exports){
 var Donate = React.createClass({displayName: "Donate",
 	render: function (data) {
 		return (
