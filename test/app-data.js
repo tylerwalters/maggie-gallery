@@ -185,6 +185,18 @@ describe('Data Service', function () {
 		returnedData[6].title.should.equal("IMAG0751");
 	});
 
+	it('should get single item with DataService.getItem()', function () {
+		var returnedData = DataService.getItem('2012-07-31_13-18-45_503', data);
+
+		returnedData.length.should.equal(1);
+		returnedData[0].title.should.equal('2012-07-31_13-18-45_503');
+
+		returnedData = DataService.getItem('IMAG0745', data);
+
+		returnedData.length.should.equal(1);
+		returnedData[0].title.should.equal('IMAG0745');
+	});
+
 	it('should filter data to include only photos with DataService.getPhotos()', function () {
 		var filteredData = DataService.getPhotos(data);
 
