@@ -10,10 +10,12 @@ var Router 	= require('react-router'),
 
 routes = (
 	<Route name="index" path="/" handler={Index}>
-		<Route name="detail" handler={Detail}/>
-		<Route name="about" handler={About}/>
-		<Route name="donate" handler={Donate}/>
-		<Router.DefaultRoute handler={Home}/>
+		<Route name="detail" handler={Detail}>
+			<Route name="detailItem" path=":mediaId" handler={Detail} />
+		</Route>
+		<Route name="about" handler={About} />
+		<Route name="donate" handler={Donate} />
+		<Router.DefaultRoute handler={Home} />
 	</Route>
 )
 
