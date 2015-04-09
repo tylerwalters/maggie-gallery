@@ -145,7 +145,7 @@ var Router = require('react-router'),
 var Index = React.createClass({displayName: "Index",
 	render: function () {
 		return (
-			React.createElement("div", {className: "page"}, 
+			React.createElement("div", {className: "page", ref: "page"}, 
 				React.createElement(Header, null), 
 				React.createElement(Router.RouteHandler, React.__spread({},  this.props)), 
 				React.createElement(Footer, null)
@@ -513,12 +513,13 @@ var DataService = require('../modules/data');
 var DetailImage = React.createClass({displayName: "DetailImage",
 	render: function () {
 		var preparedData = {
-			src: '../images/' + this.props.item.filename + '.desk.' + this.props.item.extension
+			src: '../images/' + this.props.item.filename + '.desk.' + this.props.item.extension,
+			large: '../images/' + this.props.item.filename + '.large.' + this.props.item.extension
 		}
 
 		return (
 			React.createElement("div", {className: "detail__media pure-u-1-2"}, 
-				React.createElement("img", {src: preparedData.src, alt: this.props.item.title})
+				React.createElement("a", {href: preparedData.large}, React.createElement("img", {src: preparedData.src, alt: this.props.item.title}))
 			)
 		);
 	}
@@ -528,7 +529,13 @@ var DetailDescription = React.createClass({displayName: "DetailDescription",
 	render: function () {
 		return (
 			React.createElement("div", {className: "detail__description pure-u-1-2"}, 
-				React.createElement("p", null, this.props.item)
+				React.createElement("p", null, "Title: ", this.props.item.title), 
+				React.createElement("p", null, "Date: ", this.props.item.date), 
+				React.createElement("p", null, "Tags: ", this.props.item.tags), 
+				React.createElement("p", null, "People: ", this.props.item.people), 
+				React.createElement("p", null, "Size: ", this.props.item.dimensions), 
+				React.createElement("p", null, "Filename: ", this.props.item.filename), 
+				React.createElement("p", null, "Description: ", this.props.item.description)
 			)
 		);
 	}
@@ -536,27 +543,30 @@ var DetailDescription = React.createClass({displayName: "DetailDescription",
 
 var Detail = React.createClass({displayName: "Detail",
 	getInitialState: function () {
-		return {data: [{
-			filename: '',
-			extension: '',
-			title: ''
-		}]};
+		return {
+			data: [{
+				filename: '',
+				extension: '',
+				title: ''
+			}],
+			bg: ''
+		}
 	},
 
 	componentDidMount: function () {
 		DataService.setData()
 			.then(function(res) {
 				this.setState({data: DataService.getItem(this.props.params.mediaId)});
+				this.setState({bg: 'url(../images/' + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
+				console.log(this.state.bg);
 			}.bind(this));
 	},
 
-	contextTypes: {
-		router: React.PropTypes.func
-	},
-
 	render: function () {
+		var style = {background: this.state.bg};
+
 		return (
-			React.createElement("main", {className: "detail content pure-g"}, 
+			React.createElement("main", {className: "detail content pure-g", style: style}, 
 				React.createElement("h1", {className: "title pure-u-1-1"}, this.state.data[0].title), 
 				React.createElement(DetailImage, {item: this.state.data[0]}), 
 				React.createElement(DetailDescription, {item: this.state.data[0]})

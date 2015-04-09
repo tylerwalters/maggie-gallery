@@ -371,6 +371,10 @@ table {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+body,
+html {
+  height: 100%;
+}
 body {
   background: #4e00b8;
 }
@@ -380,6 +384,9 @@ img {
 /* ==========================================================================
 	 2. LAYOUT - page sections
 	 ========================================================================== */
+.page {
+  height: 100%;
+}
 .content {
   margin: 5px;
 }
