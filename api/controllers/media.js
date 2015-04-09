@@ -146,9 +146,8 @@ var fs = require('fs'),
 			*/
 		function _imageBackground (imagePath, destPath, callback) {
 			gm(imagePath)
-				.foreground('rgba(0,0,0,0.5)')
-				.resize(800, 800)
 				.blur(30, 20)
+				.resize(800, 800)
 				.autoOrient()
 				.noProfile()
 				.write(destPath, callback);
