@@ -558,7 +558,6 @@ var Detail = React.createClass({displayName: "Detail",
 			.then(function(res) {
 				this.setState({data: DataService.getItem(this.props.params.mediaId)});
 				this.setState({bg: 'url(../images/' + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
-				console.log(this.state.bg);
 			}.bind(this));
 	},
 
