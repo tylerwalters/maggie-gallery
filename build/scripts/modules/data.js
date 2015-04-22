@@ -15,8 +15,7 @@ module.exports = (function () {
 	var DataService = {},
 			_data,
 			_chunkedData,
-			_chunkIndex = 0,
-			_initialized = false;
+			_chunkIndex = 0;
 
 /**
 	* Filters data by user selected tags.
@@ -178,7 +177,8 @@ module.exports = (function () {
 
 /**
 	* Returns an array containing data split into subsets.
-	* 
+	*
+	* @param {Number} quantity The number of items in each subset. Defaults to 20.
 	* @param {Array} data The data to be filtered. Defaults to _data.
 	* @returms {Array} Data subset.
 	* 
@@ -296,11 +296,15 @@ module.exports = (function () {
 				photo, video;
 
 		for (photo in data.photos) {
-			dataArray.push(data.photos[photo]);
+			if(data.photos.hasOwnProperty(photo)) {
+				dataArray.push(data.photos[photo]);
+			}
 		}
 
 		for (video in data.videos) {
-			dataArray.push(data.videos[video]);
+			if(data.videos.hasOwnProperty(video)) {
+				dataArray.push(data.videos[video]);
+			}
 		}
 
 		return dataArray;
