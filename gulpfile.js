@@ -9,7 +9,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('stylus', function () {
-	var stylus 	= require('gulp-stylus'),
+	var stylus	= require('gulp-stylus'),
 			nib			= require('nib');
 
 	return gulp.src('build/styles/stylus/main.styl')
