@@ -52,6 +52,6 @@
     "nib": "^1.0.4",
     "stylus": "^0.49.3",
     "supertest": "^0.15.0",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-source-stream": "^1.1.0"
   }
 }
