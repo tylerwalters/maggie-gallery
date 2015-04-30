@@ -22,7 +22,7 @@ module.exports = (function () {
 	* 
 	* @param {Array} tags The tags to match against.
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Filtered data set.
+	* @returns {Array} Filtered data set.
 	* 
 	* @memberof DataService
 	*/
@@ -44,7 +44,7 @@ module.exports = (function () {
 	* 
 	* @param {Array} people The people to match against.
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Filtered data set.
+	* @returns {Array} Filtered data set.
 	* 
 	* @memberof DataService
 	*/
@@ -66,7 +66,7 @@ module.exports = (function () {
 	* 
 	* @param {Number} index The index to select the subset of data.
 	* @param {Array} data The array containing subsets of data.
-	* @returms {Array} Selected subset of data.
+	* @returns {Array} Selected subset of data.
 	* 
 	* @memberof DataService
 	*/
@@ -82,7 +82,7 @@ module.exports = (function () {
 	* Returns current data stored in _data.
 	* 
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Full data set.
+	* @returns {Array} Full data set.
 	* 
 	* @memberof DataService
 	*/
@@ -97,7 +97,7 @@ module.exports = (function () {
 	* 
 	* @param {String} title The title of the item to return.
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Data containing single item.
+	* @returns {Array} Data containing single item.
 	* 
 	* @memberof DataService
 	*/
@@ -115,7 +115,7 @@ module.exports = (function () {
 	* Filters data to include only photos.
 	* 
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Filtered data set.
+	* @returns {Array} Filtered data set.
 	* 
 	* @memberof DataService
 	*/
@@ -133,7 +133,7 @@ module.exports = (function () {
 	* Filters data to include only videos.
 	* 
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Filtered data set.
+	* @returns {Array} Filtered data set.
 	* 
 	* @memberof DataService
 	*/
@@ -151,7 +151,7 @@ module.exports = (function () {
 	* Sets _data to data stored in sessionStorage or retrieved from the database.
 	* If sessionStorage.data is not set it will be set to the same data as _data.
 	* 
-	* @returms {Promise} Promise with full data set.
+	* @returns {Promise} Promise with full data set.
 	* 
 	* @memberof DataService
 	*/
@@ -180,7 +180,7 @@ module.exports = (function () {
 	*
 	* @param {Number} quantity The number of items in each subset. Defaults to 20.
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Data subset.
+	* @returns {Array} Data subset.
 	* 
 	* @memberof DataService
 	*/
@@ -205,7 +205,7 @@ module.exports = (function () {
 	* Sorts data by date.
 	* 
 	* @param {Array} data The data to be sorted. Defaults to _data.
-	* @returms {Array} Sorted data.
+	* @returns {Array} Sorted data.
 	* 
 	* @memberof DataService
 	*/
@@ -234,7 +234,7 @@ module.exports = (function () {
 	* Sorts data into a random order using the Fisher-Yaters shuffle algorithm.
 	* 
 	* @param {Array} data The data to be sorted. Defaults to _data.
-	* @returms {Array} Sorted data.
+	* @returns {Array} Sorted data.
 	* 
 	* @memberof DataService
 	*/
@@ -260,7 +260,7 @@ module.exports = (function () {
 	* Sorts data by date.
 	* 
 	* @param {Array} data The data to be sorted. Defaults to _data.
-	* @returms {Array} Sorted data.
+	* @returns {Array} Sorted data.
 	* 
 	* @memberof DataService
 	*/
@@ -287,7 +287,7 @@ module.exports = (function () {
 	* filtering and sorting.
 	* 
 	* @param {Array} data The data to be filtered. Defaults to _data.
-	* @returms {Array} Filtered data set.
+	* @returns {Array} Filtered data set.
 	* 
 	* @memberof DataService
 	*/
