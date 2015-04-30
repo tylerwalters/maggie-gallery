@@ -29,21 +29,14 @@ gulp.task('jsx', function () {
 		.pipe(gulp.dest('build/scripts'));
 });
 
-gulp.task('browserify', function () {
-	var browserify		= require('browserify'),
-			transform			= require('vinyl-transform'),
-			concat				= require('gulp-concat'),
-			browserified;
+gulp.task('browserify', function() {
+	var browserify	= require('browserify'),
+			source			= require('vinyl-source-stream');
 
-	browserified = transform(function (filename) {
-		var b = browserify(filename);
-
-		return b.bundle();
-	});
-
-	return gulp.src('build/scripts/main.js')
-		.pipe(browserified)
-		.pipe(gulp.dest('public/scripts'));
+	return browserify('./build/scripts/main.js')
+		.bundle()
+		.pipe(source('main.js'))
+		.pipe(gulp.dest('./public/scripts'));
 });
 
 gulp.task('css-min', function () {
