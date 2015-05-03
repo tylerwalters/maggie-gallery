@@ -436,6 +436,36 @@ img {
   -webkit-box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
   box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
 }
+.example-enter {
+  opacity: 0.01;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+  filter: alpha(opacity=1);
+  -webkit-transition: opacity 0.5s ease-in;
+  -moz-transition: opacity 0.5s ease-in;
+  -o-transition: opacity 0.5s ease-in;
+  -ms-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+}
+.example-enter.example-enter-active {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.example-leave {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  -webkit-transition: opacity 0.5s ease-in;
+  -moz-transition: opacity 0.5s ease-in;
+  -o-transition: opacity 0.5s ease-in;
+  -ms-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+}
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+  filter: alpha(opacity=1);
+}
 /* ==========================================================================
 	 5. UTILITY
 	 ========================================================================== */
