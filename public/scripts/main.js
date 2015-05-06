@@ -352,7 +352,7 @@ module.exports = (function () {
 			dataPromise = Promise.resolve(_data = sessionData);
 		}
 		else {
-			dataPromise = Promise.resolve(aias.get('http://localhost:8080/api/v1/media'));
+			dataPromise = Promise.resolve(aias.get('/api/v1/media'));
 			dataPromise.then(function (res) {
 				data = _parseData(res);
 				sessionStorage.setItem('data', JSON.stringify(data));
