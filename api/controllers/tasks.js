@@ -33,6 +33,7 @@ var path						= require('path'),
 			* @public
 			*/
 		MediaTasks.watchDirectory = function (directory, watcher, createCallback, changeCallback, deleteCallback) {
+			console.log(directory);
 			createCallback = createCallback || _readExif;
 			deleteCallback = deleteCallback || _deleteMedia;
 			watcher = watcher || hound.watch(directory);
