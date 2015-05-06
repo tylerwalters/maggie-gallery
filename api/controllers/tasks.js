@@ -45,13 +45,17 @@ var path						= require('path'),
 
 			watcher.on('change', function(file, stats) {
 				if (changeCallback !== undefined) {
-					changeCallback(file);
+					if (_checkFileType(file)) {
+						changeCallback(file);
+					}
 				}
 			});
 
 			watcher.on('delete', function(file) {
 				if (deleteCallback !== undefined) {
-					deleteCallback(file);
+					if (_checkFileType(file)) {
+						deleteCallback(file);
+					}
 				}
 			});
 		};
