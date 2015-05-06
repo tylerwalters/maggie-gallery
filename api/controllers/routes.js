@@ -1,12 +1,9 @@
-var db,
-		FirebaseClient	= require('firebase-client'),
+var FirebaseClient	= require('firebase-client'),
 		firebase;
-
-db	= require('../config/db') || {};
 
 firebase = new FirebaseClient({
 	url: 'https://maggie-gallery.firebaseio.com/',
-	auth: db.firebaseSecret || process.env.FIREBASE_SECRET
+	auth: process.env.FIREBASE_SECRET
 });
 
 /** 
