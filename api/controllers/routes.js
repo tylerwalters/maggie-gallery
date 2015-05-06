@@ -4,7 +4,7 @@ var db							= require('../config/db'),
 
 firebase = new FirebaseClient({
 	url: 'https://maggie-gallery.firebaseio.com/',
-	auth: db.firebaseSecret
+	auth: db.firebaseSecret || process.env.FIREBASE_SECRET
 });
 
 /** 
