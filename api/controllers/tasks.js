@@ -33,13 +33,14 @@ var path						= require('path'),
 			* @public
 			*/
 		MediaTasks.watchDirectory = function (directory, watcher, createCallback, changeCallback, deleteCallback) {
-			console.log(directory);
 			createCallback = createCallback || _readExif;
 			deleteCallback = deleteCallback || _deleteMedia;
 			watcher = watcher || hound.watch(directory);
 
 			watcher.on('create', function(file, stats) {
-				createCallback(file);
+				if (_checkFileType(file)) {
+					createCallback(file);
+				}
 			});
 
 			watcher.on('change', function(file, stats) {
@@ -56,13 +57,33 @@ var path						= require('path'),
 		};
 
 		/**
-			* Reads exif data from new media and passes it to the _prepareData()
-			* function.
-			* 
-			* @param {string} file The file to read exif data from.
-			* 
-			* @memberof MediaTasks
-			*/
+		 * Reads exif data from new media and passes it to the _prepareData()
+		 * function.
+		 *
+		 * @param {string} file The file to read exif data from.
+		 *
+		 * @memberof MediaTasks
+		 */
+		function _checkFileType (file) {
+			var lastindex = file.lastIndexOf('.'),
+					type = file.substr(lastindex + 1);
+
+			if (type.match(/^(jpg|jpeg|png|gif|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|webm)$/)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		/**
+		 * Reads exif data from new media and passes it to the _prepareData()
+		 * function.
+		 *
+		 * @param {string} file The file to read exif data from.
+		 *
+		 * @memberof MediaTasks
+		 */
 		function _readExif (file) {
 			exif(file, function (err, obj) {
 				if (err) throw err;
