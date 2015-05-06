@@ -26,7 +26,7 @@ require('./api/routes')(app);
 
 // tasks ===================================================
 
-MediaTasks.watchDirectory(__dirname + '/public/media');
+MediaTasks.watchDirectory(process.env.MEDIA_DIR || __dirname + '/public/media');
 
 // start app ===============================================
 
