@@ -86,9 +86,11 @@ var path						= require('path'),
 					sizearray;
 
 			// Convert date into a string usable by JavaScript's new Date()
-			createDate = data['create date'].split(' ');
-			createDate[0] = createDate[0].replace(/[:]/g, '-');
-			createDate = createDate.join('T');
+			if (data['create date']) {
+				createDate = data['create date'].split(' ');
+				createDate[0] = createDate[0].replace(/[:]/g, '-');
+				createDate = createDate.join('T');
+			}
 
 			// Set up file name to be split into filename and extension
 			file = data['file name'];
