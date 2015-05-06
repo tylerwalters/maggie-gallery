@@ -1,6 +1,8 @@
-var db							= require('../config/db'),
+var db,
 		FirebaseClient	= require('firebase-client'),
 		firebase;
+
+db	= require('../config/db') || {};
 
 firebase = new FirebaseClient({
 	url: 'https://maggie-gallery.firebaseio.com/',
