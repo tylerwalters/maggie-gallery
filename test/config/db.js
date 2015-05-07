@@ -1,3 +1,3 @@
 module.exports = {
-	url: 'mongodb://localhost/maggie-gallery-debug'
+  url: 'mongodb://localhost/maggie-gallery-debug'
 };
