@@ -4,7 +4,8 @@ var express        = require('express'),
     app            = express(),
     bodyParser     = require('body-parser'),
     methodOverride = require('method-override'),
-    MediaTasks     = require('./api/controllers/tasks');
+    MediaTasks     = require('./api/controllers/tasks'),
+    mediaDir;
 
 // configuration ===========================================
 
@@ -26,7 +27,8 @@ require('./api/routes')(app);
 
 // tasks ===================================================
 
-MediaTasks.watchDirectory(process.env.MEDIA_DIR || __dirname + '/public/media');
+mediaDir = (process.env.APP_DIR) ? process.env.APP_DIR + '/media' : __dirname + '/public/media';
+MediaTasks.watchDirectory(mediaDir);
 
 // start app ===============================================
 
