@@ -1,10 +1,15 @@
-var DataService = require('../modules/data');
+var DataService = require('../modules/data'),
+    environment,
+    imagesDir;
+
+environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
+imagesDir = (environment === 'prod') ? '~/app/images' : '../images/';
 
 var DetailImage = React.createClass({
   render: function () {
     var preparedData = {
-      src: '../images/' + this.props.item.filename + '.desk.' + this.props.item.extension,
-      large: '../images/' + this.props.item.filename + '.large.' + this.props.item.extension
+      src: imagesDir + this.props.item.filename + '.desk.' + this.props.item.extension,
+      large: imagesDir + this.props.item.filename + '.large.' + this.props.item.extension
     }
 
     return (
@@ -53,7 +58,7 @@ var Detail = React.createClass({
     DataService.setData()
       .then(function (res) {
         this.setState({data: DataService.getItem(this.props.params.mediaId)});
-        this.setState({bg: 'url(../images/' + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
+        this.setState({bg: 'url(' + imagesDir + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
       }.bind(this));
   },
 
