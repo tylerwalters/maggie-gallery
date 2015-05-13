@@ -3,7 +3,7 @@ var DataService = require('../modules/data'),
     imagesDir;
 
 environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '~/app/images' : '../images/';
+imagesDir = (environment === 'prod') ? '/app/images' : '../images/';
 
 var DetailImage = React.createClass({
   render: function () {

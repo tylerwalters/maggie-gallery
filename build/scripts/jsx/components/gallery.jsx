@@ -4,7 +4,7 @@ var Isotope      = require('isotope-layout'),
     imagesDir;
 
 environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '~/app/images' : '../images/';
+imagesDir = (environment === 'prod') ? '/app/images' : '../images/';
 
 var GalleryImage = React.createClass({
   render: function () {

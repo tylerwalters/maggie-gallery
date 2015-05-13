@@ -30,7 +30,7 @@ var Isotope      = require('isotope-layout'),
     imagesDir;
 
 environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '~/app/images' : '../images/';
+imagesDir = (environment === 'prod') ? '/app/images' : '../images/';
 
 var GalleryImage = React.createClass({displayName: "GalleryImage",
   render: function () {
@@ -516,7 +516,7 @@ var DataService = require('../modules/data'),
     imagesDir;
 
 environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '~/app/images' : '../images/';
+imagesDir = (environment === 'prod') ? '/app/images' : '../images/';
 
 var DetailImage = React.createClass({displayName: "DetailImage",
   render: function () {
@@ -571,7 +571,7 @@ var Detail = React.createClass({displayName: "Detail",
     DataService.setData()
       .then(function (res) {
         this.setState({data: DataService.getItem(this.props.params.mediaId)});
-        this.setState({bg: 'url(../images/' + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
+        this.setState({bg: 'url(' + imagesDir + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
       }.bind(this));
   },
 
