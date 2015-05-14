@@ -35,9 +35,6 @@ var fs = require('fs'),
         console.log('New images created for: ' + filename);
       };
 
-      console.log('imagePath: ', imagePath);
-      console.log('destPath: ', destPath);
-
       _imageMobile(imagePath, destPath + filename + '.' + 'mob' + '.' + extension, callback);
       _imageDesktop(imagePath, destPath + filename + '.' + 'desk' + '.' + extension, callback);
       _imageThumb(imagePath, destPath + filename + '.' + 'thumb' + '.' + extension, callback);
