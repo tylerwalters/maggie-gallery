@@ -211,11 +211,12 @@ var path            = require('path'),
      * @memberof MediaTasks
      */
     function _optimizeImage (data, imagePath, destPath) {
-      var orig, dest;
+      var orig, dest, img;
 
-      dest = (process.env.APP_DIR) ? process.env.APP_DIR + '/images' : __dirname + '/../../public/images/';
+      img = (process.env.APP_DIR) ? process.env.APP_DIR + '/media/photos/' : __dirname + '/../../public/images/';
+      dest = (process.env.APP_DIR) ? process.env.APP_DIR + '/images/' : __dirname + '/../../public/images/';
 
-      imagePath = imagePath || __dirname + '/../../public/media/photos/';
+      imagePath = imagePath || img;
       destPath = destPath || dest;
 
       orig = imagePath + data.filename + '.' + data.extension;
