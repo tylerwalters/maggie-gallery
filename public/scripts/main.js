@@ -25,13 +25,7 @@ module.exports = Footer;
 
 },{}],4:[function(require,module,exports){
 var Isotope      = require('isotope-layout'),
-    imagesLoaded = require('imagesloaded'),
-    environment,
-    imagesDir;
-
-environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '../../../../app/images' : '../images/';
-console.log(imagesDir);
+    imagesLoaded = require('imagesloaded');
 
 var GalleryImage = React.createClass({displayName: "GalleryImage",
   render: function () {
@@ -66,7 +60,7 @@ var Gallery = React.createClass({displayName: "Gallery",
       var preparedData = {
         className: 'gallery__image gallery__image--' + image.layout,
         page: '/detail/' + image.title,
-        src: imagesDir + '/' + image.filename + '.desk.' + image.extension
+        src: '../images/' + image.filename + '.desk.' + image.extension
       }
 
       return (
@@ -512,18 +506,13 @@ var About = React.createClass({displayName: "About",
 module.exports = About;
 
 },{}],11:[function(require,module,exports){
-var DataService = require('../modules/data'),
-    environment,
-    imagesDir;
-
-environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '/app/images' : '../images/';
+var DataService = require('../modules/data');
 
 var DetailImage = React.createClass({displayName: "DetailImage",
   render: function () {
     var preparedData = {
-      src: imagesDir + this.props.item.filename + '.desk.' + this.props.item.extension,
-      large: imagesDir + this.props.item.filename + '.large.' + this.props.item.extension
+      src: '../images/' + this.props.item.filename + '.desk.' + this.props.item.extension,
+      large: '../images/' + this.props.item.filename + '.large.' + this.props.item.extension
     }
 
     return (
@@ -572,7 +561,7 @@ var Detail = React.createClass({displayName: "Detail",
     DataService.setData()
       .then(function (res) {
         this.setState({data: DataService.getItem(this.props.params.mediaId)});
-        this.setState({bg: 'url(' + imagesDir + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
+        this.setState({bg: 'url(../images/' + this.state.data[0].filename + '.bg.' + this.state.data[0].extension + ') no-repeat center center / cover fixed'});
       }.bind(this));
   },
 
