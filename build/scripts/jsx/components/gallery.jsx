@@ -1,11 +1,5 @@
 var Isotope      = require('isotope-layout'),
-    imagesLoaded = require('imagesloaded'),
-    environment,
-    imagesDir;
-
-environment = (window.location.host.indexOf('localhost') === -1) ? 'prod' : 'dev';
-imagesDir = (environment === 'prod') ? '../../../../app/images' : '../images/';
-console.log(imagesDir);
+    imagesLoaded = require('imagesloaded');
 
 var GalleryImage = React.createClass({
   render: function () {
@@ -40,7 +34,7 @@ var Gallery = React.createClass({
       var preparedData = {
         className: 'gallery__image gallery__image--' + image.layout,
         page: '/detail/' + image.title,
-        src: imagesDir + '/' + image.filename + '.desk.' + image.extension
+        src: '../images/' + image.filename + '.desk.' + image.extension
       }
 
       return (
