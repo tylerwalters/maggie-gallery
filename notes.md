@@ -31,9 +31,12 @@ To Do
 * Backend: Write additional unit tests
 * Frontend: Build templates for Home, About, and Detail pages
 * Frontend: Style individual pages
-* Frontend: Write frontend application code
-* DevOps: Create containers for application and ownCloud
-* DevOps: Deploy app
+* DevOps: Create startup script that checks if all media has been added to database and converted to web ready files,
+ call additional scripts as needed
+* DevOps: Create a script that watches the media directory for changes and calls the appropriate scripts as needed
+* DevOps: Create a script that reads exif data of a file and updates the database
+* DevOps: Create a script that converts a media file to a web ready version
+
 
 Issues
 ------
