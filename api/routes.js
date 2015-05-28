@@ -50,7 +50,7 @@ module.exports = function (app) {
 
   // Frontend rRutes ==========================================================
 
-  /* Front End Routes Handled by Angular */
+  /* Front End Routes Handled by React */
   app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../public/views', 'index.html'));
   });
