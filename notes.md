@@ -37,6 +37,32 @@ To Do
 * DevOps: Create a script that reads exif data of a file and updates the database
 * DevOps: Create a script that converts a media file to a web ready version
 
+Shell Scripts
+-------------
+
+### Startup Script
+
+1. Loop through each media file extracting the file name minus the extension
+2. Run a CURL request against the API route https://themaggie.gallery/api/v1/photos/ + file name. If it returns null,
+ the file has not been added to the database
+3. If media not in database, run database script passing in the file name
+4. Check web ready media for file name
+5. If web ready media not created, run the media conversion script passing in the file name
+
+### Watch Script
+
+1. Run database script passing in the file name
+2. Run the media conversion script passing in the file name
+
+### Database Script
+
+1. Extract exif information from media with graphicsmagick
+2. Use API to add or update media information in database
+
+### Media Conversion Script
+
+1. Delete web ready media matching filename if it exists
+2. Strip exif data and create media at various sizees
 
 Issues
 ------
